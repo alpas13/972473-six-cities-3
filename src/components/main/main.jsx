@@ -1,8 +1,9 @@
 import React, {Fragment} from "react";
+import PropTypes from "prop-types";
+
 
 const Main = (props) => {
-  // eslint-disable-next-line react/prop-types
-  const {offersCount} = props;
+  const {offersCount, titlesOffers} = props;
 
   return (
     <main className="page__main page__main--index">
@@ -87,229 +88,56 @@ const Main = (props) => {
                   </form>
                   <div className="cities__places-list places__list tabs__content">
                     <Fragment>
-                      <article className="cities__place-card place-card">
-                        <Fragment>
-                          <div className="place-card__mark">
-                            <span>Premium</span>
-                          </div>
-                          <div className="cities__image-wrapper place-card__image-wrapper">
-                            <a href="#">
-                              <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place image"/>
-                            </a>
-                          </div>
-                          <div className="place-card__info">
+                      {titlesOffers.map((title) => {
+                        return (
+                          <article key={new Date().toISOString() + Math.random()} className="cities__place-card place-card">
                             <Fragment>
-                              <div className="place-card__price-wrapper">
-                                <Fragment>
-                                  <div className="place-card__price">
-                                    <Fragment>
-                                      <b className="place-card__price-value">&euro;120</b>
-                                      <span className="place-card__price-text">&#47;&nbsp;night</span>
-                                    </Fragment>
-                                  </div>
-                                  <button className="place-card__bookmark-button button" type="button">
-                                    <Fragment>
-                                      <svg className="place-card__bookmark-icon" width="18" height="19">
-                                        <use xlinkHref="#icon-bookmark" />
-                                      </svg>
-                                      <span className="visually-hidden">To bookmarks</span>
-                                    </Fragment>
-                                  </button>
-                                </Fragment>
+                              <div className="place-card__mark">
+                                <span>Premium</span>
                               </div>
-                              <div className="place-card__rating rating">
-                                <div className="place-card__stars rating__stars">
-                                  <Fragment>
-                                    <span style={{width: `80%`}} />
-                                    <span className="visually-hidden">Rating</span>
-                                  </Fragment>
-                                </div>
-                              </div>
-                              <h2 className="place-card__name">
-                                <a href="#">Beautiful &amp; luxurious apartment at great
-                                  location
+                              <div className="cities__image-wrapper place-card__image-wrapper">
+                                <a href="#">
+                                  <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place image"/>
                                 </a>
-                              </h2>
-                              <p className="place-card__type">Apartment</p>
-                            </Fragment>
-                          </div>
-                        </Fragment>
-                      </article>
-                      <article className="cities__place-card place-card">
-                        <Fragment>
-                          <div className="cities__image-wrapper place-card__image-wrapper">
-                            <a href="#">
-                              <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image"/>
-                            </a>
-                          </div>
-                          <div className="place-card__info">
-                            <Fragment>
-                              <div className="place-card__price-wrapper">
+                              </div>
+                              <div className="place-card__info">
                                 <Fragment>
-                                  <div className="place-card__price">
+                                  <div className="place-card__price-wrapper">
                                     <Fragment>
-                                      <b className="place-card__price-value">&euro;80</b>
-                                      <span className="place-card__price-text">&#47;&nbsp;night</span>
+                                      <div className="place-card__price">
+                                        <Fragment>
+                                          <b className="place-card__price-value">&euro;120</b>
+                                          <span className="place-card__price-text">&#47;&nbsp;night</span>
+                                        </Fragment>
+                                      </div>
+                                      <button className="place-card__bookmark-button button" type="button">
+                                        <Fragment>
+                                          <svg className="place-card__bookmark-icon" width="18" height="19">
+                                            <use xlinkHref="#icon-bookmark" />
+                                          </svg>
+                                          <span className="visually-hidden">To bookmarks</span>
+                                        </Fragment>
+                                      </button>
                                     </Fragment>
                                   </div>
-                                  <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
-                                    <Fragment>
-                                      <svg className="place-card__bookmark-icon" width="18" height="19">
-                                        <use xlinkHref="#icon-bookmark" />
-                                      </svg>
-                                      <span className="visually-hidden">In bookmarks</span>
-                                    </Fragment>
-                                  </button>
-                                </Fragment>
-                              </div>
-                              <div className="place-card__rating rating">
-                                <div className="place-card__stars rating__stars">
-                                  <Fragment>
-                                    <span style={{width: `80%`}} />
-                                    <span className="visually-hidden">Rating</span>
-                                  </Fragment>
-                                </div>
-                              </div>
-                              <h2 className="place-card__name">
-                                <a href="#">Wood and stone place</a>
-                              </h2>
-                              <p className="place-card__type">Private room</p>
-                            </Fragment>
-                          </div>
-                        </Fragment>
-                      </article>
-                      <article className="cities__place-card place-card">
-                        <Fragment>
-                          <div className="cities__image-wrapper place-card__image-wrapper">
-                            <a href="#">
-                              <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200" alt="Place image"/>
-                            </a>
-                          </div>
-                          <div className="place-card__info">
-                            <Fragment>
-                              <div className="place-card__price-wrapper">
-                                <Fragment>
-                                  <div className="place-card__price">
-                                    <Fragment>
-                                      <b className="place-card__price-value">&euro;132</b>
-                                      <span className="place-card__price-text">&#47;&nbsp;night</span>
-                                    </Fragment>
+                                  <div className="place-card__rating rating">
+                                    <div className="place-card__stars rating__stars">
+                                      <Fragment>
+                                        <span style={{width: `80%`}} />
+                                        <span className="visually-hidden">Rating</span>
+                                      </Fragment>
+                                    </div>
                                   </div>
-                                  <button className="place-card__bookmark-button button" type="button">
-                                    <Fragment>
-                                      <svg className="place-card__bookmark-icon" width="18" height="19">
-                                        <use xlinkHref="#icon-bookmark" />
-                                      </svg>
-                                      <span className="visually-hidden">To bookmarks</span>
-                                    </Fragment>
-                                  </button>
+                                  <h2 className="place-card__name">
+                                    <a href="#">{title}</a>
+                                  </h2>
+                                  <p className="place-card__type">Apartment</p>
                                 </Fragment>
                               </div>
-                              <div className="place-card__rating rating">
-                                <div className="place-card__stars rating__stars">
-                                  <Fragment>
-                                    <span style={{width: `80%`}} />
-                                    <span className="visually-hidden">Rating</span>
-                                  </Fragment>
-                                </div>
-                              </div>
-                              <h2 className="place-card__name">
-                                <a href="#">Canal View Prinsengracht</a>
-                              </h2>
-                              <p className="place-card__type">Apartment</p>
                             </Fragment>
-                          </div>
-                        </Fragment>
-                      </article>
-                      <article className="cities__place-card place-card">
-                        <Fragment>
-                          <div className="place-card__mark">
-                            <span>Premium</span>
-                          </div>
-                          <div className="cities__image-wrapper place-card__image-wrapper">
-                            <a href="#">
-                              <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Place image"/>
-                            </a>
-                          </div>
-                          <div className="place-card__info">
-                            <Fragment>
-                              <div className="place-card__price-wrapper">
-                                <Fragment>
-                                  <div className="place-card__price">
-                                    <Fragment>
-                                      <b className="place-card__price-value">&euro;180</b>
-                                      <span className="place-card__price-text">&#47;&nbsp;night</span>
-                                    </Fragment>
-                                  </div>
-                                  <button className="place-card__bookmark-button button" type="button">
-                                    <Fragment>
-                                      <svg className="place-card__bookmark-icon" width="18" height="19">
-                                        <use xlinkHref="#icon-bookmark" />
-                                      </svg>
-                                      <span className="visually-hidden">To bookmarks</span>
-                                    </Fragment>
-                                  </button>
-                                </Fragment>
-                              </div>
-                              <div className="place-card__rating rating">
-                                <div className="place-card__stars rating__stars">
-                                  <Fragment>
-                                    <span style={{width: `100%`}} />
-                                    <span className="visually-hidden">Rating</span>
-                                  </Fragment>
-                                </div>
-                              </div>
-                              <h2 className="place-card__name">
-                                <a href="#">Nice, cozy, warm big bed apartment</a>
-                              </h2>
-                              <p className="place-card__type">Apartment</p>
-                            </Fragment>
-                          </div>
-                        </Fragment>
-                      </article>
-                      <article className="cities__place-card place-card">
-                        <Fragment>
-                          <div className="cities__image-wrapper place-card__image-wrapper">
-                            <a href="#">
-                              <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image"/>
-                            </a>
-                          </div>
-                          <div className="place-card__info">
-                            <Fragment>
-                              <div className="place-card__price-wrapper">
-                                <Fragment>
-                                  <div className="place-card__price">
-                                    <Fragment>
-                                      <b className="place-card__price-value">&euro;80</b>
-                                      <span className="place-card__price-text">&#47;&nbsp;night</span>
-                                    </Fragment>
-                                  </div>
-                                  <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
-                                    <Fragment>
-                                      <svg className="place-card__bookmark-icon" width="18" height="19">
-                                        <use xlinkHref="#icon-bookmark-active" />
-                                      </svg>
-                                      <span className="visually-hidden">In bookmarks</span>
-                                    </Fragment>
-                                  </button>
-                                </Fragment>
-                              </div>
-                              <div className="place-card__rating rating">
-                                <div className="place-card__stars rating__stars">
-                                  <Fragment>
-                                    <span style={{width: `80%`}} />
-                                    <span className="visually-hidden">Rating</span>
-                                  </Fragment>
-                                </div>
-                              </div>
-                              <h2 className="place-card__name">
-                                <a href="#">Wood and stone place</a>
-                              </h2>
-                              <p className="place-card__type">Private room</p>
-                            </Fragment>
-                          </div>
-                        </Fragment>
-                      </article>
+                          </article>
+                        );
+                      })}
                     </Fragment>
                   </div>
                 </Fragment>
@@ -323,6 +151,11 @@ const Main = (props) => {
       </Fragment>
     </main>
   );
+};
+
+Main.propTypes = {
+  offersCount: PropTypes.number.isRequired,
+  titlesOffers: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default Main;
