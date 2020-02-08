@@ -7,11 +7,22 @@ const MinMaxRange = {
   MAX: 350
 };
 
+const titlesOffers = [
+  `Beautiful & luxurious apartment at great location`,
+  `Wood and stone place`,
+  `Canal View Prinsengracht`,
+  `Nice, cozy, warm big bed apartment`,
+  `Wood and stone place`
+];
+
 const generateOffers = () => {
   return Math.floor(Math.random() * (MinMaxRange.MAX - MinMaxRange.MIN) + MinMaxRange.MIN);
 };
 
 ReactDom.render(
-    <App offersCount = {generateOffers()} />,
+    <App
+      offersCount = {generateOffers()}
+      titlesOffers = {titlesOffers}
+    />,
     document.querySelector(`#root`)
 );
