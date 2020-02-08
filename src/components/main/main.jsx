@@ -90,7 +90,7 @@ const Main = (props) => {
                     <Fragment>
                       {titlesOffers.map((title) => {
                         return (
-                          <article key={new Date().toISOString() + Math.random()} className="cities__place-card place-card">
+                          <article key={Date.now() + Math.random()} className="cities__place-card place-card">
                             <Fragment>
                               <div className="place-card__mark">
                                 <span>Premium</span>
