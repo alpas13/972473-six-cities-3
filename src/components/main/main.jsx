@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 
 const Main = (props) => {
-  const {offersCount, titlesOffers} = props;
+  const {offersCount, titlesOffers, onTitleOfferClick} = props;
 
   return (
     <main className="page__main page__main--index">
@@ -90,7 +90,7 @@ const Main = (props) => {
                     <Fragment>
                       {titlesOffers.map((title) => {
                         return (
-                          <article key={new Date().toISOString() + Math.random()} className="cities__place-card place-card">
+                          <article key={Date.now() + Math.random()} className="cities__place-card place-card">
                             <Fragment>
                               <div className="place-card__mark">
                                 <span>Premium</span>
@@ -129,7 +129,7 @@ const Main = (props) => {
                                     </div>
                                   </div>
                                   <h2 className="place-card__name">
-                                    <a href="#">{title}</a>
+                                    <a href="#" onClick={onTitleOfferClick}>{title}</a>
                                   </h2>
                                   <p className="place-card__type">Apartment</p>
                                 </Fragment>
@@ -156,6 +156,7 @@ const Main = (props) => {
 Main.propTypes = {
   offersCount: PropTypes.number.isRequired,
   titlesOffers: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onTitleOfferClick: PropTypes.func.isRequired,
 };
 
 export default Main;
