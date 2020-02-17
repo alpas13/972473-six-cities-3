@@ -47,7 +47,7 @@ const mock = {
   ]
 };
 
-it(`Render Main correctly`, () => {
+test(`Render Main correctly`, () => {
   const {offers} = mock;
   const tree = renderer.create(
       <Main
