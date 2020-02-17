@@ -9,13 +9,13 @@ class OffersList extends PureComponent {
     this._handleCardMouseOver = this._handleCardMouseOver.bind(this);
 
     this.state = {
-      card: null,
+      card: {},
     };
   }
 
-  _handleCardMouseOver(id) {
+  _handleCardMouseOver(offer) {
     this.setState({
-      card: id,
+      card: offer,
     });
   }
 
