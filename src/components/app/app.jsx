@@ -5,12 +5,12 @@ import PropTypes from "prop-types";
 const titleOfferHandler = () => {};
 
 const App = (props) => {
-  const {offersCount, titlesOffers} = props;
+  const {offersCount, offers} = props;
 
   return (
     <Main
       offersCount = {offersCount}
-      titlesOffers = {titlesOffers}
+      offers = {offers}
       onTitleOfferClick = {titleOfferHandler}
     />
   );
@@ -18,7 +18,7 @@ const App = (props) => {
 
 App.propTypes = {
   offersCount: PropTypes.number.isRequired,
-  titlesOffers: PropTypes.arrayOf(PropTypes.string).isRequired,
+  offers: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default App;

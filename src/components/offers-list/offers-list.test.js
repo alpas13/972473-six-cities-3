@@ -1,6 +1,6 @@
 import React from "react";
-import rerender from "react-test-renderer";
-import App from "./app";
+import renderer from "react-test-renderer";
+import OffersList from "./offers-list";
 
 const mock = {
   offers: [
@@ -57,14 +57,12 @@ const mock = {
   ]
 };
 
-test(`Render App correctly`, () => {
+test(`Correctly render OffersList component`, () => {
   const {offers} = mock;
-  const tree = rerender.create(
-      <App
-        offersCount={3}
+  const tree = renderer.create(
+      <OffersList
         offers={offers}
         onTitleOfferClick={() => {}}
-      />)
-      .toJSON();
+      />).toJSON();
   expect(tree).toMatchSnapshot();
 });

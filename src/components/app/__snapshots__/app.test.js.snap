@@ -201,12 +201,13 @@ exports[`Render App correctly 1`] = `
         >
           <article
             className="cities__place-card place-card"
+            onMouseOver={[Function]}
           >
             <div
               className="place-card__mark"
             >
               <span>
-                Premium
+                mark 1
               </span>
             </div>
             <div
@@ -219,7 +220,7 @@ exports[`Render App correctly 1`] = `
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src="img/apartment-01.jpg"
+                  src="path 1"
                   width="260"
                 />
               </a>
@@ -236,7 +237,8 @@ exports[`Render App correctly 1`] = `
                   <b
                     className="place-card__price-value"
                   >
-                    €120
+                    €
+                    1
                   </b>
                   <span
                     className="place-card__price-text"
@@ -245,7 +247,7 @@ exports[`Render App correctly 1`] = `
                   </span>
                 </div>
                 <button
-                  className="place-card__bookmark-button button"
+                  className="place-card__bookmark-button  button"
                   type="button"
                 >
                   <svg
@@ -273,7 +275,7 @@ exports[`Render App correctly 1`] = `
                   <span
                     style={
                       Object {
-                        "width": "80%",
+                        "width": "1%",
                       }
                     }
                   />
@@ -291,24 +293,25 @@ exports[`Render App correctly 1`] = `
                   href="#"
                   onClick={[Function]}
                 >
-                  Beautiful & luxurious apartment at great location
+                  Title text 1
                 </a>
               </h2>
               <p
                 className="place-card__type"
               >
-                Apartment
+                type text 1
               </p>
             </div>
           </article>
           <article
             className="cities__place-card place-card"
+            onMouseOver={[Function]}
           >
             <div
               className="place-card__mark"
             >
               <span>
-                Premium
+                mark 2
               </span>
             </div>
             <div
@@ -321,7 +324,7 @@ exports[`Render App correctly 1`] = `
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src="img/apartment-01.jpg"
+                  src="path 2"
                   width="260"
                 />
               </a>
@@ -338,7 +341,8 @@ exports[`Render App correctly 1`] = `
                   <b
                     className="place-card__price-value"
                   >
-                    €120
+                    €
+                    2
                   </b>
                   <span
                     className="place-card__price-text"
@@ -347,7 +351,7 @@ exports[`Render App correctly 1`] = `
                   </span>
                 </div>
                 <button
-                  className="place-card__bookmark-button button"
+                  className="place-card__bookmark-button place-card__bookmark-button--active button"
                   type="button"
                 >
                   <svg
@@ -362,7 +366,7 @@ exports[`Render App correctly 1`] = `
                   <span
                     className="visually-hidden"
                   >
-                    To bookmarks
+                    In bookmarks
                   </span>
                 </button>
               </div>
@@ -375,7 +379,7 @@ exports[`Render App correctly 1`] = `
                   <span
                     style={
                       Object {
-                        "width": "80%",
+                        "width": "2%",
                       }
                     }
                   />
@@ -393,24 +397,25 @@ exports[`Render App correctly 1`] = `
                   href="#"
                   onClick={[Function]}
                 >
-                  Wood and stone place
+                  Title text 2
                 </a>
               </h2>
               <p
                 className="place-card__type"
               >
-                Apartment
+                type text 2
               </p>
             </div>
           </article>
           <article
             className="cities__place-card place-card"
+            onMouseOver={[Function]}
           >
             <div
               className="place-card__mark"
             >
               <span>
-                Premium
+                mark 3
               </span>
             </div>
             <div
@@ -423,7 +428,7 @@ exports[`Render App correctly 1`] = `
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src="img/apartment-01.jpg"
+                  src="path 3"
                   width="260"
                 />
               </a>
@@ -440,7 +445,8 @@ exports[`Render App correctly 1`] = `
                   <b
                     className="place-card__price-value"
                   >
-                    €120
+                    €
+                    3
                   </b>
                   <span
                     className="place-card__price-text"
@@ -449,7 +455,7 @@ exports[`Render App correctly 1`] = `
                   </span>
                 </div>
                 <button
-                  className="place-card__bookmark-button button"
+                  className="place-card__bookmark-button  button"
                   type="button"
                 >
                   <svg
@@ -477,7 +483,7 @@ exports[`Render App correctly 1`] = `
                   <span
                     style={
                       Object {
-                        "width": "80%",
+                        "width": "3%",
                       }
                     }
                   />
@@ -495,24 +501,25 @@ exports[`Render App correctly 1`] = `
                   href="#"
                   onClick={[Function]}
                 >
-                  Canal View Prinsengracht
+                  Title text 3
                 </a>
               </h2>
               <p
                 className="place-card__type"
               >
-                Apartment
+                type text 3
               </p>
             </div>
           </article>
           <article
             className="cities__place-card place-card"
+            onMouseOver={[Function]}
           >
             <div
               className="place-card__mark"
             >
               <span>
-                Premium
+                mark 4
               </span>
             </div>
             <div
@@ -525,7 +532,7 @@ exports[`Render App correctly 1`] = `
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src="img/apartment-01.jpg"
+                  src="path 4"
                   width="260"
                 />
               </a>
@@ -542,7 +549,8 @@ exports[`Render App correctly 1`] = `
                   <b
                     className="place-card__price-value"
                   >
-                    €120
+                    €
+                    4
                   </b>
                   <span
                     className="place-card__price-text"
@@ -551,7 +559,7 @@ exports[`Render App correctly 1`] = `
                   </span>
                 </div>
                 <button
-                  className="place-card__bookmark-button button"
+                  className="place-card__bookmark-button  button"
                   type="button"
                 >
                   <svg
@@ -579,7 +587,7 @@ exports[`Render App correctly 1`] = `
                   <span
                     style={
                       Object {
-                        "width": "80%",
+                        "width": "4%",
                       }
                     }
                   />
@@ -597,24 +605,25 @@ exports[`Render App correctly 1`] = `
                   href="#"
                   onClick={[Function]}
                 >
-                  Nice, cozy, warm big bed apartment
+                  Title text 4
                 </a>
               </h2>
               <p
                 className="place-card__type"
               >
-                Apartment
+                type text 4
               </p>
             </div>
           </article>
           <article
             className="cities__place-card place-card"
+            onMouseOver={[Function]}
           >
             <div
               className="place-card__mark"
             >
               <span>
-                Premium
+                mark 5
               </span>
             </div>
             <div
@@ -627,7 +636,7 @@ exports[`Render App correctly 1`] = `
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src="img/apartment-01.jpg"
+                  src="path 5"
                   width="260"
                 />
               </a>
@@ -644,7 +653,8 @@ exports[`Render App correctly 1`] = `
                   <b
                     className="place-card__price-value"
                   >
-                    €120
+                    €
+                    5
                   </b>
                   <span
                     className="place-card__price-text"
@@ -653,7 +663,7 @@ exports[`Render App correctly 1`] = `
                   </span>
                 </div>
                 <button
-                  className="place-card__bookmark-button button"
+                  className="place-card__bookmark-button place-card__bookmark-button--active button"
                   type="button"
                 >
                   <svg
@@ -668,7 +678,7 @@ exports[`Render App correctly 1`] = `
                   <span
                     className="visually-hidden"
                   >
-                    To bookmarks
+                    In bookmarks
                   </span>
                 </button>
               </div>
@@ -681,7 +691,7 @@ exports[`Render App correctly 1`] = `
                   <span
                     style={
                       Object {
-                        "width": "80%",
+                        "width": "5%",
                       }
                     }
                   />
@@ -699,13 +709,13 @@ exports[`Render App correctly 1`] = `
                   href="#"
                   onClick={[Function]}
                 >
-                  Wood and stone place
+                  Title text 5
                 </a>
               </h2>
               <p
                 className="place-card__type"
               >
-                Apartment
+                type text 5
               </p>
             </div>
           </article>
