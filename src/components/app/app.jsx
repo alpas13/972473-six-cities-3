@@ -2,6 +2,8 @@ import React, {PureComponent} from "react";
 import Main from "../main/main.jsx";
 import OffersList from "../offers-list/offers-list.jsx";
 import PropTypes from "prop-types";
+import {Switch, Route, BrowserRouter} from "react-router-dom";
+import Property from "../property/property.jsx";
 
 class App extends PureComponent {
   constructor(props) {
@@ -10,17 +12,24 @@ class App extends PureComponent {
     this.state = {
       property: null,
     };
+
+    this._titleOfferHandler = this._titleOfferHandler.bind(this);
   }
 
-  _titleOfferHandler(offerId) {
+  _titleOfferHandler(offer) {
     this.setState({
-      property: offerId
+      property: offer
     });
   }
 
-  render() {
+  _renderApp() {
     const {offersCount, offers} = this.props;
 
+    if (this.state.property) {
+      return (
+        <Property />
+      );
+    }
     return (
       <Main offersCount = {offersCount}>
         <OffersList
@@ -28,6 +37,25 @@ class App extends PureComponent {
           onTitleOfferClick={this._titleOfferHandler}
         />
       </Main>
+    );
+  }
+
+  render() {
+    const {offers} = this.props;
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            {this._renderApp()}
+          </Route>
+          <Route exact path="/dev-offer">
+            <OffersList
+              offers={offers}
+              onTitleOfferClick={this._titleOfferHandler}
+            />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
