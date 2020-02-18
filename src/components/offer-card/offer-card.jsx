@@ -36,7 +36,9 @@ const OfferCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#" onClick={onTitleOfferClick}>{offer.title}</a>
+          <a href="#" onClick={() => {
+            onTitleOfferClick(offer);
+          }}>{offer.title}</a>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>
