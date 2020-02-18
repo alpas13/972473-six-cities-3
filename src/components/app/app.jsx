@@ -27,7 +27,9 @@ class App extends PureComponent {
 
     if (this.state.property) {
       return (
-        <Property />
+        <Property
+          offer={this.state.property}
+        />
       );
     }
     return (
