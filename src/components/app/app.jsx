@@ -1,22 +1,36 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import Main from "../main/main.jsx";
 import OffersList from "../offers-list/offers-list.jsx";
 import PropTypes from "prop-types";
 
-const titleOfferHandler = () => {};
+class App extends PureComponent {
+  constructor(props) {
+    super(props);
 
-const App = (props) => {
-  const {offersCount, offers} = props;
+    this.state = {
+      property: null,
+    };
+  }
 
-  return (
-    <Main offersCount = {offersCount}>
-      <OffersList
-        offers={offers}
-        onTitleOfferClick={titleOfferHandler}
-      />
-    </Main>
-  );
-};
+  _titleOfferHandler(offerId) {
+    this.setState({
+      property: offerId
+    });
+  }
+
+  render() {
+    const {offersCount, offers} = this.props;
+
+    return (
+      <Main offersCount = {offersCount}>
+        <OffersList
+          offers={offers}
+          onTitleOfferClick={this._titleOfferHandler}
+        />
+      </Main>
+    );
+  }
+}
 
 App.propTypes = {
   offersCount: PropTypes.number.isRequired,
