@@ -1,6 +1,5 @@
 const offers = [
   {
-    id: Date.now() + Math.random(),
     userName: `Oliver.conner@gmail.com`,
     propertyImage: [`img/room.jpg`,
       `img/apartment-01.jpg`,
@@ -41,7 +40,6 @@ const offers = [
     ],
   },
   {
-    id: Date.now() + Math.random(),
     userName: `Oliver.conner@gmail.com`,
     propertyImage: [`img/room.jpg`,
       `img/apartment-01.jpg`,
@@ -82,7 +80,6 @@ const offers = [
     ],
   },
   {
-    id: Date.now() + Math.random(),
     userName: `Oliver.conner@gmail.com`,
     propertyImage: [`img/room.jpg`,
       `img/apartment-01.jpg`,
@@ -123,7 +120,6 @@ const offers = [
     ],
   },
   {
-    id: Date.now() + Math.random(),
     userName: `Oliver.conner@gmail.com`,
     propertyImage: [`img/room.jpg`,
       `img/apartment-01.jpg`,
@@ -164,7 +160,12 @@ const offers = [
     ],
   },
   {
-    id: Date.now() + Math.random(),
+    userName: `Oliver.conner@gmail.com`,
+    propertyImage: [`img/room.jpg`,
+      `img/apartment-01.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-03.jpg`,
+      `img/studio-01.jpg`],
     title: `Wood and stone place`,
     mark: null,
     previewImage: `img/room.jpg`,
