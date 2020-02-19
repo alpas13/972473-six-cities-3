@@ -21,6 +21,14 @@ const mock = {
   }
 };
 
+test(`Should not be console.error called`, () => {
+  // eslint-disable-next-line no-console
+  console.error = jest.fn();
+
+  // eslint-disable-next-line no-console
+  expect(console.error).toHaveBeenCalledTimes(0);
+});
+
 test(`Mouseover event over offer card pass data about this offer to handler`, () => {
   const {offer} = mock;
   const onCardMouseOver = jest.fn();
@@ -47,4 +55,5 @@ test(`Should link of title be clicked`, () => {
   const titleLink = wrapper.find(`.place-card__name > a`);
   titleLink.simulate(`click`);
   expect(onTitleOfferClick).toHaveBeenCalledTimes(1);
+  expect(onTitleOfferClick.mock.calls[0][0]).toMatchObject(offer);
 });
