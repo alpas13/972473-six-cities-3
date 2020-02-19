@@ -1,53 +1,202 @@
 const offers = [
   {
-    id: Date.now() + Math.random(),
+    userName: `Oliver.conner@gmail.com`,
+    propertyImage: [`img/room.jpg`,
+      `img/apartment-01.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-03.jpg`,
+      `img/studio-01.jpg`,
+      `img/apartment-01.jpg`],
     title: `Beautiful & luxurious apartment at great location`,
-    mark: `premium`,
+    mark: `Premium`,
     previewImage: `img/apartment-01.jpg`,
     price: 120,
     bookmark: false,
-    rating: 80,
-    type: `Apartment`
+    rating: {
+      star: 80,
+      value: 4.8,
+    },
+    features: {
+      entire: `Apartment`,
+      bedrooms: 3,
+      adults: 4,
+    },
+    insideList: [
+      `Wi-Fi`,
+      `Washing machine`,
+      `Towels`,
+      `Heating`,
+      `Coffee machine`,
+      `Baby seat`,
+      `Kitchen`,
+      `Dishwasher`,
+      `Cabel TV`,
+      `Fridge`
+    ],
+    hostName: `Angelina`,
+    propertyText: [
+      `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+      `An independent House, strategically located between Rembrandt Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`
+    ],
   },
   {
-    id: Date.now() + Math.random(),
+    userName: `Oliver.conner@gmail.com`,
+    propertyImage: [`img/room.jpg`,
+      `img/apartment-01.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-03.jpg`,
+      `img/studio-01.jpg`,
+      `img/apartment-01.jpg`],
     title: `Wood and stone place`,
     mark: null,
     previewImage: `img/room.jpg`,
     price: 80,
     bookmark: true,
-    rating: 80,
-    type: `Private room`
+    rating: {
+      star: 80,
+      value: 4.8,
+    },
+    features: {
+      entire: `Private room`,
+      bedrooms: 3,
+      adults: 4,
+    },
+    insideList: [
+      `Wi-Fi`,
+      `Washing machine`,
+      `Towels`,
+      `Heating`,
+      `Coffee machine`,
+      `Baby seat`,
+      `Kitchen`,
+      `Dishwasher`,
+      `Cabel TV`,
+      `Fridge`
+    ],
+    hostName: `Angelina`,
+    propertyText: [
+      `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+      `An independent House, strategically located between Rembrandt Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`
+    ],
   },
   {
-    id: Date.now() + Math.random(),
+    userName: `Oliver.conner@gmail.com`,
+    propertyImage: [`img/room.jpg`,
+      `img/apartment-01.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-03.jpg`,
+      `img/studio-01.jpg`,
+      `img/apartment-01.jpg`],
     title: `Canal View Prinsengracht`,
     mark: null,
     previewImage: `img/apartment-02.jpg`,
     price: 132,
     bookmark: false,
-    rating: 80,
-    type: `Apartment`
+    rating: {
+      star: 80,
+      value: 4.8,
+    },
+    features: {
+      entire: `Private room`,
+      bedrooms: 3,
+      adults: 4,
+    },
+    insideList: [
+      `Wi-Fi`,
+      `Washing machine`,
+      `Towels`,
+      `Heating`,
+      `Coffee machine`,
+      `Baby seat`,
+      `Kitchen`,
+      `Dishwasher`,
+      `Cabel TV`,
+      `Fridge`
+    ],
+    hostName: `Angelina`,
+    propertyText: [
+      `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+      `An independent House, strategically located between Rembrandt Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`
+    ],
   },
   {
-    id: Date.now() + Math.random(),
+    userName: `Oliver.conner@gmail.com`,
+    propertyImage: [`img/room.jpg`,
+      `img/apartment-01.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-03.jpg`,
+      `img/studio-01.jpg`,
+      `img/apartment-01.jpg`],
     title: `Nice, cozy, warm big bed apartment`,
     mark: `premium`,
     previewImage: `img/apartment-03.jpg`,
     price: 180,
     bookmark: false,
-    rating: 100,
-    type: `Apartment`
+    rating: {
+      star: 80,
+      value: 4.8,
+    },
+    features: {
+      entire: `Apartment`,
+      bedrooms: 3,
+      adults: 4,
+    },
+    insideList: [
+      `Wi-Fi`,
+      `Washing machine`,
+      `Towels`,
+      `Heating`,
+      `Coffee machine`,
+      `Baby seat`,
+      `Kitchen`,
+      `Dishwasher`,
+      `Cabel TV`,
+      `Fridge`
+    ],
+    hostName: `Angelina`,
+    propertyText: [
+      `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+      `An independent House, strategically located between Rembrandt Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`
+    ],
   },
   {
-    id: Date.now() + Math.random(),
+    userName: `Oliver.conner@gmail.com`,
+    propertyImage: [`img/room.jpg`,
+      `img/apartment-01.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-03.jpg`,
+      `img/studio-01.jpg`],
     title: `Wood and stone place`,
     mark: null,
     previewImage: `img/room.jpg`,
     price: 80,
     bookmark: true,
-    rating: 80,
-    type: `Private room`
+    rating: {
+      star: 80,
+      value: 4.8,
+    },
+    features: {
+      entire: `Private room`,
+      bedrooms: 3,
+      adults: 4,
+    },
+    insideList: [
+      `Wi-Fi`,
+      `Washing machine`,
+      `Towels`,
+      `Heating`,
+      `Coffee machine`,
+      `Baby seat`,
+      `Kitchen`,
+      `Dishwasher`,
+      `Cabel TV`,
+      `Fridge`
+    ],
+    hostName: `Angelina`,
+    propertyText: [
+      `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+      `An independent House, strategically located between Rembrandt Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`
+    ],
   },
 ];
 

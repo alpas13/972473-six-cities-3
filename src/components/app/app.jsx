@@ -1,24 +1,70 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import Main from "../main/main.jsx";
+import OffersList from "../offers-list/offers-list.jsx";
 import PropTypes from "prop-types";
+import {Switch, Route, BrowserRouter} from "react-router-dom";
+import Property from "../property/property.jsx";
 
-const titleOfferHandler = () => {};
+class App extends PureComponent {
+  constructor(props) {
+    super(props);
 
-const App = (props) => {
-  const {offersCount, offers} = props;
+    this.state = {
+      property: null,
+    };
 
-  return (
-    <Main
-      offersCount = {offersCount}
-      offers = {offers}
-      onTitleOfferClick = {titleOfferHandler}
-    />
-  );
-};
+    this._titleOfferHandler = this._titleOfferHandler.bind(this);
+  }
+
+  _titleOfferHandler(offer) {
+    this.setState({
+      property: offer
+    });
+  }
+
+  _renderApp() {
+    const {offersCount, offers} = this.props;
+
+    if (this.state.property) {
+      return (
+        <Property
+          offer={this.state.property}
+        />
+      );
+    }
+    return (
+      <Main offersCount = {offersCount}>
+        <OffersList
+          offers={offers}
+          onTitleOfferClick={this._titleOfferHandler}
+        />
+      </Main>
+    );
+  }
+
+  render() {
+    const {offers} = this.props;
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            {this._renderApp()}
+          </Route>
+          <Route exact path="/dev-offer">
+            <OffersList
+              offers={offers}
+              onTitleOfferClick={this._titleOfferHandler}
+            />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    );
+  }
+}
 
 App.propTypes = {
   offersCount: PropTypes.number.isRequired,
-  offers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  offers: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
 };
 
 export default App;

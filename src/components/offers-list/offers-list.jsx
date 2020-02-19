@@ -19,24 +19,28 @@ class OffersList extends PureComponent {
     });
   }
 
+  _idGenerator() {
+    return Date.now() + Math.random();
+  }
+
   render() {
     const {offers, onTitleOfferClick} = this.props;
 
     return (
       offers.map((offer) => {
-        return (
-          <OfferCard key={offer.id}
-            onTitleOfferClick={onTitleOfferClick}
-            onCardMouseOver={this._handleCardMouseOver}
-            offer={offer}
-          />);
+        const id = this._idGenerator();
+        return <OfferCard key={id}
+          onTitleOfferClick={onTitleOfferClick}
+          onCardMouseOver={this._handleCardMouseOver}
+          offer={offer}
+        />;
       })
     );
   }
 }
 
 OffersList.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  offers: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   onTitleOfferClick: PropTypes.func.isRequired,
 };
 

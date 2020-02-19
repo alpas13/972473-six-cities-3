@@ -1,10 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main";
-import OffersList from "../offers-list/offers-list";
+import Property from "./property";
 
 const mock = {
-  offers: [
+  offer:
     {
       userName: `user-name 1`,
       propertyImage: [`path 1`],
@@ -31,18 +30,14 @@ const mock = {
         `text 1`
       ]
     }
-  ]
 };
 
-test(`Render Main correctly`, () => {
-  const {offers} = mock;
+test(`Correctly render Property component`, () => {
+  const {offer} = mock;
   const tree = renderer.create(
-      <Main offersCount = {3}>
-        <OffersList
-          offers={offers}
-          onTitleOfferClick={() => {}}
-        />
-      </Main>)
-      .toJSON();
+      <Property
+        offer={offer}
+      />
+  ).toJSON();
   expect(tree).toMatchSnapshot();
 });

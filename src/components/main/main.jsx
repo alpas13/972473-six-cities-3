@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import OffersList from "../offers-list/offers-list.jsx";
 
 
 const Main = (props) => {
-  const {offersCount, offers, onTitleOfferClick} = props;
+  const {offersCount, children} = props;
 
   return (
     <main className="page__main page__main--index">
@@ -77,10 +76,7 @@ const Main = (props) => {
               </select>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              <OffersList
-                offers={offers}
-                onTitleOfferClick={onTitleOfferClick}
-              />
+              {children}
             </div>
           </section>
           <div className="cities__right-section">
@@ -93,9 +89,8 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
+  children: PropTypes.node.isRequired,
   offersCount: PropTypes.number.isRequired,
-  offers: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onTitleOfferClick: PropTypes.func.isRequired,
 };
 
 export default Main;
