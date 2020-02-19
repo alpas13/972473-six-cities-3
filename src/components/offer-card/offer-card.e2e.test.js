@@ -7,14 +7,17 @@ configure({adapter: new Adapter()});
 
 const mock = {
   offer: {
-    id: Date.now() + Math.random(),
     title: ``,
     mark: ``,
     previewImage: ``,
     price: 1,
     bookmark: false,
-    rating: 1,
-    type: ``
+    rating: {
+      star: 1
+    },
+    features: {
+      entire: ``
+    },
   }
 };
 

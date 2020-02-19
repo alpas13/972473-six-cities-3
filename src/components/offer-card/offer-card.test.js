@@ -4,14 +4,17 @@ import OfferCard from "./offer-card";
 
 const mock = {
   offer: {
-    id: Date.now() + Math.random(),
     title: `Title text 1`,
     mark: `mark 1`,
     previewImage: `path 1`,
     price: 1,
     bookmark: false,
-    rating: 1,
-    type: `type text 1`
+    rating: {
+      star: 1
+    },
+    features: {
+      entire: `type text 1`,
+    },
   }
 };
 
