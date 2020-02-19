@@ -49,15 +49,15 @@ const OfferCard = (props) => {
 OfferCard.propTypes = {
   onTitleOfferClick: PropTypes.func.isRequired,
   onCardMouseOver: PropTypes.func.isRequired,
-  offer: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+  offer: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    mark: PropTypes.string.isRequired,
+    mark: PropTypes.string,
+    previewImage: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    bookmark: PropTypes.string.isRequired,
+    bookmark: PropTypes.bool.isRequired,
     rating: PropTypes.object.isRequired,
     features: PropTypes.object.isRequired,
-  })).isRequired
+  }).isRequired
 };
 
 export default OfferCard;

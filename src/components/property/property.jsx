@@ -289,19 +289,19 @@ const Property = ({offer}) => (
 );
 
 Property.propTypes = {
-  offer: PropTypes.arrayOf(PropTypes.shape({
+  offer: PropTypes.shape({
     userName: PropTypes.string.isRequired,
     propertyImage: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     title: PropTypes.string.isRequired,
-    mark: PropTypes.string.isRequired,
+    mark: PropTypes.string,
     price: PropTypes.number.isRequired,
-    bookmark: PropTypes.string.isRequired,
+    bookmark: PropTypes.bool.isRequired,
     rating: PropTypes.object.isRequired,
     features: PropTypes.object.isRequired,
     insideList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     hostName: PropTypes.string.isRequired,
     propertyText: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
-  })).isRequired
+  }).isRequired
 };
 
 export default Property;
