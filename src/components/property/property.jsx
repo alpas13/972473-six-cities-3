@@ -43,7 +43,7 @@ const Property = ({offer}) => (
             </div> : null}
             <div className="property__name-wrapper">
               <h1 className="property__name">{offer.title}</h1>
-              <button className={`property__bookmark-button ${offer.bookmark ? `property__bookmark-button--active` : null} button`} type="button">
+              <button className={`property__bookmark-button ${offer.bookmark ? `property__bookmark-button--active` : ``} button`} type="button">
                 <svg className="property__bookmark-icon" width="31" height="33">
                   <use xlinkHref="#icon-bookmark" />
                 </svg>
