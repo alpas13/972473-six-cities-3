@@ -16,6 +16,7 @@ ReactDom.render(
     <App
       offersCount = {generateOffers()}
       offers = {offers}
+      city = {`Amsterdam`}
     />,
     document.querySelector(`#root`)
 );

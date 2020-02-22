@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import OffersList from "./offers-list";
+import Map from "./map";
 
 const mock = {
   offers: [
@@ -28,19 +28,20 @@ const mock = {
       propertyText: [
         `text 1`,
         `text 1`
+      ],
+      coords: [
+        52.3909553943508,
+        4.85309666406198
       ]
     }
   ]
 };
 
-test(`Correctly render OffersList component`, () => {
+test(`Correctly render Map component`, () => {
   const {offers} = mock;
   const tree = renderer.create(
-      <OffersList
-        offers={offers}
-        offersCount={3}
-        city={`Amsterdam`}
-        onTitleOfferClick={() => {}}
-      />).toJSON();
+      <Map offers={offers}/>
+  ).toJSON();
+
   expect(tree).toMatchSnapshot();
 });
