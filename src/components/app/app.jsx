@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import Main from "../main/main.jsx";
 import OffersList from "../offers-list/offers-list.jsx";
+import Map from "../map/map.jsx";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Property from "../property/property.jsx";
@@ -23,7 +24,7 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {offersCount, offers} = this.props;
+    const {offersCount, offers, city} = this.props;
 
     if (this.state.property) {
       return (
@@ -33,17 +34,20 @@ class App extends PureComponent {
       );
     }
     return (
-      <Main offersCount={offersCount} offers={offers}>
+      <Main>
         <OffersList
           offers={offers}
+          offersCount={offersCount}
+          city = {city}
           onTitleOfferClick={this._titleOfferHandler}
         />
+        <Map offers={offers}/>
       </Main>
     );
   }
 
   render() {
-    const {offers} = this.props;
+    const {offers, offersCount, city} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -53,6 +57,8 @@ class App extends PureComponent {
           <Route exact path="/dev-offer">
             <OffersList
               offers={offers}
+              offersCount={offersCount}
+              city = {city}
               onTitleOfferClick={this._titleOfferHandler}
             />
           </Route>
@@ -65,6 +71,7 @@ class App extends PureComponent {
 App.propTypes = {
   offersCount: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  city: PropTypes.string.isRequired,
 };
 
 export default App;
