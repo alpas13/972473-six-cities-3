@@ -5,6 +5,7 @@ import Map from "../map/map.jsx";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Property from "../property/property.jsx";
+import ReviewsList from "../reviews-list/reviews-list.jsx";
 
 class App extends PureComponent {
   constructor(props) {
@@ -30,7 +31,11 @@ class App extends PureComponent {
       return (
         <Property
           offer={this.state.property}
-        />
+        >
+          <ReviewsList
+            offer={this.state.property}
+          />
+        </Property>
       );
     }
     return (
