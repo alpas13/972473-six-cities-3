@@ -5,16 +5,21 @@ import leaflet from "leaflet";
 class Map extends PureComponent {
   constructor(props) {
     super(props);
+    this.map = React.createRef();
   }
 
   componentDidMount() {
+    if (this.map.current === null) {
+      return;
+    }
+
     const city = [52.38333, 4.9];
     const icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
       iconSize: [30, 39]
     });
     const zoom = 12;
-    const map = leaflet.map(`map`, {
+    const map = leaflet.map(this.map.current, {
       center: city,
       zoom,
       zoomControl: false,
@@ -42,7 +47,7 @@ class Map extends PureComponent {
     return (
       <div className="cities__right-section">
         <section className="cities__map map">
-          <div style={{width: `100%`, height: `800px`, top: `170px`}} id="map"/>
+          <div style={{width: `100%`, height: `800px`, top: `170px`}} ref={this.map}/>
         </section>
       </div>
     );
