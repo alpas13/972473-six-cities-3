@@ -19,10 +19,6 @@ class OffersList extends PureComponent {
     });
   }
 
-  _idGenerator() {
-    return Date.now() + Math.random();
-  }
-
   render() {
     const {offers, offersCount, city, onTitleOfferClick} = this.props;
 
@@ -57,9 +53,8 @@ class OffersList extends PureComponent {
           </select>
         </form>
         <div className="cities__places-list places__list tabs__content">
-          {offers.map((offer) => {
-            const id = this._idGenerator();
-            return <OfferCard key={id}
+          {offers.map((offer, index) => {
+            return <OfferCard key={offer.id + index}
               onTitleOfferClick={onTitleOfferClick}
               onCardMouseOver={this._handleCardMouseOver}
               offer={offer}
