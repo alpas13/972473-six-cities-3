@@ -11,7 +11,7 @@ class Map extends PureComponent {
     const city = [52.38333, 4.9];
     const icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
-      iconSize: [30, 30]
+      iconSize: [30, 39]
     });
     const zoom = 12;
     const map = leaflet.map(`map`, {
