@@ -109,8 +109,9 @@ exports[`Render Main correctly 1`] = `
         <b
           className="places__found"
         >
-          3
-           places to stay in Amsterdam
+          4
+           places to stay in 
+          Amsterdam
         </b>
         <form
           action="#"
@@ -247,7 +248,7 @@ exports[`Render Main correctly 1`] = `
                   </span>
                 </div>
                 <button
-                  className="place-card__bookmark-button null button"
+                  className="place-card__bookmark-button  button"
                   type="button"
                 >
                   <svg
@@ -305,13 +306,6 @@ exports[`Render Main correctly 1`] = `
           </article>
         </div>
       </section>
-      <div
-        className="cities__right-section"
-      >
-        <section
-          className="cities__map map"
-        />
-      </div>
     </div>
   </div>
 </main>

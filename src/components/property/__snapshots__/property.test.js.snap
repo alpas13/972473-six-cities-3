@@ -102,7 +102,7 @@ exports[`Correctly render Property component 1`] = `
               Title text 1
             </h1>
             <button
-              className="property__bookmark-button null button"
+              className="property__bookmark-button  button"
               type="button"
             >
               <svg

@@ -38,6 +38,8 @@ test(`Correctly render OffersList component`, () => {
   const tree = renderer.create(
       <OffersList
         offers={offers}
+        offersCount={3}
+        city={`Amsterdam`}
         onTitleOfferClick={() => {}}
       />).toJSON();
   expect(tree).toMatchSnapshot();

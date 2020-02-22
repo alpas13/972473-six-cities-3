@@ -1,6 +1,9 @@
 import React from "react";
 import rerender from "react-test-renderer";
 import App from "./app";
+import Main from "../main/main";
+import OffersList from "../offers-list/offers-list";
+import Map from "../map/map";
 
 const mock = {
   offers: [
@@ -28,6 +31,10 @@ const mock = {
       propertyText: [
         `text 1`,
         `text 1`
+      ],
+      coords: [
+        52.3909553943508,
+        4.85309666406198
       ]
     }
   ]
@@ -39,8 +46,18 @@ test(`Render App correctly`, () => {
       <App
         offersCount={3}
         offers={offers}
-        onTitleOfferClick={() => {}}
-      />)
-      .toJSON();
+        city={`Amsterdam`}
+      >
+        <Main>
+          <OffersList
+            offersCount={3}
+            offers={offers}
+            city={`Amsterdam`}
+            onTitleOfferClick={() => {}}
+          />
+          <Map offers={offers} />
+        </Main>
+      </App>
+  ).toJSON();
   expect(tree).toMatchSnapshot();
 });
