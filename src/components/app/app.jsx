@@ -30,6 +30,7 @@ class App extends PureComponent {
       return (
         <Property
           offer={this.state.property}
+          offers={offers}
         >
           <ReviewsList
             offer={this.state.property}

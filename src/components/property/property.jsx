@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Map from "../map/map.jsx";
 
-const Property = ({offer, children}) => (
+const Property = ({offer, offers, children}) => (
   <div className="page">
     <header className="header">
       <div className="container">
@@ -153,7 +154,9 @@ const Property = ({offer, children}) => (
             </section>
           </div>
         </div>
-        <section className="property__map map" />
+        <section className="property__map map">
+          <Map offer={offer} offers={offers}/>
+        </section>
       </section>
       <div className="container">
         <section className="near-places places">
@@ -274,6 +277,7 @@ Property.propTypes = {
     hostName: PropTypes.string.isRequired,
     propertyText: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
   }).isRequired,
+  offers: PropTypes.arrayOf(PropTypes.object).isRequired,
   children: PropTypes.node.isRequired,
 };
 
