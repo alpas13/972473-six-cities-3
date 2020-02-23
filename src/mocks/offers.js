@@ -53,6 +53,11 @@ const offers = [
         date: new Date().toUTCString(),
       },
     ],
+    neighbourhoodOffers: [
+      1582457443027.0002,
+      1582457508960.5964,
+      1582457581305.9822,
+    ]
   },
   {
     id: 1582457443027.0002,
@@ -108,6 +113,11 @@ const offers = [
         date: new Date().toUTCString(),
       },
     ],
+    neighbourhoodOffers: [
+      1582457380088.0583,
+      1582457508960.5964,
+      1582457581305.9822
+    ]
   },
   {
     id: 1582457508960.5964,
@@ -163,6 +173,11 @@ const offers = [
         date: new Date().toUTCString(),
       },
     ],
+    neighbourhoodOffers: [
+      1582457443027.0002,
+      1582457581305.9822,
+      1582457615518.7898
+    ]
   },
   {
     id: 1582457581305.9822,
@@ -218,6 +233,11 @@ const offers = [
         date: new Date().toUTCString(),
       },
     ],
+    neighbourhoodOffers: [
+      1582457443027.0002,
+      1582457508960.5964,
+      1582457615518.7898
+    ]
   },
   {
     id: 1582457615518.7898,
@@ -272,6 +292,11 @@ const offers = [
         date: new Date().toUTCString(),
       },
     ],
+    neighbourhoodOffers: [
+      1582457443027.0002,
+      1582457508960.5964,
+      1582457581305.9822
+    ]
   },
 ];
 
