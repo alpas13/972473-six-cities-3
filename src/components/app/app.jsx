@@ -39,11 +39,12 @@ class App extends PureComponent {
       );
     }
     return (
-      <Main offers={offers}>
+      <Main
+        offers={offers}
+        offersCount={offersCount}
+        city = {city}>
         <OffersList
           offers={offers}
-          offersCount={offersCount}
-          city = {city}
           onTitleOfferClick={this._titleOfferHandler}
         />
       </Main>
