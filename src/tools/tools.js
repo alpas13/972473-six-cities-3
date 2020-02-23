@@ -9,8 +9,4 @@ const dateFormat = (fullDate, show = true) => {
           ${date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}`;
 };
 
-const keyIdGenerator = () => {
-  return Date.now() + Math.random();
-};
-
-export {dateFormat, keyIdGenerator};
+export {dateFormat};

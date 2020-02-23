@@ -1,8 +1,6 @@
-import {keyIdGenerator} from "../tools/tools.js";
-
 const offers = [
   {
-    id: keyIdGenerator(),
+    id: 1582457380088.0583,
     userName: `Oliver.conner@gmail.com`,
     propertyImage: [`img/room.jpg`,
       `img/apartment-01.jpg`,
@@ -47,7 +45,7 @@ const offers = [
     ],
     reviews: [
       {
-        id: keyIdGenerator(),
+        id: 1582457643553.8105,
         userAvatar: `img/avatar-max.jpg`,
         userName: `Max`,
         rating: 80,
@@ -57,7 +55,7 @@ const offers = [
     ],
   },
   {
-    id: keyIdGenerator(),
+    id: 1582457443027.0002,
     userName: `Oliver.conner@gmail.com`,
     propertyImage: [`img/room.jpg`,
       `img/apartment-01.jpg`,
@@ -102,7 +100,7 @@ const offers = [
     ],
     reviews: [
       {
-        id: keyIdGenerator(),
+        id: 1582457766133.881,
         userAvatar: `img/avatar-max.jpg`,
         userName: `Max`,
         rating: 80,
@@ -112,7 +110,7 @@ const offers = [
     ],
   },
   {
-    id: keyIdGenerator(),
+    id: 1582457508960.5964,
     userName: `Oliver.conner@gmail.com`,
     propertyImage: [`img/room.jpg`,
       `img/apartment-01.jpg`,
@@ -157,7 +155,7 @@ const offers = [
     ],
     reviews: [
       {
-        id: keyIdGenerator(),
+        id: 1582457796383.7314,
         userAvatar: `img/avatar-max.jpg`,
         userName: `Max`,
         rating: 80,
@@ -167,7 +165,7 @@ const offers = [
     ],
   },
   {
-    id: keyIdGenerator(),
+    id: 1582457581305.9822,
     userName: `Oliver.conner@gmail.com`,
     propertyImage: [`img/room.jpg`,
       `img/apartment-01.jpg`,
@@ -212,7 +210,7 @@ const offers = [
     ],
     reviews: [
       {
-        id: keyIdGenerator(),
+        id: 1582457828323.001,
         userAvatar: `img/avatar-max.jpg`,
         userName: `Max`,
         rating: 80,
@@ -222,7 +220,7 @@ const offers = [
     ],
   },
   {
-    id: keyIdGenerator(),
+    id: 1582457615518.7898,
     userName: `Oliver.conner@gmail.com`,
     propertyImage: [`img/room.jpg`,
       `img/apartment-01.jpg`,
@@ -266,7 +264,7 @@ const offers = [
     ],
     reviews: [
       {
-        id: keyIdGenerator(),
+        id: 1582457885645.192,
         userAvatar: `img/avatar-max.jpg`,
         userName: `Max`,
         rating: 80,
