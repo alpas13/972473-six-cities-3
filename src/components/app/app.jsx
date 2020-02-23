@@ -1,7 +1,6 @@
 import React, {PureComponent} from "react";
 import Main from "../main/main.jsx";
 import OffersList from "../offers-list/offers-list.jsx";
-import Map from "../map/map.jsx";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Property from "../property/property.jsx";
@@ -39,14 +38,13 @@ class App extends PureComponent {
       );
     }
     return (
-      <Main>
+      <Main offers={offers}>
         <OffersList
           offers={offers}
           offersCount={offersCount}
           city = {city}
           onTitleOfferClick={this._titleOfferHandler}
         />
-        <Map offers={offers}/>
       </Main>
     );
   }

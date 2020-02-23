@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Map from "../map/map.jsx";
 
 
 const Main = (props) => {
-  const {children} = props;
+  const {offers, children} = props;
 
   return (
     <main className="page__main page__main--index">
@@ -47,6 +48,11 @@ const Main = (props) => {
       <div className="cities">
         <div className="cities__places-container container">
           {children}
+          <div className="cities__right-section">
+            <section className="cities__map map">
+              <Map offers={offers}/>
+            </section>
+          </div>
         </div>
       </div>
     </main>
@@ -54,6 +60,7 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
+  offers: PropTypes.arrayOf(PropTypes.object).isRequired,
   children: PropTypes.node.isRequired,
 };
 
