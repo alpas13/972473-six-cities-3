@@ -33,26 +33,38 @@ class Map extends PureComponent {
         })
         .addTo(map);
 
-    const {offers} = this.props;
-    const markersData = offers.map((offer) => {
-      return leaflet.marker(offer.coords, {icon});
-    });
-
-
     const markers = leaflet
-        .layerGroup(markersData);
+        .layerGroup();
+
+    const {offers} = this.props;
+    const {offer} = this.props;
+
+    if (offer) {
+      offer.neighbourhoodOffers.map((offerItem) => {
+        offers.slice().filter((item) => offerItem === item.id).map((neighbourhood) => {
+          markers.addLayer(leaflet.marker(neighbourhood.coords, {icon}));
+        });
+      });
+    } else {
+      offers.map((item) => {
+        markers.addLayer(leaflet.marker(item.coords, {icon}));
+      });
+    }
 
     markers.addTo(map);
   }
 
   render() {
+    const {styleSettings} = this.props;
     return (
-      <div style={{height: `800px`, top: `170px`}} ref={this.map}/>
+      <div style={styleSettings} ref={this.map}/>
     );
   }
 }
 
 Map.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  offer: PropTypes.object,
+  styleSettings: PropTypes.object.isRequired,
 };
 export default Map;

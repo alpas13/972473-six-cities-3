@@ -50,7 +50,7 @@ const Main = (props) => {
           {children}
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map offers={offers}/>
+              <Map offers={offers} styleSettings={{height: `800px`, top: `170px`}}/>
             </section>
           </div>
         </div>

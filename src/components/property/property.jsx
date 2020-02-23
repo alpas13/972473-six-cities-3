@@ -155,7 +155,7 @@ const Property = ({offer, offers, children}) => (
           </div>
         </div>
         <section className="property__map map">
-          <Map offer={offer} offers={offers}/>
+          <Map offer={offer} offers={offers} styleSettings={{height: `597px`}}/>
         </section>
       </section>
       <div className="container">
