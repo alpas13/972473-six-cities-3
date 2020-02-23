@@ -7,9 +7,9 @@ const ReviewsList = (props) => {
   const {offer} = props;
   return (
     <Fragment>
-      {offer.reviews.length && <h2 className="reviews__title">Reviews  &middot;
+      {offer.reviews.length > 0 && <h2 className="reviews__title">Reviews  &middot;
         <span className="reviews__amount"> {offer.reviews.length}</span></h2>}
-      {offer.reviews.length || <h2 className="reviews__title">Reviews</h2>}
+      {offer.reviews.length < 0 || <h2 className="reviews__title">Reviews</h2>}
       <ul className="reviews__list">
         {offer.reviews.map((review, index) => {
           return <ReviewItem

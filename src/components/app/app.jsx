@@ -4,7 +4,6 @@ import OffersList from "../offers-list/offers-list.jsx";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Property from "../property/property.jsx";
-import ReviewsList from "../reviews-list/reviews-list.jsx";
 
 class App extends PureComponent {
   constructor(props) {
@@ -32,7 +31,9 @@ class App extends PureComponent {
           offer={this.state.property}
           offers={offers}
         >
-          <ReviewsList
+          <OffersList
+            offers={offers}
+            onTitleOfferClick={this._titleOfferHandler}
             offer={this.state.property}
           />
         </Property>
@@ -52,7 +53,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {offers, offersCount, city} = this.props;
+    const {offers} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -62,8 +63,6 @@ class App extends PureComponent {
           <Route exact path="/dev-offer">
             <OffersList
               offers={offers}
-              offersCount={offersCount}
-              city = {city}
               onTitleOfferClick={this._titleOfferHandler}
             />
           </Route>
