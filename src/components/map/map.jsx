@@ -38,16 +38,18 @@ class Map extends PureComponent {
       return leaflet.marker(offer.coords, {icon});
     });
 
-    leaflet
-        .layerGroup(markersData)
-        .addTo(map);
+
+    const markers = leaflet
+        .layerGroup(markersData);
+
+    markers.addTo(map);
   }
 
   render() {
     return (
       <div className="cities__right-section">
         <section className="cities__map map">
-          <div style={{width: `100%`, height: `800px`, top: `170px`}} ref={this.map}/>
+          <div style={{height: `800px`, top: `170px`}} ref={this.map}/>
         </section>
       </div>
     );
