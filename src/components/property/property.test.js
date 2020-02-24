@@ -31,6 +31,25 @@ const mock = {
       propertyText: [
         `text 1`,
         `text 1`
+      ],
+      coords: [
+        52.3909553943508,
+        4.85309666406198
+      ],
+      reviews: [
+        {
+          id: 1582457643553.8105,
+          userAvatar: `img/avatar-max.jpg`,
+          userName: `Max`,
+          rating: 80,
+          description: `The building is green and from 18th century.`,
+          date: new Date().toUTCString(),
+        },
+      ],
+      neighbourhoodOffers: [
+        1582457443027.0002,
+        1582457508960.5964,
+        1582457581305.9822,
       ]
     }
 };
