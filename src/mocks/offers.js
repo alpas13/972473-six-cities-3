@@ -1,5 +1,6 @@
 const offers = [
   {
+    id: 1582457380088.0583,
     userName: `Oliver.conner@gmail.com`,
     propertyImage: [`img/room.jpg`,
       `img/apartment-01.jpg`,
@@ -41,9 +42,25 @@ const offers = [
     coords: [
       52.3909553943508,
       4.85309666406198
+    ],
+    reviews: [
+      {
+        id: 1582457643553.8105,
+        userAvatar: `img/avatar-max.jpg`,
+        userName: `Max`,
+        rating: 80,
+        description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+        date: new Date().toUTCString(),
+      },
+    ],
+    neighbourhoodOffers: [
+      1582457443027.0002,
+      1582457508960.5964,
+      1582457581305.9822,
     ]
   },
   {
+    id: 1582457443027.0002,
     userName: `Oliver.conner@gmail.com`,
     propertyImage: [`img/room.jpg`,
       `img/apartment-01.jpg`,
@@ -85,9 +102,25 @@ const offers = [
     coords: [
       52.369553943508,
       4.85309666406198
+    ],
+    reviews: [
+      {
+        id: 1582457766133.881,
+        userAvatar: `img/avatar-max.jpg`,
+        userName: `Max`,
+        rating: 80,
+        description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+        date: new Date().toUTCString(),
+      },
+    ],
+    neighbourhoodOffers: [
+      1582457380088.0583,
+      1582457508960.5964,
+      1582457581305.9822
     ]
   },
   {
+    id: 1582457508960.5964,
     userName: `Oliver.conner@gmail.com`,
     propertyImage: [`img/room.jpg`,
       `img/apartment-01.jpg`,
@@ -129,9 +162,25 @@ const offers = [
     coords: [
       52.3909553943508,
       4.929309666406198
+    ],
+    reviews: [
+      {
+        id: 1582457796383.7314,
+        userAvatar: `img/avatar-max.jpg`,
+        userName: `Max`,
+        rating: 80,
+        description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+        date: new Date().toUTCString(),
+      },
+    ],
+    neighbourhoodOffers: [
+      1582457443027.0002,
+      1582457581305.9822,
+      1582457615518.7898
     ]
   },
   {
+    id: 1582457581305.9822,
     userName: `Oliver.conner@gmail.com`,
     propertyImage: [`img/room.jpg`,
       `img/apartment-01.jpg`,
@@ -173,9 +222,25 @@ const offers = [
     coords: [
       52.3809553943508,
       4.939309666406198
+    ],
+    reviews: [
+      {
+        id: 1582457828323.001,
+        userAvatar: `img/avatar-max.jpg`,
+        userName: `Max`,
+        rating: 80,
+        description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+        date: new Date().toUTCString(),
+      },
+    ],
+    neighbourhoodOffers: [
+      1582457443027.0002,
+      1582457508960.5964,
+      1582457615518.7898
     ]
   },
   {
+    id: 1582457615518.7898,
     userName: `Oliver.conner@gmail.com`,
     propertyImage: [`img/room.jpg`,
       `img/apartment-01.jpg`,
@@ -216,6 +281,21 @@ const offers = [
     coords: [
       52.3509553943508,
       4.879309666406198
+    ],
+    reviews: [
+      {
+        id: 1582457885645.192,
+        userAvatar: `img/avatar-max.jpg`,
+        userName: `Max`,
+        rating: 80,
+        description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+        date: new Date().toUTCString(),
+      },
+    ],
+    neighbourhoodOffers: [
+      1582457443027.0002,
+      1582457508960.5964,
+      1582457581305.9822
     ]
   },
 ];

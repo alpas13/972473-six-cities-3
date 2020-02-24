@@ -33,14 +33,30 @@ const mock = {
   ]
 };
 
+const ClassPrefixes = {
+  OFFER_FOR_MAIN: `cities__`,
+  OFFER_FOR_PROPERTY: `near-places__`
+};
+
+const ClassArticle = {
+  CLASS_FOR_MAIN: `cities__place-card`,
+  CLASS_FOR_PROPERTY: `near-places__card`
+};
+
 test(`Correctly render OffersList component`, () => {
   const {offers} = mock;
+  const mainStyle = {
+    classSelect: ClassArticle.CLASS_FOR_MAIN,
+    prefix: ClassPrefixes.OFFER_FOR_MAIN
+  };
+
   const tree = renderer.create(
       <OffersList
         offers={offers}
         offersCount={3}
         city={`Amsterdam`}
         onTitleOfferClick={() => {}}
+        styleSettings={mainStyle}
       />).toJSON();
   expect(tree).toMatchSnapshot();
 });

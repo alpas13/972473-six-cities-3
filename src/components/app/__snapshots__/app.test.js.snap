@@ -317,7 +317,6 @@ exports[`Render App correctly 1`] = `
               Object {
                 "height": "800px",
                 "top": "170px",
-                "width": "100%",
               }
             }
           />
