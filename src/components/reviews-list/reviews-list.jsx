@@ -4,26 +4,28 @@ import ReviewItem from "../review-item/review-item.jsx";
 
 
 const ReviewsList = (props) => {
-  const {offer} = props;
+  const {reviews} = props.offer;
   return (
     <Fragment>
-      {offer.reviews.length > 0 && <h2 className="reviews__title">Reviews  &middot;
-        <span className="reviews__amount"> {offer.reviews.length}</span></h2>}
-      {offer.reviews.length < 0 || <h2 className="reviews__title">Reviews</h2>}
+      {reviews.length && <h2 className="reviews__title">Reviews  &middot;
+        <span className="reviews__amount"> {reviews.length}</span></h2>}
+      {reviews.length || <h2 className="reviews__title">Reviews</h2>}
+      {reviews.length &&
       <ul className="reviews__list">
-        {offer.reviews.map((review, index) => {
+        {reviews.map((review) => {
           return <ReviewItem
-            key={review.id + index}
+            key={review.id}
             review={review}
           />;
         })}
-      </ul>
-    </Fragment>
-  );
+      </ul>}
+    </Fragment>);
 };
 
 ReviewsList.propTypes = {
-  offer: PropTypes.object.isRequired,
+  offer: PropTypes.shape({
+    reviews: PropTypes.array,
+  }).isRequired,
 };
 
 export default ReviewsList;

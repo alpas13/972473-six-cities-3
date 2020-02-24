@@ -24,9 +24,9 @@ class OffersList extends PureComponent {
 
     return (
       <Fragment>
-        {offers.map((offerItem) => {
+        {offers.map((offerItem, index) => {
           return <OfferCard
-            key={offerItem.id}
+            key={offerItem.id + index}
             onTitleOfferClick={onTitleOfferClick}
             onCardMouseOver={this._handleCardMouseOver}
             offer={offerItem}

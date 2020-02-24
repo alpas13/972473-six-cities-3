@@ -55,16 +55,16 @@ class App extends PureComponent {
   _renderApp() {
     const {offersCount, offers, city} = this.props;
 
-    if (this.state[`property`]) {
+    if (this.state.property) {
       return (
         <Property
-          offer={this.state[`property`]}
+          offer={this.state.property}
           offers={offers}
         >
           <OffersList
-            offers={this._filterNeighbourhoodOffers(this.state[`property`], offers)}
+            offers={this._filterNeighbourhoodOffers(this.state.property, offers)}
             onTitleOfferClick={this._titleOfferHandler}
-            offer={this.state[`property`]}
+            offer={this.state.property}
             styleSettings={this._propertyStyle}
           />
         </Property>

@@ -21,6 +21,16 @@ const mock = {
   }
 };
 
+const ClassPrefixes = {
+  OFFER_FOR_MAIN: `cities__`,
+  OFFER_FOR_PROPERTY: `near-places__`
+};
+
+const ClassArticle = {
+  CLASS_FOR_MAIN: `cities__place-card`,
+  CLASS_FOR_PROPERTY: `near-places__card`
+};
+
 test(`Should not be console.error called`, () => {
   // eslint-disable-next-line no-console
   console.error = jest.fn();
@@ -32,11 +42,17 @@ test(`Should not be console.error called`, () => {
 test(`Mouseover event over offer card pass data about this offer to handler`, () => {
   const {offer} = mock;
   const onCardMouseOver = jest.fn();
+  const mainStyle = {
+    classSelect: ClassArticle.CLASS_FOR_MAIN,
+    prefix: ClassPrefixes.OFFER_FOR_MAIN
+  };
 
   const wrapper = shallow(<OfferCard
     onTitleOfferClick={() => {}}
     onCardMouseOver={onCardMouseOver}
-    offer={offer}/>);
+    offer={offer}
+    styleSettings={mainStyle}
+  />);
 
   wrapper.simulate(`mouseover`);
 
@@ -46,11 +62,17 @@ test(`Mouseover event over offer card pass data about this offer to handler`, ()
 test(`Should link of title be clicked`, () => {
   const {offer} = mock;
   const onTitleOfferClick = jest.fn();
+  const mainStyle = {
+    classSelect: ClassArticle.CLASS_FOR_MAIN,
+    prefix: ClassPrefixes.OFFER_FOR_MAIN
+  };
 
   const wrapper = shallow(<OfferCard
     onTitleOfferClick={onTitleOfferClick}
     onCardMouseOver={() => {}}
-    offer={offer}/>);
+    offer={offer}
+    styleSettings={mainStyle}
+  />);
 
   const titleLink = wrapper.find(`.place-card__name > a`);
   titleLink.simulate(`click`);

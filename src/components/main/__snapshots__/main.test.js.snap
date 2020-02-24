@@ -304,6 +304,14 @@ exports[`Render Main correctly 1`] = `
               </p>
             </div>
           </article>
+          <div
+            style={
+              Object {
+                "height": "800px",
+                "top": "170px",
+              }
+            }
+          />
         </div>
       </section>
       <div
@@ -317,7 +325,6 @@ exports[`Render Main correctly 1`] = `
               Object {
                 "height": "800px",
                 "top": "170px",
-                "width": "100%",
               }
             }
           />

@@ -40,7 +40,10 @@ const mock = {
 test(`Correctly render Map component`, () => {
   const {offers} = mock;
   const tree = renderer.create(
-      <Map offers={offers}/>
+      <Map
+        offers={offers}
+        styleSettings={{height: `800px`, top: `170px`}}
+      />
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

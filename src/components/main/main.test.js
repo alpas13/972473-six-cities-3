@@ -39,17 +39,35 @@ const mock = {
   ]
 };
 
+const ClassPrefixes = {
+  OFFER_FOR_MAIN: `cities__`,
+  OFFER_FOR_PROPERTY: `near-places__`
+};
+
+const ClassArticle = {
+  CLASS_FOR_MAIN: `cities__place-card`,
+  CLASS_FOR_PROPERTY: `near-places__card`
+};
+
 test(`Render Main correctly`, () => {
   const {offers} = mock;
+  const mainStyle = {
+    classSelect: ClassArticle.CLASS_FOR_MAIN,
+    prefix: ClassPrefixes.OFFER_FOR_MAIN
+  };
   const tree = renderer.create(
-      <Main>
+      <Main
+        offers={offers}
+        offersCount={4}
+        city={`Amsterdam`}
+      >
         <OffersList
           offers={offers}
-          offersCount={4}
-          city={`Amsterdam`}
           onTitleOfferClick={() => {}}
+          styleSettings={mainStyle}
         />
         <Map
+          styleSettings={{height: `800px`, top: `170px`}}
           offers={offers}
         />
       </Main>)
