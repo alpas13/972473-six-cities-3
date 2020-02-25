@@ -1,6 +1,7 @@
 const offers = [
   {
     id: 1582457380088.0583,
+    city: `Amsterdam`,
     userName: `Oliver.conner@gmail.com`,
     propertyImage: [`img/room.jpg`,
       `img/apartment-01.jpg`,
@@ -61,6 +62,7 @@ const offers = [
   },
   {
     id: 1582457443027.0002,
+    city: `Amsterdam`,
     userName: `Oliver.conner@gmail.com`,
     propertyImage: [`img/room.jpg`,
       `img/apartment-01.jpg`,
@@ -121,6 +123,7 @@ const offers = [
   },
   {
     id: 1582457508960.5964,
+    city: `Amsterdam`,
     userName: `Oliver.conner@gmail.com`,
     propertyImage: [`img/room.jpg`,
       `img/apartment-01.jpg`,
@@ -181,6 +184,7 @@ const offers = [
   },
   {
     id: 1582457581305.9822,
+    city: `Amsterdam`,
     userName: `Oliver.conner@gmail.com`,
     propertyImage: [`img/room.jpg`,
       `img/apartment-01.jpg`,
@@ -241,6 +245,7 @@ const offers = [
   },
   {
     id: 1582457615518.7898,
+    city: `Amsterdam`,
     userName: `Oliver.conner@gmail.com`,
     propertyImage: [`img/room.jpg`,
       `img/apartment-01.jpg`,
