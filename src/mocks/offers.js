@@ -245,7 +245,7 @@ const offers = [
   },
   {
     id: 1582457615518.7898,
-    city: `Amsterdam`,
+    city: `Hamburg`,
     userName: `Oliver.conner@gmail.com`,
     propertyImage: [`img/room.jpg`,
       `img/apartment-01.jpg`,
