@@ -3,7 +3,7 @@ import offers from "./mocks/offers";
 
 const initialState = {
   city: `Amsterdam`,
-  offers: offers.slice().filter((offer) => offer.city === initialState.city),
+  offers,
 };
 
 const ActionType = {
@@ -16,19 +16,21 @@ const ActionType = {
     type: ActionType.CHANGE_CITY,
     payload: city,
   }),
-  getOffers: (cityState) => ({
+  getOffers: (filteredOffers) => ({
     type: ActionType.GET_OFFERS,
-    payload: cityState
+    payload: filteredOffers
   })
 };*/
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
-      return extend(state, {city: action.payload});
+      return extend(state, {
+        city: action.payload,
+      });
     case ActionType.GET_OFFERS:
       return extend(state, {
-        offers: offers.slice().filter((offer) => offer.city === action.payload),
+        offers: action.payload,
       });
   }
   return state;
