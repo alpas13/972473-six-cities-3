@@ -311,6 +311,7 @@ test(`Reducer without additional parameter should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     city: `Amsterdam`,
     offers,
+    cities: [`Amsterdam`, `Hamburg`]
   });
 });
 
@@ -318,6 +319,7 @@ test(`Reducer should change current city by a given value`, () => {
   expect(reducer({
     city: `Amsterdam`,
     offers,
+    cities: [`Amsterdam`, `Hamburg`]
   }, {
     type: ActionType.CHANGE_CITY,
     payload: `Hamburg`,
@@ -325,6 +327,7 @@ test(`Reducer should change current city by a given value`, () => {
       {
         city: `Hamburg`,
         offers,
+        cities: [`Amsterdam`, `Hamburg`]
       }
   );
 });
@@ -333,6 +336,7 @@ test(`Reducer should given current offers by filtered a given value`, () => {
   expect(reducer({
     city: `Amsterdam`,
     offers,
+    cities: [`Amsterdam`, `Hamburg`]
   }, {
     type: ActionType.GET_OFFERS,
     payload: offers,
@@ -340,6 +344,7 @@ test(`Reducer should given current offers by filtered a given value`, () => {
       {
         city: `Amsterdam`,
         offers,
+        cities: [`Amsterdam`, `Hamburg`]
       }
   );
 });
