@@ -2,6 +2,7 @@ import {extend} from "./utils";
 import offers from "./mocks/offers";
 
 const MAX_CITIES = 6;
+const DEFAULT_CITY = 0;
 
 const getCitiesList = (offersData, maxCities) => {
   const citiesSet = new Set();
@@ -12,13 +13,15 @@ const getCitiesList = (offersData, maxCities) => {
     }
   });
 
-  return citiesSet;
+  return Array.from(citiesSet);
 };
 
+const citiesList = getCitiesList(offers, MAX_CITIES);
+
 const initialState = {
-  city: `Amsterdam`,
+  city: citiesList[DEFAULT_CITY],
   offers,
-  cities: getCitiesList(offers, MAX_CITIES),
+  cities: citiesList,
 };
 
 const ActionType = {
