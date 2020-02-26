@@ -258,7 +258,11 @@ exports[`Correctly render Property component 1`] = `
                 1
               </span>
             </h2>
-            1
+            <h2
+              className="reviews__title"
+            >
+              Reviews
+            </h2>
             <ul
               className="reviews__list"
             >
@@ -628,7 +632,11 @@ exports[`Correctly render Property component 1`] = `
               1
             </span>
           </h2>
-          1
+          <h2
+            className="reviews__title"
+          >
+            Reviews
+          </h2>
           <ul
             className="reviews__list"
           >
