@@ -5,7 +5,7 @@ import Map from "../map/map.jsx";
 
 
 const Main = (props) => {
-  const {offers, offersCount, city, cities, children} = props;
+  const {offers, offersCount, city, cities, onCityClick, children} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -35,8 +35,9 @@ const Main = (props) => {
         <div className="tabs">
           <section className="locations container">
             <LocationsList
+              city={city}
               cities={cities}
-              onCityClick={() => {}}
+              onCityClick={onCityClick}
             />
           </section>
         </div>
@@ -92,6 +93,7 @@ Main.propTypes = {
   offersCount: PropTypes.number.isRequired,
   city: PropTypes.string.isRequired,
   cities: PropTypes.array.isRequired,
+  onCityClick: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 };
 
