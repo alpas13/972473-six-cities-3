@@ -1,3 +1,5 @@
+import {reducer, ActionType, ActionCreator} from "./reducer.js";
+
 const offers = [
   {
     id: 1582457380088.0583,
@@ -305,4 +307,130 @@ const offers = [
   },
 ];
 
-export default offers;
+test(`Reducer without additional parameter should return initial state`, () => {
+  expect(reducer(void 0, {})).toEqual({
+    city: `Amsterdam`,
+    offers: offers.slice(0, 4),
+    cities: [`Amsterdam`, `Hamburg`],
+    property: null,
+    nearPlaces: null,
+  });
+});
+
+test(`Reducer should changes current city by a given value`, () => {
+  expect(reducer({
+    city: `Amsterdam`,
+    offers,
+    cities: [`Amsterdam`, `Hamburg`],
+    property: null,
+    nearPlaces: null,
+  }, {
+    type: ActionType.CHANGE_CITY,
+    payload: `Hamburg`,
+  })).toEqual(
+      {
+        city: `Hamburg`,
+        offers,
+        cities: [`Amsterdam`, `Hamburg`],
+        property: null,
+        nearPlaces: null,
+      }
+  );
+});
+
+test(`Reducer should gives current offers by filtered with a given value`, () => {
+  expect(reducer({
+    city: `Amsterdam`,
+    offers,
+    cities: [`Amsterdam`, `Hamburg`],
+    property: null,
+    nearPlaces: null,
+  }, {
+    type: ActionType.GET_OFFERS,
+    payload: offers,
+  })).toEqual(
+      {
+        city: `Amsterdam`,
+        offers,
+        cities: [`Amsterdam`, `Hamburg`],
+        property: null,
+        nearPlaces: null,
+      }
+  );
+});
+
+test(`Reducer should gives an offer by filtered with a given value`, () => {
+  expect(reducer({
+    city: `Amsterdam`,
+    offers,
+    cities: [`Amsterdam`, `Hamburg`],
+    property: null,
+    nearPlaces: null,
+  }, {
+    type: ActionType.GET_PROPERTY,
+    payload: offers.slice(1),
+  })).toEqual(
+      {
+        city: `Amsterdam`,
+        offers,
+        cities: [`Amsterdam`, `Hamburg`],
+        property: offers.slice(1),
+        nearPlaces: null,
+      }
+  );
+});
+
+test(`Reducer should gives nearPlaces offers by filtered with a given value`, () => {
+  expect(reducer({
+    city: `Amsterdam`,
+    offers,
+    cities: [`Amsterdam`, `Hamburg`],
+    property: null,
+    nearPlaces: null,
+  }, {
+    type: ActionType.GET_NEAR_PLACES,
+    payload: offers.slice(1, 4),
+  })).toEqual(
+      {
+        city: `Amsterdam`,
+        offers,
+        cities: [`Amsterdam`, `Hamburg`],
+        property: null,
+        nearPlaces: offers.slice(1, 4),
+      }
+  );
+});
+
+describe(`Action creators work correctly`, () => {
+  test(`Action creators for changing city returns correct action`, () => {
+    expect(ActionCreator.changeCity(`Hamburg`)).toEqual({
+      type: ActionType.CHANGE_CITY,
+      payload: `Hamburg`,
+    }
+    );
+  });
+
+  test(`Action creators for getting offers returns correct action`, () => {
+    expect(ActionCreator.getOffers(`Hamburg`)).toEqual({
+      type: ActionType.GET_OFFERS,
+      payload: offers.slice(4, 5),
+    }
+    );
+  });
+
+  test(`Action creators for getting property returns correct action`, () => {
+    expect(ActionCreator.getProperty(offers.slice(0, 1)[0])).toEqual({
+      type: ActionType.GET_PROPERTY,
+      payload: offers.slice(0, 1)[0],
+    }
+    );
+  });
+
+  test(`Action creators for getting nerPlaces returns correct action`, () => {
+    expect(ActionCreator.getNearPlaces(offers.slice(0, 1)[0])).toEqual({
+      type: ActionType.GET_NEAR_PLACES,
+      payload: offers.slice(1, 4),
+    }
+    );
+  });
+});

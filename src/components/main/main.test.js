@@ -60,6 +60,8 @@ test(`Render Main correctly`, () => {
         offers={offers}
         offersCount={4}
         city={`Amsterdam`}
+        cities={[`Amsterdam`, `Hamburg`]}
+        onCityClick={() => {}}
       >
         <OffersList
           offers={offers}

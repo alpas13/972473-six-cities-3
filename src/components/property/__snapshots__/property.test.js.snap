@@ -258,7 +258,11 @@ exports[`Correctly render Property component 1`] = `
                 1
               </span>
             </h2>
-            1
+            <h2
+              className="reviews__title"
+            >
+              Reviews
+            </h2>
             <ul
               className="reviews__list"
             >
@@ -316,7 +320,7 @@ exports[`Correctly render Property component 1`] = `
                   <time
                     className="reviews__time"
                     dateTime="2020-01-
-          24"
+          27"
                   >
                     February 2020
                   </time>
@@ -628,7 +632,11 @@ exports[`Correctly render Property component 1`] = `
               1
             </span>
           </h2>
-          1
+          <h2
+            className="reviews__title"
+          >
+            Reviews
+          </h2>
           <ul
             className="reviews__list"
           >
@@ -686,7 +694,7 @@ exports[`Correctly render Property component 1`] = `
                 <time
                   className="reviews__time"
                   dateTime="2020-01-
-          24"
+          27"
                 >
                   February 2020
                 </time>

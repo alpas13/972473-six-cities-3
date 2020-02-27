@@ -9,4 +9,8 @@ const dateFormat = (fullDate, show = true) => {
           ${date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}`;
 };
 
-export {dateFormat};
+const extend = (a, b) => {
+  return Object.assign({}, a, b);
+};
+
+export {dateFormat, extend};
