@@ -33,7 +33,7 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {offers, city, cities, property, nearPlaces, titleOfferHandler} = this.props;
+    const {offers, city, cities, property, nearPlaces, onTitleOfferClick, onCityClick} = this.props;
 
     if (property) {
       return (
@@ -43,7 +43,7 @@ class App extends PureComponent {
         >
           <OffersList
             offers={nearPlaces}
-            onTitleOfferClick={titleOfferHandler}
+            onTitleOfferClick={onTitleOfferClick}
             offer={property}
             styleSettings={this._propertyStyle}
           />
@@ -56,10 +56,11 @@ class App extends PureComponent {
         offersCount={offers.length}
         city = {city}
         cities={cities}
+        onCityClick={onCityClick}
       >
         <OffersList
           offers={offers}
-          onTitleOfferClick={titleOfferHandler}
+          onTitleOfferClick={onTitleOfferClick}
           styleSettings={this._mainStyle}
         />
       </Main>
@@ -67,7 +68,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {offers, titleOfferHandler} = this.props;
+    const {offers, onTitleOfferClick} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -77,7 +78,7 @@ class App extends PureComponent {
           <Route exact path="/dev-offer">
             <OffersList
               offers={offers}
-              onTitleOfferClick={titleOfferHandler}
+              onTitleOfferClick={onTitleOfferClick}
               styleSettings={this._mainStyle}
             />
           </Route>
@@ -93,7 +94,8 @@ App.propTypes = {
   cities: PropTypes.array.isRequired,
   property: PropTypes.object,
   nearPlaces: PropTypes.array,
-  titleOfferHandler: PropTypes.func.isRequired,
+  onTitleOfferClick: PropTypes.func.isRequired,
+  onCityClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -105,10 +107,14 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  titleOfferHandler(offer) {
+  onTitleOfferClick(offer) {
     dispatch(ActionCreator.getProperty(offer));
     dispatch(ActionCreator.getNearPlaces(offer));
   },
+  onCityClick(city) {
+    dispatch(ActionCreator.changeCity(city));
+    dispatch(ActionCreator.getOffers(city));
+  }
 });
 
 export {App};
