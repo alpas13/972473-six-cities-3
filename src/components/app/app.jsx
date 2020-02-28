@@ -33,7 +33,7 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {offers, city, cities, property, nearPlaces, onTitleOfferClick, onCityClick} = this.props;
+    const {offers, city, cities, property, nearPlaces, onTitleOfferClick, onCityClick, sortType, onSortingChange} = this.props;
 
     if (property) {
       return (
@@ -57,6 +57,8 @@ class App extends PureComponent {
         city = {city}
         cities={cities}
         onCityClick={onCityClick}
+        sortType={sortType}
+        onSortingChange={onSortingChange}
       >
         <OffersList
           offers={offers}
@@ -96,6 +98,8 @@ App.propTypes = {
   nearPlaces: PropTypes.array,
   onTitleOfferClick: PropTypes.func.isRequired,
   onCityClick: PropTypes.func.isRequired,
+  sortType: PropTypes.string.isRequired,
+  onSortingChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -104,6 +108,7 @@ const mapStateToProps = (state) => ({
   cities: state.cities,
   property: state.property,
   nearPlaces: state.nearPlaces,
+  sortType: state.sortType,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -114,6 +119,9 @@ const mapDispatchToProps = (dispatch) => ({
   onCityClick(city) {
     dispatch(ActionCreator.changeCity(city));
     dispatch(ActionCreator.getOffers(city));
+  },
+  onSortingChange(sortValue, city) {
+    dispatch(ActionCreator.changeSorting(sortValue, city));
   }
 });
 
