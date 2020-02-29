@@ -53,24 +53,38 @@ class Map extends PureComponent {
     this.markers.addTo(this.map);
   }
 
-  componentDidUpdate({offers}) {
-    if (this.props.offers !== offers) {
-      this.markers.clearLayers();
+  componentDidUpdate({offers, activePin}) {
+    if (this.props.offers !== offers || this.props.activePin !== activePin) {
 
       const icon = leaflet.icon({
         iconUrl: `img/pin.svg`,
         iconSize: [30, 39]
       });
 
+      const activeIcon = leaflet.icon({
+        iconUrl: `img/pin-active.svg`,
+        iconSize: [30, 39]
+      });
+
+      this.markers.clearLayers();
+
       if (this.props.offer) {
         this.props.offer.neighbourhoodOffers.map((offerItem) => {
           this.props.offers.slice().filter((item) => offerItem === item.id).map((neighbourhood) => {
-            this.markers.addLayer(leaflet.marker(neighbourhood.coords, {icon}));
+            if (neighbourhood.coords === this.props.activePin) {
+              this.markers.addLayer(leaflet.marker(neighbourhood.coords, {icon: activeIcon}));
+            } else {
+              this.markers.addLayer(leaflet.marker(neighbourhood.coords, {icon}));
+            }
           });
         });
       } else {
         this.props.offers.map((item) => {
-          this.markers.addLayer(leaflet.marker(item.coords, {icon}));
+          if (item.coords === this.props.activePin) {
+            this.markers.addLayer(leaflet.marker(item.coords, {icon: activeIcon}));
+          } else {
+            this.markers.addLayer(leaflet.marker(item.coords, {icon}));
+          }
         });
       }
 
@@ -90,5 +104,6 @@ Map.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
   offer: PropTypes.object,
   styleSettings: PropTypes.object.isRequired,
+  activePin: PropTypes.array,
 };
 export default Map;
