@@ -10,6 +10,7 @@ const ActionType = {
   GET_PROPERTY: `GET_PROPERTY`,
   GET_NEAR_PLACES: `GET_NEAR_PLACES`,
   CHANGE_SORTING: `CHANGE_SORTING`,
+  ACTIVATE_PIN: `ACTIVATE_PIN`
 };
 
 const SortType = {
@@ -77,6 +78,7 @@ const initialState = {
   sortType: SortType.POPULAR,
   property: null,
   nearPlaces: null,
+  activePin: null,
 };
 
 const ActionCreator = {
@@ -114,6 +116,12 @@ const ActionCreator = {
       },
     };
   },
+  activatePin: (offerCoords) => {
+    return {
+      type: ActionType.ACTIVATE_PIN,
+      payload: offerCoords,
+    };
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -138,6 +146,10 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         offers: action.payload.sortedOffers,
         sortType: action.payload.sortValue,
+      });
+    case ActionType.ACTIVATE_PIN:
+      return extend(state, {
+        activePin: action.payload,
       });
   }
   return state;
