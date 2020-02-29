@@ -6,7 +6,7 @@ import PlacesSorting from "../places-sorting/places-sorting.jsx";
 
 
 const Main = (props) => {
-  const {offers, offersCount, city, cities, onCityClick, sortType, onSortingChange, children} = props;
+  const {offers, offersCount, city, cities, onCityClick, sortType, onSortingChange, activePin, children} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -58,7 +58,11 @@ const Main = (props) => {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offers} styleSettings={{height: `800px`}}/>
+                <Map
+                  offers={offers}
+                  styleSettings={{height: `800px`}}
+                  activePin={activePin}
+                />
               </section>
             </div>
           </div>
@@ -77,6 +81,7 @@ Main.propTypes = {
   children: PropTypes.node.isRequired,
   sortType: PropTypes.string.isRequired,
   onSortingChange: PropTypes.func.isRequired,
+  activePin: PropTypes.array,
 };
 
 export default Main;
