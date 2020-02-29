@@ -33,7 +33,7 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {offers, city, cities, property, nearPlaces, onTitleOfferClick, onCityClick, sortType, onSortingChange} = this.props;
+    const {offers, city, cities, property, nearPlaces, onTitleOfferClick, onCityClick, sortType, onSortingChange, onCardMapPinToggle, activePin} = this.props;
 
     if (property) {
       return (
@@ -46,6 +46,7 @@ class App extends PureComponent {
             onTitleOfferClick={onTitleOfferClick}
             offer={property}
             styleSettings={this._propertyStyle}
+            onCardMapPinToggle={onCardMapPinToggle}
           />
         </Property>
       );
@@ -59,18 +60,20 @@ class App extends PureComponent {
         onCityClick={onCityClick}
         sortType={sortType}
         onSortingChange={onSortingChange}
+        activePin={activePin}
       >
         <OffersList
           offers={offers}
           onTitleOfferClick={onTitleOfferClick}
           styleSettings={this._mainStyle}
+          onCardMapPinToggle={onCardMapPinToggle}
         />
       </Main>
     );
   }
 
   render() {
-    const {offers, onTitleOfferClick} = this.props;
+    const {offers, onTitleOfferClick, onCardMapPinToggle} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -82,6 +85,7 @@ class App extends PureComponent {
               offers={offers}
               onTitleOfferClick={onTitleOfferClick}
               styleSettings={this._mainStyle}
+              onCardMapPinToggle={onCardMapPinToggle}
             />
           </Route>
         </Switch>
@@ -100,6 +104,8 @@ App.propTypes = {
   onCityClick: PropTypes.func.isRequired,
   sortType: PropTypes.string.isRequired,
   onSortingChange: PropTypes.func.isRequired,
+  activePin: PropTypes.array,
+  onCardMapPinToggle: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -109,6 +115,7 @@ const mapStateToProps = (state) => ({
   property: state.property,
   nearPlaces: state.nearPlaces,
   sortType: state.sortType,
+  activePin: state.activePin,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -122,6 +129,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onSortingChange(sortValue, city) {
     dispatch(ActionCreator.changeSorting(sortValue, city));
+  },
+  onCardMapPinToggle(offerCoords) {
+    dispatch(ActionCreator.activatePin(offerCoords));
   }
 });
 
