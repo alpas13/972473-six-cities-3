@@ -38,6 +38,7 @@ class App extends PureComponent {
     if (property) {
       return (
         <Property
+          activePin={activePin}
           offer={property}
           offers={offers}
         >

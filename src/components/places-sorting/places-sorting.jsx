@@ -25,7 +25,7 @@ class PlacesSorting extends PureComponent {
         return this._SortType.TOP_RATED;
     }
     return this._SortType.POPULAR;
-  };
+  }
 
   _changeSelectValue(sort) {
     const selectValue = document.querySelector(`#places-sorting`);

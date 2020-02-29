@@ -50,6 +50,9 @@ test(`Render App correctly`, () => {
         cities={[`Amsterdam`, `Hamburg`]}
         onTitleOfferClick={() => {}}
         onCityClick={() => {}}
+        onCardMapPinToggle={()=>{}}
+        onSortingChange={()=>{}}
+        sortType={`popular`}
       >
         <Main
           offers={offers}
@@ -57,6 +60,8 @@ test(`Render App correctly`, () => {
           city={`Amsterdam`}
           cities={[`Amsterdam`, `Hamburg`]}
           onCityClick={() => {}}
+          onSortingChange={()=>{}}
+          sortType={`popular`}
         >
           <OffersList
             offersCount={3}
@@ -67,6 +72,7 @@ test(`Render App correctly`, () => {
               CLASS_FOR_MAIN: `cities__place-card`,
               OFFER_FOR_MAIN: `cities__`
             }}
+            onCardMapPinToggle={()=>{}}
           />
           <Map
             offers={offers}

@@ -62,11 +62,14 @@ test(`Render Main correctly`, () => {
         city={`Amsterdam`}
         cities={[`Amsterdam`, `Hamburg`]}
         onCityClick={() => {}}
+        onSortingChange={()=>{}}
+        sortType={`popular`}
       >
         <OffersList
           offers={offers}
           onTitleOfferClick={() => {}}
           styleSettings={mainStyle}
+          onCardMapPinToggle={()=>{}}
         />
         <Map
           styleSettings={{height: `800px`, top: `170px`}}
