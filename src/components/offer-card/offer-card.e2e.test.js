@@ -7,17 +7,34 @@ configure({adapter: new Adapter()});
 
 const mock = {
   offer: {
-    title: ``,
-    mark: ``,
-    previewImage: ``,
+    userName: `user-name 1`,
+    propertyImage: [`path 1`],
+    title: `Title text 1`,
+    mark: `mark 1`,
+    previewImage: `path 1`,
     price: 1,
     bookmark: false,
     rating: {
-      star: 1
+      star: 1,
+      value: 1,
     },
     features: {
-      entire: ``
+      entire: `type text 1`,
+      bedrooms: 1,
+      adults: 1,
     },
+    insideList: [
+      `text 1`,
+    ],
+    hostName: `text 1`,
+    propertyText: [
+      `text 1`,
+      `text 1`
+    ],
+    coords: [
+      52.3909553943508,
+      4.85309666406198
+    ]
   }
 };
 
@@ -41,7 +58,7 @@ test(`Should not be console.error called`, () => {
 
 test(`Mouseover event over offer card pass data about this offer to handler`, () => {
   const {offer} = mock;
-  const onCardMouseOver = jest.fn();
+  const onCardMapPinToggle = jest.fn();
   const mainStyle = {
     classSelect: ClassArticle.CLASS_FOR_MAIN,
     prefix: ClassPrefixes.OFFER_FOR_MAIN
@@ -49,14 +66,34 @@ test(`Mouseover event over offer card pass data about this offer to handler`, ()
 
   const wrapper = shallow(<OfferCard
     onTitleOfferClick={() => {}}
-    onCardMouseOver={onCardMouseOver}
+    onCardMapPinToggle={onCardMapPinToggle}
     offer={offer}
     styleSettings={mainStyle}
   />);
 
   wrapper.simulate(`mouseover`);
 
-  expect(onCardMouseOver.mock.calls[0][0]).toMatchObject(offer);
+  expect(onCardMapPinToggle.mock.calls[0][0]).toMatchObject(offer.coords);
+});
+
+test(`Mouseover event out offer card pass null to handler`, () => {
+  const {offer} = mock;
+  const onCardMapPinToggle = jest.fn();
+  const mainStyle = {
+    classSelect: ClassArticle.CLASS_FOR_MAIN,
+    prefix: ClassPrefixes.OFFER_FOR_MAIN
+  };
+
+  const wrapper = shallow(<OfferCard
+    onTitleOfferClick={() => {}}
+    onCardMapPinToggle={onCardMapPinToggle}
+    offer={offer}
+    styleSettings={mainStyle}
+  />);
+
+  wrapper.simulate(`mouseout`);
+
+  expect(onCardMapPinToggle.mock.calls[0][0]).toEqual(null);
 });
 
 test(`Should link of title be clicked`, () => {
@@ -69,9 +106,9 @@ test(`Should link of title be clicked`, () => {
 
   const wrapper = shallow(<OfferCard
     onTitleOfferClick={onTitleOfferClick}
-    onCardMouseOver={() => {}}
     offer={offer}
     styleSettings={mainStyle}
+    onCardMapPinToggle={() => {}}
   />);
 
   const titleLink = wrapper.find(`.place-card__name > a`);

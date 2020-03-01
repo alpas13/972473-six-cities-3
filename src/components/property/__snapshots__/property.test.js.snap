@@ -320,7 +320,7 @@ exports[`Correctly render Property component 1`] = `
                   <time
                     className="reviews__time"
                     dateTime="2020-01-
-          27"
+          29"
                   >
                     February 2020
                   </time>
@@ -518,6 +518,7 @@ exports[`Correctly render Property component 1`] = `
         >
           <article
             className="near-places__card place-card"
+            onMouseOut={[Function]}
             onMouseOver={[Function]}
           >
             <div
@@ -694,7 +695,7 @@ exports[`Correctly render Property component 1`] = `
                 <time
                   className="reviews__time"
                   dateTime="2020-01-
-          27"
+          29"
                 >
                   February 2020
                 </time>

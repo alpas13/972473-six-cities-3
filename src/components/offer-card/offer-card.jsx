@@ -2,11 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const OfferCard = (props) => {
-  const {offer, onTitleOfferClick, onCardMouseOver, styleSettings} = props;
+  const {offer, onTitleOfferClick, onCardMapPinToggle, styleSettings} = props;
 
   return (
     <article className={`${styleSettings.classSelect} place-card`} onMouseOver={() => {
-      onCardMouseOver(offer);
+      onCardMapPinToggle(offer.coords);
+    }} onMouseOut={() => {
+      onCardMapPinToggle(null);
     }}>
       {offer.mark ? <div className="place-card__mark">
         <span>{offer.mark}</span>
@@ -48,7 +50,7 @@ const OfferCard = (props) => {
 
 OfferCard.propTypes = {
   onTitleOfferClick: PropTypes.func.isRequired,
-  onCardMouseOver: PropTypes.func.isRequired,
+  onCardMapPinToggle: PropTypes.func.isRequired,
   offer: PropTypes.shape({
     title: PropTypes.string.isRequired,
     mark: PropTypes.string,
@@ -57,6 +59,7 @@ OfferCard.propTypes = {
     bookmark: PropTypes.bool.isRequired,
     rating: PropTypes.object.isRequired,
     features: PropTypes.object.isRequired,
+    coords: PropTypes.array.isRequired,
   }).isRequired,
   styleSettings: PropTypes.object.isRequired,
 };

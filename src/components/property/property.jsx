@@ -4,7 +4,7 @@ import Map from "../map/map.jsx";
 import ReviewsList from "../reviews-list/reviews-list.jsx";
 
 const Property = (props) => {
-  const {offer, offers, children} = props;
+  const {offer, offers, activePin, children} = props;
   return (
     <div className="page">
       <header className="header">
@@ -158,7 +158,12 @@ const Property = (props) => {
             </div>
           </div>
           <section className="property__map map">
-            <Map offer={offer} offers={offers} styleSettings={{height: `597px`}}/>
+            <Map
+              offer={offer}
+              offers={offers}
+              activePin={activePin}
+              styleSettings={{height: `597px`}}
+            />
           </section>
         </section>
         <div className="container">
@@ -191,6 +196,7 @@ Property.propTypes = {
     reviews: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  activePin: PropTypes.array,
   children: PropTypes.node.isRequired,
 };
 

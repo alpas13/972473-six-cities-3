@@ -312,8 +312,10 @@ test(`Reducer without additional parameter should return initial state`, () => {
     city: `Amsterdam`,
     offers: offers.slice(0, 4),
     cities: [`Amsterdam`, `Hamburg`],
+    sortType: `popular`,
     property: null,
     nearPlaces: null,
+    activePin: null,
   });
 });
 
@@ -322,8 +324,10 @@ test(`Reducer should changes current city by a given value`, () => {
     city: `Amsterdam`,
     offers,
     cities: [`Amsterdam`, `Hamburg`],
+    sortType: `popular`,
     property: null,
     nearPlaces: null,
+    activePin: null,
   }, {
     type: ActionType.CHANGE_CITY,
     payload: `Hamburg`,
@@ -332,8 +336,10 @@ test(`Reducer should changes current city by a given value`, () => {
         city: `Hamburg`,
         offers,
         cities: [`Amsterdam`, `Hamburg`],
+        sortType: `popular`,
         property: null,
         nearPlaces: null,
+        activePin: null,
       }
   );
 });
@@ -343,8 +349,10 @@ test(`Reducer should gives current offers by filtered with a given value`, () =>
     city: `Amsterdam`,
     offers,
     cities: [`Amsterdam`, `Hamburg`],
+    sortType: `popular`,
     property: null,
     nearPlaces: null,
+    activePin: null,
   }, {
     type: ActionType.GET_OFFERS,
     payload: offers,
@@ -353,8 +361,10 @@ test(`Reducer should gives current offers by filtered with a given value`, () =>
         city: `Amsterdam`,
         offers,
         cities: [`Amsterdam`, `Hamburg`],
+        sortType: `popular`,
         property: null,
         nearPlaces: null,
+        activePin: null,
       }
   );
 });
@@ -364,8 +374,10 @@ test(`Reducer should gives an offer by filtered with a given value`, () => {
     city: `Amsterdam`,
     offers,
     cities: [`Amsterdam`, `Hamburg`],
+    sortType: `popular`,
     property: null,
     nearPlaces: null,
+    activePin: null,
   }, {
     type: ActionType.GET_PROPERTY,
     payload: offers.slice(1),
@@ -374,8 +386,10 @@ test(`Reducer should gives an offer by filtered with a given value`, () => {
         city: `Amsterdam`,
         offers,
         cities: [`Amsterdam`, `Hamburg`],
+        sortType: `popular`,
         property: offers.slice(1),
         nearPlaces: null,
+        activePin: null,
       }
   );
 });
@@ -385,8 +399,10 @@ test(`Reducer should gives nearPlaces offers by filtered with a given value`, ()
     city: `Amsterdam`,
     offers,
     cities: [`Amsterdam`, `Hamburg`],
+    sortType: `popular`,
     property: null,
     nearPlaces: null,
+    activePin: null,
   }, {
     type: ActionType.GET_NEAR_PLACES,
     payload: offers.slice(1, 4),
@@ -395,8 +411,10 @@ test(`Reducer should gives nearPlaces offers by filtered with a given value`, ()
         city: `Amsterdam`,
         offers,
         cities: [`Amsterdam`, `Hamburg`],
+        sortType: `popular`,
         property: null,
         nearPlaces: offers.slice(1, 4),
+        activePin: null,
       }
   );
 });
@@ -432,5 +450,19 @@ describe(`Action creators work correctly`, () => {
       payload: offers.slice(1, 4),
     }
     );
+  });
+
+  test(`Action creators for activePin when mouse moved over offer Card returns correct action`, () => {
+    expect(ActionCreator.activatePin(offers.slice(0, 1)[0].coords)).toEqual({
+      type: ActionType.ACTIVATE_PIN,
+      payload: offers.slice(0, 1)[0].coords,
+    });
+  });
+
+  test(`Action creators for activePin when mouse moved out from offer Card returns correct action`, () => {
+    expect(ActionCreator.activatePin(null)).toEqual({
+      type: ActionType.ACTIVATE_PIN,
+      payload: null,
+    });
   });
 });

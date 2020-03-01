@@ -132,7 +132,9 @@ test(`Correctly render Property component`, () => {
           key={1}
           offers={offers}
           onTitleOfferClick={()=>{}}
-          styleSettings={propertyStyle}/>,
+          styleSettings={propertyStyle}
+          onCardMapPinToggle={()=>{}}
+        />,
         <ReviewsList
           offer={offer}
         />,

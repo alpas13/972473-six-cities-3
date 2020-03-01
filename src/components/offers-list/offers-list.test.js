@@ -28,6 +28,10 @@ const mock = {
       propertyText: [
         `text 1`,
         `text 1`
+      ],
+      coords: [
+        52.3909553943508,
+        4.85309666406198
       ]
     }
   ]
@@ -57,6 +61,7 @@ test(`Correctly render OffersList component`, () => {
         city={`Amsterdam`}
         onTitleOfferClick={() => {}}
         styleSettings={mainStyle}
+        onCardMapPinToggle={()=>{}}
       />).toJSON();
   expect(tree).toMatchSnapshot();
 });

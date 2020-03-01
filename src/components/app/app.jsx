@@ -33,11 +33,12 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {offers, city, cities, property, nearPlaces, onTitleOfferClick, onCityClick} = this.props;
+    const {offers, city, cities, property, nearPlaces, onTitleOfferClick, onCityClick, sortType, onSortingChange, onCardMapPinToggle, activePin} = this.props;
 
     if (property) {
       return (
         <Property
+          activePin={activePin}
           offer={property}
           offers={offers}
         >
@@ -46,6 +47,7 @@ class App extends PureComponent {
             onTitleOfferClick={onTitleOfferClick}
             offer={property}
             styleSettings={this._propertyStyle}
+            onCardMapPinToggle={onCardMapPinToggle}
           />
         </Property>
       );
@@ -57,18 +59,22 @@ class App extends PureComponent {
         city = {city}
         cities={cities}
         onCityClick={onCityClick}
+        sortType={sortType}
+        onSortingChange={onSortingChange}
+        activePin={activePin}
       >
         <OffersList
           offers={offers}
           onTitleOfferClick={onTitleOfferClick}
           styleSettings={this._mainStyle}
+          onCardMapPinToggle={onCardMapPinToggle}
         />
       </Main>
     );
   }
 
   render() {
-    const {offers, onTitleOfferClick} = this.props;
+    const {offers, onTitleOfferClick, onCardMapPinToggle} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -80,6 +86,7 @@ class App extends PureComponent {
               offers={offers}
               onTitleOfferClick={onTitleOfferClick}
               styleSettings={this._mainStyle}
+              onCardMapPinToggle={onCardMapPinToggle}
             />
           </Route>
         </Switch>
@@ -96,6 +103,10 @@ App.propTypes = {
   nearPlaces: PropTypes.array,
   onTitleOfferClick: PropTypes.func.isRequired,
   onCityClick: PropTypes.func.isRequired,
+  sortType: PropTypes.string.isRequired,
+  onSortingChange: PropTypes.func.isRequired,
+  activePin: PropTypes.array,
+  onCardMapPinToggle: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -104,6 +115,8 @@ const mapStateToProps = (state) => ({
   cities: state.cities,
   property: state.property,
   nearPlaces: state.nearPlaces,
+  sortType: state.sortType,
+  activePin: state.activePin,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -114,6 +127,12 @@ const mapDispatchToProps = (dispatch) => ({
   onCityClick(city) {
     dispatch(ActionCreator.changeCity(city));
     dispatch(ActionCreator.getOffers(city));
+  },
+  onSortingChange(sortValue, city) {
+    dispatch(ActionCreator.changeSorting(sortValue, city));
+  },
+  onCardMapPinToggle(offerCoords) {
+    dispatch(ActionCreator.activatePin(offerCoords));
   }
 });
 
