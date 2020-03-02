@@ -54,10 +54,10 @@ exports[`Correctly render ReviewItem component 1`] = `
     </p>
     <time
       className="reviews__time"
-      dateTime="2020-01-
-          29"
+      dateTime="2020-02-
+          02"
     >
-      February 2020
+      March 2020
     </time>
   </div>
 </li>

@@ -123,105 +123,13 @@ exports[`Render Main correctly 1`] = `
              places to stay in 
             Amsterdam
           </b>
-          <form
-            action="#"
-            className="places__sorting"
-            method="get"
-            name="sorting"
-            onClick={[Function]}
-          >
-            <span
-              className="places__sorting-caption"
-            >
-              Sort by
-            </span>
-            <span
-              className="places__sorting-type"
-              onClick={[Function]}
-              tabIndex="0"
-            >
-              Popular
-              <svg
-                className="places__sorting-arrow"
-                height="4"
-                width="7"
-              >
-                <use
-                  xlinkHref="#icon-arrow-select"
-                />
-              </svg>
-            </span>
-            <ul
-              className="places__options places__options--custom"
-              onClick={[Function]}
-            >
-              <li
-                className="places__option places__option--active"
-                data-sort="popular"
-                tabIndex="0"
-              >
-                Popular
-              </li>
-              <li
-                className="places__option"
-                data-sort="to-high"
-                tabIndex="0"
-              >
-                Price: low to high
-              </li>
-              <li
-                className="places__option"
-                data-sort="to-low"
-                tabIndex="0"
-              >
-                Price: high to low
-              </li>
-              <li
-                className="places__option"
-                data-sort="top-rated"
-                tabIndex="0"
-              >
-                Top rated first
-              </li>
-            </ul>
-            <select
-              className="places__sorting-type visually-hidden"
-              id="places-sorting"
-            >
-              <option
-                className="places__option"
-                defaultValue={true}
-                value="popular"
-              >
-                Popular
-              </option>
-              <option
-                className="places__option"
-                value="to-high"
-              >
-                Price: low to high
-              </option>
-              <option
-                className="places__option"
-                value="to-low"
-              >
-                Price: high to low
-              </option>
-              <option
-                className="places__option"
-                value="top-rated"
-              >
-                Top rated first
-              </option>
-            </select>
-          </form>
           <div
             className="cities__places-list places__list tabs__content"
+            onMouseLeave={[Function]}
           >
             <article
               className="cities__place-card place-card"
-              onMouseOut={[Function]}
-              onMouseOver={[Function]}
+              onMouseEnter={[Function]}
             >
               <div
                 className="place-card__mark"
@@ -323,15 +231,15 @@ exports[`Render Main correctly 1`] = `
                 </p>
               </div>
             </article>
-            <div
-              style={
-                Object {
-                  "height": "800px",
-                  "top": "170px",
-                }
-              }
-            />
           </div>
+          <div
+            style={
+              Object {
+                "height": "800px",
+                "top": "170px",
+              }
+            }
+          />
         </section>
         <div
           className="cities__right-section"
