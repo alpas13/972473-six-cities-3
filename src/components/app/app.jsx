@@ -6,6 +6,7 @@ import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
 import OffersList from "../offers-list/offers-list.jsx";
 import Property from "../property/property.jsx";
+import PlacesSorting from "../places-sorting/places-sorting.jsx";
 
 const ClassPrefixes = {
   OFFER_FOR_MAIN: `cities__`,
@@ -61,8 +62,14 @@ class App extends PureComponent {
         onCityClick={onCityClick}
         sortType={sortType}
         onSortingChange={onSortingChange}
+        onCardMapPinToggle={onCardMapPinToggle}
         activePin={activePin}
       >
+        <PlacesSorting
+          city={city}
+          sortType={sortType}
+          onSortingChange={onSortingChange}
+        />
         <OffersList
           offers={offers}
           onTitleOfferClick={onTitleOfferClick}

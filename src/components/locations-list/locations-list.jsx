@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const LocationsList = (props) => {
+const LocationsList = React.memo(function LocationsList(props) {
   const {cities, city, onCityClick} = props;
 
   return (
@@ -19,7 +19,7 @@ const LocationsList = (props) => {
       ))}
     </ul>
   );
-};
+});
 
 LocationsList.propTypes = {
   city: PropTypes.string.isRequired,

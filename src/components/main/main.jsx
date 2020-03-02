@@ -2,11 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import LocationsList from "../locations-list/locations-list.jsx";
 import Map from "../map/map.jsx";
-import PlacesSorting from "../places-sorting/places-sorting.jsx";
 
 
-const Main = (props) => {
-  const {offers, offersCount, city, cities, onCityClick, sortType, onSortingChange, activePin, children} = props;
+const Main = React.memo(function Main(props) {
+  const {offers, offersCount, city, cities, onCityClick, activePin, children} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -47,14 +46,7 @@ const Main = (props) => {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersCount} places to stay in {city}</b>
-              <PlacesSorting
-                city={city}
-                sortType={sortType}
-                onSortingChange={onSortingChange}
-              />
-              <div className="cities__places-list places__list tabs__content">
-                {children}
-              </div>
+              {children}
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
@@ -70,7 +62,7 @@ const Main = (props) => {
       </main>
     </div>
   );
-};
+});
 
 Main.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -79,8 +71,6 @@ Main.propTypes = {
   cities: PropTypes.array.isRequired,
   onCityClick: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
-  sortType: PropTypes.string.isRequired,
-  onSortingChange: PropTypes.func.isRequired,
   activePin: PropTypes.array,
 };
 
