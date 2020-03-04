@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const OfferCard = React.memo(function OfferCard(props) {
-  const {offer, onTitleOfferClick, onCardMapPinToggle, styleSettings} = props;
+  const {offer, onTitleOfferClick, styleSettings, onChange} = props;
 
   return (
     <article className={`${styleSettings.classSelect} place-card`} onMouseEnter={() => {
-      onCardMapPinToggle(offer.coords);
+      onChange(offer.coords);
     }}
     >
       {offer.mark ? <div className="place-card__mark">
@@ -49,7 +49,7 @@ const OfferCard = React.memo(function OfferCard(props) {
 
 OfferCard.propTypes = {
   onTitleOfferClick: PropTypes.func.isRequired,
-  onCardMapPinToggle: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   offer: PropTypes.shape({
     title: PropTypes.string.isRequired,
     mark: PropTypes.string,
