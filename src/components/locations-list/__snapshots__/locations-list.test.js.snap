@@ -6,11 +6,11 @@ exports[`Correctly render LocationsList component 1`] = `
 >
   <li
     className="locations__item"
+    onClick={[Function]}
   >
     <a
       className="locations__item-link tabs__item"
       href="#"
-      onClick={[Function]}
     >
       <span>
         Amsterdam
@@ -19,11 +19,11 @@ exports[`Correctly render LocationsList component 1`] = `
   </li>
   <li
     className="locations__item"
+    onClick={[Function]}
   >
     <a
       className="locations__item-link tabs__item"
       href="#"
-      onClick={[Function]}
     >
       <span>
         Hamburg

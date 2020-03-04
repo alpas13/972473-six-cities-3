@@ -40,8 +40,22 @@ const mock = {
   ]
 };
 
+const ClassPrefixes = {
+  OFFER_FOR_MAIN: `cities__`,
+  OFFER_FOR_PROPERTY: `near-places__`
+};
+
+const ClassArticle = {
+  CLASS_FOR_MAIN: `cities__place-card`,
+  CLASS_FOR_PROPERTY: `near-places__card`
+};
+
 test(`Render App correctly`, () => {
   const {offers} = mock;
+  const mainStyle = {
+    classSelect: ClassArticle.CLASS_FOR_MAIN,
+    prefix: ClassPrefixes.OFFER_FOR_MAIN
+  };
   const tree = rerender.create(
       <App
         offersCount={3}
@@ -62,6 +76,9 @@ test(`Render App correctly`, () => {
           onCityClick={() => {}}
           onSortingChange={()=>{}}
           sortType={`popular`}
+          handleMouseEnter={() => {}}
+          onTitleOfferClick={() => {}}
+          propertyStyle={mainStyle}
         >
           <OffersList
             offersCount={3}
@@ -72,7 +89,7 @@ test(`Render App correctly`, () => {
               CLASS_FOR_MAIN: `cities__place-card`,
               OFFER_FOR_MAIN: `cities__`
             }}
-            onCardMapPinToggle={()=>{}}
+            onChange={()=>{}}
           />
           <Map
             offers={offers}

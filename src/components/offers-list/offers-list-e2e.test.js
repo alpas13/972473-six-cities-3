@@ -56,7 +56,7 @@ test(`Mouseleave event should pass null to handler`, () => {
     classSelect: ClassArticle.CLASS_FOR_MAIN,
     prefix: ClassPrefixes.OFFER_FOR_MAIN
   };
-  const onCardMapPinToggle = jest.fn();
+  const onChange = jest.fn();
 
   const wrapper = shallow(
       <OffersList
@@ -65,11 +65,11 @@ test(`Mouseleave event should pass null to handler`, () => {
         city={`Amsterdam`}
         onTitleOfferClick={() => {}}
         styleSettings={mainStyle}
-        onCardMapPinToggle={onCardMapPinToggle}
+        onChange={onChange}
       />
   );
 
   wrapper.simulate(`mouseleave`);
 
-  expect(onCardMapPinToggle.mock.calls[0][0]).toEqual(null);
+  expect(onChange.mock.calls[0][0]).toEqual(null);
 });

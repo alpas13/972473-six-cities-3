@@ -75,11 +75,11 @@ exports[`Render App correctly 1`] = `
         >
           <li
             className="locations__item"
+            onClick={[Function]}
           >
             <a
               className="locations__item-link tabs__item"
               href="#"
-              onClick={[Function]}
             >
               <span>
                 Amsterdam
@@ -88,11 +88,11 @@ exports[`Render App correctly 1`] = `
           </li>
           <li
             className="locations__item"
+            onClick={[Function]}
           >
             <a
               className="locations__item-link tabs__item"
               href="#"
-              onClick={[Function]}
             >
               <span>
                 Hamburg

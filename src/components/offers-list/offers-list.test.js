@@ -61,7 +61,7 @@ test(`Correctly render OffersList component`, () => {
         city={`Amsterdam`}
         onTitleOfferClick={() => {}}
         styleSettings={mainStyle}
-        onCardMapPinToggle={()=>{}}
+        onChange={()=>{}}
       />).toJSON();
   expect(tree).toMatchSnapshot();
 });

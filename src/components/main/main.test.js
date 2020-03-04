@@ -62,14 +62,17 @@ test(`Render Main correctly`, () => {
         city={`Amsterdam`}
         cities={[`Amsterdam`, `Hamburg`]}
         onCityClick={() => {}}
+        handleMouseEnter={() => {}}
         onSortingChange={()=>{}}
+        onTitleOfferClick={() => {}}
         sortType={`popular`}
+        propertyStyle={mainStyle}
       >
         <OffersList
           offers={offers}
           onTitleOfferClick={() => {}}
           styleSettings={mainStyle}
-          onCardMapPinToggle={()=>{}}
+          onChange={()=>{}}
         />
         <Map
           styleSettings={{height: `800px`, top: `170px`}}
