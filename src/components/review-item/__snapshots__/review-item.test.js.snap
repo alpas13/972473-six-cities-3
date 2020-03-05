@@ -55,7 +55,7 @@ exports[`Correctly render ReviewItem component 1`] = `
     <time
       className="reviews__time"
       dateTime="2020-02-
-          04"
+          05"
     >
       March 2020
     </time>
