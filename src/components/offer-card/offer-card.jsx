@@ -1,15 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const OfferCard = (props) => {
-  const {offer, onTitleOfferClick, onCardMapPinToggle, styleSettings} = props;
+const OfferCard = React.memo(function OfferCard(props) {
+  const {offer, onTitleOfferClick, styleSettings, onChange} = props;
 
   return (
-    <article className={`${styleSettings.classSelect} place-card`} onMouseOver={() => {
-      onCardMapPinToggle(offer.coords);
-    }} onMouseOut={() => {
-      onCardMapPinToggle(null);
-    }}>
+    <article className={`${styleSettings.classSelect} place-card`} onMouseEnter={() => {
+      onChange(offer.coords);
+    }}
+    >
       {offer.mark ? <div className="place-card__mark">
         <span>{offer.mark}</span>
       </div> : null}
@@ -46,11 +45,11 @@ const OfferCard = (props) => {
       </div>
     </article>
   );
-};
+});
 
 OfferCard.propTypes = {
   onTitleOfferClick: PropTypes.func.isRequired,
-  onCardMapPinToggle: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   offer: PropTypes.shape({
     title: PropTypes.string.isRequired,
     mark: PropTypes.string,

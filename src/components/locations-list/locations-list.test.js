@@ -7,7 +7,10 @@ test(`Correctly render LocationsList component`, () => {
       <LocationsList
         city={`Amsterdam`}
         cities={[`Amsterdam`, `Hamburg`]}
-        onCityClick={()=>{}}/>
+        onCityClick={()=>{}}
+        handleSelectItem={() => {}}
+        onChange={() => {}}
+      />
   ).toJSON();
   expect(tree).toMatchSnapshot();
 });

@@ -54,7 +54,7 @@ test(`Correctly render OfferCard component`, () => {
   const tree = renderer.create(
       <OfferCard
         onTitleOfferClick={() => {}}
-        onCardMapPinToggle={() => {}}
+        onChange={() => {}}
         offer={offer}
         styleSettings={mainStyle}
       />

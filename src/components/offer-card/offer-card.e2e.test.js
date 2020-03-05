@@ -56,9 +56,9 @@ test(`Should not be console.error called`, () => {
   expect(console.error).toHaveBeenCalledTimes(0);
 });
 
-test(`Mouseover event over offer card pass data about this offer to handler`, () => {
+test(`Mouseenter event over offer card pass data about this offer to handler`, () => {
   const {offer} = mock;
-  const onCardMapPinToggle = jest.fn();
+  const onChange = jest.fn();
   const mainStyle = {
     classSelect: ClassArticle.CLASS_FOR_MAIN,
     prefix: ClassPrefixes.OFFER_FOR_MAIN
@@ -66,34 +66,14 @@ test(`Mouseover event over offer card pass data about this offer to handler`, ()
 
   const wrapper = shallow(<OfferCard
     onTitleOfferClick={() => {}}
-    onCardMapPinToggle={onCardMapPinToggle}
+    onChange={onChange}
     offer={offer}
     styleSettings={mainStyle}
   />);
 
-  wrapper.simulate(`mouseover`);
+  wrapper.simulate(`mouseenter`);
 
-  expect(onCardMapPinToggle.mock.calls[0][0]).toMatchObject(offer.coords);
-});
-
-test(`Mouseover event out offer card pass null to handler`, () => {
-  const {offer} = mock;
-  const onCardMapPinToggle = jest.fn();
-  const mainStyle = {
-    classSelect: ClassArticle.CLASS_FOR_MAIN,
-    prefix: ClassPrefixes.OFFER_FOR_MAIN
-  };
-
-  const wrapper = shallow(<OfferCard
-    onTitleOfferClick={() => {}}
-    onCardMapPinToggle={onCardMapPinToggle}
-    offer={offer}
-    styleSettings={mainStyle}
-  />);
-
-  wrapper.simulate(`mouseout`);
-
-  expect(onCardMapPinToggle.mock.calls[0][0]).toEqual(null);
+  expect(onChange.mock.calls[0][0]).toMatchObject(offer.coords);
 });
 
 test(`Should link of title be clicked`, () => {
@@ -108,7 +88,7 @@ test(`Should link of title be clicked`, () => {
     onTitleOfferClick={onTitleOfferClick}
     offer={offer}
     styleSettings={mainStyle}
-    onCardMapPinToggle={() => {}}
+    onChange={() => {}}
   />);
 
   const titleLink = wrapper.find(`.place-card__name > a`);

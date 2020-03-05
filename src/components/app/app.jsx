@@ -4,8 +4,14 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer.js";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
-import OffersList from "../offers-list/offers-list.jsx";
 import Property from "../property/property.jsx";
+import OffersList from "../offers-list/offers-list.jsx";
+import PlacesSorting from "../places-sorting/places-sorting.jsx";
+import withActivePin from "../../hocs/with-active-pin/with-active-pin.jsx";
+
+const PropertyWithActivePin = withActivePin(Property);
+const MainWithActivePin = withActivePin(Main);
+
 
 const ClassPrefixes = {
   OFFER_FOR_MAIN: `cities__`,
@@ -33,48 +39,41 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {offers, city, cities, property, nearPlaces, onTitleOfferClick, onCityClick, sortType, onSortingChange, onCardMapPinToggle, activePin} = this.props;
+    const {offers, city, cities, property, onCityClick, nearPlaces, onTitleOfferClick, sortType, onSortingChange} = this.props;
 
     if (property) {
       return (
-        <Property
-          activePin={activePin}
+        <PropertyWithActivePin
           offer={property}
           offers={offers}
-        >
-          <OffersList
-            offers={nearPlaces}
-            onTitleOfferClick={onTitleOfferClick}
-            offer={property}
-            styleSettings={this._propertyStyle}
-            onCardMapPinToggle={onCardMapPinToggle}
-          />
-        </Property>
+          nearPlaces={nearPlaces}
+          onTitleOfferClick={onTitleOfferClick}
+          propertyStyle={this._propertyStyle}
+        />
       );
     }
     return (
-      <Main
+      <MainWithActivePin
         offers={offers}
         offersCount={offers.length}
         city = {city}
         cities={cities}
         onCityClick={onCityClick}
+        onTitleOfferClick={onTitleOfferClick}
         sortType={sortType}
-        onSortingChange={onSortingChange}
-        activePin={activePin}
+        propertyStyle={this._mainStyle}
       >
-        <OffersList
-          offers={offers}
-          onTitleOfferClick={onTitleOfferClick}
-          styleSettings={this._mainStyle}
-          onCardMapPinToggle={onCardMapPinToggle}
+        <PlacesSorting
+          city={city}
+          sortType={sortType}
+          onSortingChange={onSortingChange}
         />
-      </Main>
+      </MainWithActivePin>
     );
   }
 
   render() {
-    const {offers, onTitleOfferClick, onCardMapPinToggle} = this.props;
+    const {offers, onTitleOfferClick} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -86,7 +85,7 @@ class App extends PureComponent {
               offers={offers}
               onTitleOfferClick={onTitleOfferClick}
               styleSettings={this._mainStyle}
-              onCardMapPinToggle={onCardMapPinToggle}
+              onChange={() => {}}
             />
           </Route>
         </Switch>
@@ -105,8 +104,6 @@ App.propTypes = {
   onCityClick: PropTypes.func.isRequired,
   sortType: PropTypes.string.isRequired,
   onSortingChange: PropTypes.func.isRequired,
-  activePin: PropTypes.array,
-  onCardMapPinToggle: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -116,7 +113,6 @@ const mapStateToProps = (state) => ({
   property: state.property,
   nearPlaces: state.nearPlaces,
   sortType: state.sortType,
-  activePin: state.activePin,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -130,9 +126,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onSortingChange(sortValue, city) {
     dispatch(ActionCreator.changeSorting(sortValue, city));
-  },
-  onCardMapPinToggle(offerCoords) {
-    dispatch(ActionCreator.activatePin(offerCoords));
   }
 });
 

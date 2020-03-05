@@ -2,9 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import Map from "../map/map.jsx";
 import ReviewsList from "../reviews-list/reviews-list.jsx";
+import OffersList from "../offers-list/offers-list.jsx";
+import withActiveItem from "../../hocs/with-active-item/with-active-item.jsx";
+
+const OfferListWrapper = withActiveItem(OffersList);
 
 const Property = (props) => {
-  const {offer, offers, activePin, children} = props;
+  const {offer, offers, nearPlaces, activePin, handleMouseEnter, onTitleOfferClick, propertyStyle} = props;
   return (
     <div className="page">
       <header className="header">
@@ -171,7 +175,13 @@ const Property = (props) => {
             <h2 className="near-places__title">Other places in the
               neighbourhood</h2>
             <div className="near-places__list places__list">
-              {children}
+              <OfferListWrapper
+                offers={nearPlaces}
+                onTitleOfferClick={onTitleOfferClick}
+                offer={offer}
+                styleSettings={propertyStyle}
+                handleSelectItem={handleMouseEnter}
+              />
             </div>
           </section>
         </div>
@@ -197,7 +207,10 @@ Property.propTypes = {
   }).isRequired,
   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
   activePin: PropTypes.array,
-  children: PropTypes.node.isRequired,
+  nearPlaces: PropTypes.array,
+  handleMouseEnter: PropTypes.func.isRequired,
+  onTitleOfferClick: PropTypes.func.isRequired,
+  propertyStyle: PropTypes.object.isRequired,
 };
 
 export default Property;
