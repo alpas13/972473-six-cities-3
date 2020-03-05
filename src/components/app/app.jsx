@@ -8,6 +8,7 @@ import Property from "../property/property.jsx";
 import OffersList from "../offers-list/offers-list.jsx";
 import PlacesSorting from "../places-sorting/places-sorting.jsx";
 import withActivePin from "../../hocs/with-active-pin/with-active-pin.jsx";
+import MainEmpty from "../main-empty/main-empty.jsx";
 
 const PropertyWithActivePin = withActivePin(Property);
 const MainWithActivePin = withActivePin(Main);
@@ -52,6 +53,13 @@ class App extends PureComponent {
         />
       );
     }
+
+    if (!offers.length) {
+      return (
+        <MainEmpty/>
+      );
+    }
+
     return (
       <MainWithActivePin
         offers={offers}

@@ -72,7 +72,7 @@ const initialOffers = getOffersByCity(citiesList[DEFAULT_CITY]);
 
 const initialState = {
   offers: initialOffers,
-  city: citiesList[DEFAULT_CITY],
+  city: citiesList[DEFAULT_CITY] ? citiesList[DEFAULT_CITY] : ``,
   cities: citiesList,
   sortType: SortType.POPULAR,
   property: null,
