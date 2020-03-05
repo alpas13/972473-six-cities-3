@@ -1,6 +1,6 @@
 import React from "react";
 
-const MainEmpty = () => {
+const MainEmpty = React.memo(function MainEmpty() {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -77,6 +77,6 @@ const MainEmpty = () => {
       </main>
     </div>
   );
-};
+});
 
 export default MainEmpty;

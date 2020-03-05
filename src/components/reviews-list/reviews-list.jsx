@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import ReviewItem from "../review-item/review-item.jsx";
 
 
-const ReviewsList = (props) => {
+const ReviewsList = React.memo(function ReviewList(props) {
   const {reviews} = props.offer;
   return (
     <Fragment>
@@ -20,7 +20,7 @@ const ReviewsList = (props) => {
         })}
       </ul>}
     </Fragment>);
-};
+});
 
 ReviewsList.propTypes = {
   offer: PropTypes.shape({

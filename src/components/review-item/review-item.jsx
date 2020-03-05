@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {dateFormat} from "../../utils";
 
-const ReviewItem = ({review}) => {
+const ReviewItem = React.memo(function ReviewItem({review}) {
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -24,7 +24,7 @@ const ReviewItem = ({review}) => {
       </div>
     </li>
   );
-};
+});
 
 ReviewItem.propTypes = {
   review: PropTypes.shape({

@@ -7,7 +7,7 @@ import withActiveItem from "../../hocs/with-active-item/with-active-item.jsx";
 
 const OfferListWrapper = withActiveItem(OffersList);
 
-const Property = (props) => {
+const Property = React.memo(function Property(props) {
   const {offer, offers, nearPlaces, activePin, handleMouseEnter, onTitleOfferClick, propertyStyle} = props;
   return (
     <div className="page">
@@ -188,7 +188,7 @@ const Property = (props) => {
       </main>
     </div>
   );
-};
+});
 
 Property.propTypes = {
   offer: PropTypes.shape({
