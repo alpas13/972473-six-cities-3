@@ -1,8 +1,8 @@
 import {extend} from "./utils";
-import offers from "./mocks/offers";
+// import offers from "./mocks/offers";
 
-const MAX_CITIES = 6;
-const DEFAULT_CITY = 0;
+/* const MAX_CITIES = 6;
+const DEFAULT_CITY = 0;*/
 
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
@@ -10,6 +10,7 @@ const ActionType = {
   GET_PROPERTY: `GET_PROPERTY`,
   GET_NEAR_PLACES: `GET_NEAR_PLACES`,
   CHANGE_SORTING: `CHANGE_SORTING`,
+  LOAD_OFFERS: `LOAD_OFFERS`,
 };
 
 const SortType = {
@@ -19,11 +20,58 @@ const SortType = {
   TOP_RATED: `top-rated`,
 };
 
-const getOffersByCity = (stateCity) => {
-  return offers.slice().filter((offer) => offer.city === stateCity);
+const offerModel = (offers) => {
+  return offers.map((offer) => {
+    const {
+      bedrooms,
+      city,
+      description: propertyText,
+      goods: insideList,
+      host,
+      id,
+      images: propertyImage,
+      is_favorite: isFavorite,
+      is_premium: isPremium,
+      location,
+      max_adults: adults,
+      preview_image: previewImage,
+      price,
+      rating,
+      title,
+      type
+    } = offer;
+    return {
+      id,
+      city: city.name,
+      propertyImage,
+      title,
+      mark: isPremium ? `Premium` : ``,
+      previewImage,
+      price,
+      bookmark: isFavorite,
+      propertyText,
+      rating: {
+        star: (Math.floor(rating) / 5) * 100,
+        value: rating,
+      },
+      features: {
+        entire: type,
+        bedrooms,
+        adults,
+      },
+      insideList,
+      host,
+      coords: [location.latitude, location.longitude],
+      coordsZoom: location.zoom,
+    };
+  });
 };
 
-const getCitiesList = (offersData, maxCities) => {
+const getOffersByCity = (state, stateCity) => {
+  return state.offers.slice().filter((offer) => offer.city === stateCity);
+};
+
+/* const getCitiesList = (offersData, maxCities) => {
   const citiesSet = new Set();
 
   offersData.map((offer) => {
@@ -33,7 +81,7 @@ const getCitiesList = (offersData, maxCities) => {
   });
 
   return Array.from(citiesSet);
-};
+};*/
 
 const getNearPlaceOffers = (offer, offersData) => {
   const tempArray = [];
@@ -66,14 +114,14 @@ const changeOffersSorting = (sortValue, city) => {
   return getOffersByCity(city);
 };
 
-const citiesList = getCitiesList(offers, MAX_CITIES);
+/* const citiesList = getCitiesList(offers, MAX_CITIES);
 
-const initialOffers = getOffersByCity(citiesList[DEFAULT_CITY]);
+const initialOffers = getOffersByCity(citiesList[DEFAULT_CITY]);*/
 
 const initialState = {
-  offers: initialOffers,
-  city: citiesList[DEFAULT_CITY] ? citiesList[DEFAULT_CITY] : ``,
-  cities: citiesList,
+  offers: [],
+  city: ``,
+  cities: [],
   sortType: SortType.POPULAR,
   property: null,
   nearPlaces: null,
@@ -97,7 +145,7 @@ const ActionCreator = {
       payload: offer
     };
   },
-  getNearPlaces: (offer) => {
+  getNearPlaces: (offer, offers) => {
     const nearPlaceOffers = getNearPlaceOffers(offer, offers);
     return {
       type: ActionType.GET_NEAR_PLACES,
@@ -114,6 +162,24 @@ const ActionCreator = {
       },
     };
   },
+  loadOffers: (offers) => {
+    return {
+      type: ActionType.LOAD_OFFERS,
+      payload: offerModel(offers),
+    };
+  },
+};
+
+const loadOffers = () => (dispatch, getState, api) => {
+  return api.get(`/hotels`)
+      .then((response) => {
+        // eslint-disable-next-line no-console
+        console.log(response.data);
+        dispatch(ActionCreator.loadOffers(response.data));
+      })
+      .catch((err) => {
+        throw err;
+      });
 };
 
 const reducer = (state = initialState, action) => {
@@ -139,8 +205,12 @@ const reducer = (state = initialState, action) => {
         offers: action.payload.sortedOffers,
         sortType: action.payload.sortValue,
       });
+    case ActionType.LOAD_OFFERS:
+      return extend(state, {
+        offers: action.payload,
+      });
   }
   return state;
 };
 
-export {reducer, ActionType, ActionCreator};
+export {reducer, ActionType, ActionCreator, loadOffers};
