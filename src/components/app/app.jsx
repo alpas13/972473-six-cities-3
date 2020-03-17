@@ -1,7 +1,8 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer.js";
+import {ActionCreator} from "../../reducer/main/main.js";
+import {ActionCreator as DataActionCreator} from "../../reducer/data/data.js";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
 import Property from "../property/property.jsx";
@@ -9,6 +10,8 @@ import OffersList from "../offers-list/offers-list.jsx";
 import PlacesSorting from "../places-sorting/places-sorting.jsx";
 import withActivePin from "../../hocs/with-active-pin/with-active-pin.jsx";
 import MainEmpty from "../main-empty/main-empty.jsx";
+import {getOffers, getCity, getCities} from "../../reducer/data/selectors.js";
+import {getSortType} from "../../reducer/main/selectors.js";
 
 const PropertyWithActivePin = withActivePin(Property);
 const MainWithActivePin = withActivePin(Main);
@@ -115,12 +118,12 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  city: state.city,
-  offers: state.offers,
-  cities: state.cities,
+  offers: getOffers(state),
+  city: getCity(state),
+  cities: getCities(state),
   property: state.property,
   nearPlaces: state.nearPlaces,
-  sortType: state.sortType,
+  sortType: getSortType(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -129,8 +132,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.getNearPlaces(offer));
   },
   onCityClick(city) {
-    dispatch(ActionCreator.changeCity(city));
-    dispatch(ActionCreator.getOffers(city));
+    dispatch(DataActionCreator.changeCity(city));
   },
   onSortingChange(sortValue, city) {
     dispatch(ActionCreator.changeSorting(sortValue, city));

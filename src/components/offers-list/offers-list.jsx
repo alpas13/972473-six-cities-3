@@ -11,9 +11,9 @@ const OffersList = React.memo(function OffersList(props) {
         onChange(null);
       }}
     >
-      {offers.map((offerItem, index) => {
+      {offers.map((offerItem) => {
         return <OfferCard
-          key={offerItem.id + index}
+          key={offerItem.id}
           onTitleOfferClick={onTitleOfferClick}
           offer={offerItem}
           styleSettings={styleSettings}
