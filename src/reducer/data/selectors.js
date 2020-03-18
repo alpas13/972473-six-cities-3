@@ -15,6 +15,10 @@ const getSortType = (state) => {
   return state[NameSpace.MAIN].sortType;
 };
 
+const getOffersByPopular = (state) => {
+    return getOffersByCity(state);
+}
+
 export const getOffers = createSelector(
   getOffersByCity,
   getSortType,

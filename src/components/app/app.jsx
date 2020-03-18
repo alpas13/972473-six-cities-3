@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/main/main.js";
+import {ActionCreator, Operation as MainOperation} from "../../reducer/main/main.js";
 import {ActionCreator as DataActionCreator} from "../../reducer/data/data.js";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
@@ -11,7 +11,7 @@ import PlacesSorting from "../places-sorting/places-sorting.jsx";
 import withActivePin from "../../hocs/with-active-pin/with-active-pin.jsx";
 import MainEmpty from "../main-empty/main-empty.jsx";
 import {getOffers, getCity, getCities} from "../../reducer/data/selectors.js";
-import {getSortType} from "../../reducer/main/selectors.js";
+import {getSortType, getProperty, getNearPlaceOffers, getReviews} from "../../reducer/main/selectors.js";
 
 const PropertyWithActivePin = withActivePin(Property);
 const MainWithActivePin = withActivePin(Main);
@@ -43,14 +43,14 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {offers, city, cities, property, onCityClick, nearPlaces, onTitleOfferClick, sortType, onSortingChange} = this.props;
+    const {offers, city, cities, property, onCityClick, nearPlaces, reviews, onTitleOfferClick, sortType, onSortingChange} = this.props;
 
     if (property) {
       return (
         <PropertyWithActivePin
           offer={property}
-          offers={offers}
           nearPlaces={nearPlaces}
+          reviews={reviews}
           onTitleOfferClick={onTitleOfferClick}
           propertyStyle={this._propertyStyle}
         />
@@ -115,21 +115,24 @@ App.propTypes = {
   onCityClick: PropTypes.func.isRequired,
   sortType: PropTypes.string.isRequired,
   onSortingChange: PropTypes.func.isRequired,
+  reviews: PropTypes.array,
 };
 
 const mapStateToProps = (state) => ({
   offers: getOffers(state),
   city: getCity(state),
   cities: getCities(state),
-  property: state.property,
-  nearPlaces: state.nearPlaces,
+  property: getProperty(state),
+  nearPlaces: getNearPlaceOffers(state),
   sortType: getSortType(state),
+  reviews: getReviews(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onTitleOfferClick(offer) {
     dispatch(ActionCreator.getProperty(offer));
-    dispatch(ActionCreator.getNearPlaces(offer));
+    dispatch(MainOperation.loadNearPlaceOffers(offer.id));
+    dispatch(MainOperation.loadReviews(offer.id));
   },
   onCityClick(city) {
     dispatch(DataActionCreator.changeCity(city));

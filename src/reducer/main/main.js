@@ -1,9 +1,9 @@
-import {extend} from "../../utils.js";
+import {extend, offerModel} from "../../utils.js";
 
 const ActionType = {
-  GET_OFFERS: `GET_OFFERS`,
+  LOAD_REVIEWS: `LOAD_REVIEWS`,
   GET_PROPERTY: `GET_PROPERTY`,
-  GET_NEAR_PLACES: `GET_NEAR_PLACES`,
+  LOAD_NEAR_PLACES: `LOAD_NEAR_PLACES`,
   CHANGE_SORTING: `CHANGE_SORTING`,
 };
 
@@ -17,18 +17,56 @@ export const SortType = {
 const initialState = {
   sortType: SortType.POPULAR,
   property: null,
-  nearPlaces: null,
+  nearPlaces: [],
+  reviews: [],
 };
 
-const getNearPlaceOffers = (offer, offersData) => {
-  const tempArray = [];
-  offer.neighbourhoodOffers.map((offerItem) => {
-    offersData.slice().filter((item) => offerItem === item.id).map((neighbourhood) => {
-      tempArray.push(neighbourhood);
-    });
-  });
+export const Operation = {
+  loadNearPlaceOffers: (offerId) => (dispatch, getState, api) => {
+    return api.get(`/hotels/${offerId}/nearby`)
+        .then((response) => {
+          dispatch(ActionCreator.loadNearPlaceOffers(response.data));
+        })
+        .catch((err) => {
+          throw err;
+        });
+  },
+  loadReviews: (offerId) => (dispatch, getState, api) => {
+    return api.get(`/comments/${offerId}`)
+        .then((response) => {
+          dispatch(ActionCreator.loadReviews(response.data));
+        })
+        .catch((err) => {
+          throw err;
+        });
+  },
+};
 
-  return tempArray;
+const reviewModel = (reviews) => {
+  return reviews.map((review) => {
+    const {
+      comment: description,
+      date,
+      id,
+      rating,
+    } = review;
+    const {
+      id: userId,
+      avatar_url: userAvatar,
+      name: userName,
+      is_pro: proUser,
+    } = review.user;
+    return {
+      description,
+      date,
+      id,
+      rating,
+      userId,
+      userAvatar,
+      userName,
+      proUser
+    };
+  });
 };
 
 const ActionCreator = {
@@ -38,17 +76,22 @@ const ActionCreator = {
       payload: offer
     };
   },
-  getNearPlaces: (offer, offers) => {
-    const nearPlaceOffers = getNearPlaceOffers(offer, offers);
+  loadNearPlaceOffers: (offers) => {
     return {
-      type: ActionType.GET_NEAR_PLACES,
-      payload: nearPlaceOffers,
+      type: ActionType.LOAD_NEAR_PLACES,
+      payload: offerModel(offers),
     };
   },
   changeSorting: (sortValue) => {
     return {
       type: ActionType.CHANGE_SORTING,
       payload: sortValue,
+    };
+  },
+  loadReviews: (reviews) => {
+    return {
+      type: ActionType.LOAD_REVIEWS,
+      payload: reviewModel(reviews),
     };
   },
 };
@@ -59,13 +102,17 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         property: action.payload,
       });
-    case ActionType.GET_NEAR_PLACES:
+    case ActionType.LOAD_NEAR_PLACES:
       return extend(state, {
         nearPlaces: action.payload,
       });
     case ActionType.CHANGE_SORTING:
       return extend(state, {
         sortType: action.payload,
+      });
+    case ActionType.LOAD_REVIEWS:
+      return extend(state, {
+        reviews: action.payload,
       });
   }
   return state;
