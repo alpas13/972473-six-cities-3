@@ -104,6 +104,7 @@ class Property extends PureComponent {
                     <span className="property__user-name">
                       {offer.host.name}
                     </span>
+                    {offer.host.isPro && <span className="property__user-status">Pro</span>}
                   </div>
                   <div className="property__description">
                     <p className="property__text">
