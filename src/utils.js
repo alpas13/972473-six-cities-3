@@ -67,4 +67,31 @@ const offerModel = (offers) => {
   });
 };
 
-export {dateFormat, extend, offerModel};
+const reviewModel = (reviews) => {
+  return reviews.map((review) => {
+    const {
+      comment: description,
+      date,
+      id,
+      rating,
+    } = review;
+    const {
+      id: userId,
+      avatar_url: userAvatar,
+      name: userName,
+      is_pro: proUser,
+    } = review.user;
+    return {
+      description,
+      date,
+      id,
+      rating,
+      userId,
+      userAvatar,
+      userName,
+      proUser
+    };
+  });
+};
+
+export {dateFormat, extend, offerModel, reviewModel};

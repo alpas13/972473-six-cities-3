@@ -1,4 +1,4 @@
-import {extend, offerModel} from "../../utils.js";
+import {extend, offerModel, reviewModel} from "../../utils.js";
 
 const ActionType = {
   LOAD_REVIEWS: `LOAD_REVIEWS`,
@@ -40,33 +40,6 @@ export const Operation = {
           throw err;
         });
   },
-};
-
-const reviewModel = (reviews) => {
-  return reviews.map((review) => {
-    const {
-      comment: description,
-      date,
-      id,
-      rating,
-    } = review;
-    const {
-      id: userId,
-      avatar_url: userAvatar,
-      name: userName,
-      is_pro: proUser,
-    } = review.user;
-    return {
-      description,
-      date,
-      id,
-      rating,
-      userId,
-      userAvatar,
-      userName,
-      proUser
-    };
-  });
 };
 
 const ActionCreator = {
