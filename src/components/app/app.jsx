@@ -6,6 +6,7 @@ import {ActionCreator as DataActionCreator} from "../../reducer/data/data.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
+import AuthScreen from "../auth-screen/auth-screen.jsx";
 import Property from "../property/property.jsx";
 import OffersList from "../offers-list/offers-list.jsx";
 import PlacesSorting from "../places-sorting/places-sorting.jsx";
@@ -54,7 +55,8 @@ class App extends PureComponent {
       reviews,
       onTitleOfferClick,
       sortType,
-      onSortingChange
+      onSortingChange,
+      login,
     } = this.props;
 
     if (property) {
@@ -111,6 +113,11 @@ class App extends PureComponent {
               onChange={() => {}}
             />
           </Route>
+          <Route exact path="/dev-auth">
+            <AuthScreen
+              onSubmit={()=>{}}
+            />
+          </Route>
         </Switch>
       </BrowserRouter>
     );
@@ -128,6 +135,7 @@ App.propTypes = {
   sortType: PropTypes.string.isRequired,
   onSortingChange: PropTypes.func.isRequired,
   reviews: PropTypes.array,
+  login: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
