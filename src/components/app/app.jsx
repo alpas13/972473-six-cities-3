@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator, Operation as MainOperation} from "../../reducer/main/main.js";
 import {ActionCreator as DataActionCreator} from "../../reducer/data/data.js";
+import {Operation as UserOperation} from "../../reducer/user/user.js";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
 import Property from "../property/property.jsx";
@@ -43,7 +44,18 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {offers, city, cities, property, onCityClick, nearPlaces, reviews, onTitleOfferClick, sortType, onSortingChange} = this.props;
+    const {
+      offers,
+      city,
+      cities,
+      property,
+      onCityClick,
+      nearPlaces,
+      reviews,
+      onTitleOfferClick,
+      sortType,
+      onSortingChange
+    } = this.props;
 
     if (property) {
       return (
@@ -139,6 +151,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onSortingChange(sortValue, city) {
     dispatch(ActionCreator.changeSorting(sortValue, city));
+  },
+  login(authData) {
+    dispatch(UserOperation.login(authData));
   }
 });
 
