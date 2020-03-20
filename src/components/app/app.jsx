@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator, Operation as MainOperation} from "../../reducer/main/main.js";
 import {ActionCreator as DataActionCreator} from "../../reducer/data/data.js";
-import {Operation as UserOperation} from "../../reducer/user/user.js";
+import {ActionCreator as UserActionCreator, Operation as UserOperation} from "../../reducer/user/user.js";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
 import AuthScreen from "../auth-screen/auth-screen.jsx";
@@ -16,14 +16,22 @@ import OffersList from "../offers-list/offers-list.jsx";
 import PlacesSorting from "../places-sorting/places-sorting.jsx";
 import withActivePin from "../../hocs/with-active-pin/with-active-pin.jsx";
 import MainEmpty from "../main-empty/main-empty.jsx";
-import {getOffers, getCity, getCities} from "../../reducer/data/selectors.js";
-import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import {
+  getOffers,
+  getCity,
+  getCities
+} from "../../reducer/data/selectors.js";
+import {
+  getAuthorizationStatus,
+  getAuthorizationInfo,
+  getLoginPageStatus
+} from "../../reducer/user/selectors.js";
 import {
   getSortType,
   getProperty,
   getNearPlaceOffers,
   getReviews,
-  getFavoritesStatus,
+  getFavoritesPageStatus,
   getFavorites,
 } from "../../reducer/main/selectors.js";
 
@@ -92,10 +100,14 @@ class App extends PureComponent {
       onTitleOfferClick,
       sortType,
       onSortingChange,
-      favoritesStatus,
+      favoritesPage,
       favorites,
       authorizationStatus,
+      authorizationInfo,
+      getFavoritesPage,
       login,
+      loginPage,
+      getLoginPage,
     } = this.props;
 
     if (property) {
@@ -106,19 +118,38 @@ class App extends PureComponent {
           reviews={reviews}
           onTitleOfferClick={onTitleOfferClick}
           propertyStyle={this._propertyStyle}
+          authInfo={authorizationInfo}
+          getFavoritesPage={getFavoritesPage}
+          getLoginPage={getLoginPage}
         />
       );
     }
 
-    if (favoritesStatus && !authorizationStatus) {
+    if (favoritesPage && !favorites.length) {
       return (
-        <FavoritesEmpty/>
+        <FavoritesEmpty
+          authInfo={authorizationInfo}
+          getFavoritesPage={getFavoritesPage}
+          getLoginPage={getLoginPage}
+        />
       );
     }
 
-    if (favoritesStatus && authorizationStatus) {
+    if ((favoritesPage && !authorizationStatus) || loginPage) {
       return (
-        <Favorites>
+        <AuthScreen
+          onSubmit={login}
+        />
+      );
+    }
+
+    if (favoritesPage && authorizationStatus) {
+      return (
+        <Favorites
+          authInfo={authorizationInfo}
+          getFavoritesPage={getFavoritesPage}
+          getLoginPage={getLoginPage}
+        >
           <FavoritesOffersList
             favoritesOffers={favorites}
             onTitleOfferClick={onTitleOfferClick}
@@ -144,6 +175,9 @@ class App extends PureComponent {
         onTitleOfferClick={onTitleOfferClick}
         sortType={sortType}
         propertyStyle={this._mainStyle}
+        authInfo={authorizationInfo}
+        getFavoritesPage={getFavoritesPage}
+        getLoginPage={getLoginPage}
       >
         <PlacesSorting
           city={city}
@@ -155,7 +189,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {offers, onTitleOfferClick} = this.props;
+    const {offers, onTitleOfferClick, authorizationInfo, getFavoritesPage, getLoginPage} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -176,7 +210,11 @@ class App extends PureComponent {
             />
           </Route>
           <Route exact path="/dev-favorites">
-            <Favorites>
+            <Favorites
+              authInfo={authorizationInfo}
+              getFavoritesPage={getFavoritesPage}
+              getLoginPage={getLoginPage}
+            >
               <FavoritesOffersList
                 favoritesOffers={offers}
                 onTitleOfferClick={onTitleOfferClick}
@@ -201,10 +239,14 @@ App.propTypes = {
   sortType: PropTypes.string.isRequired,
   onSortingChange: PropTypes.func.isRequired,
   reviews: PropTypes.array,
-  favoritesStatus: PropTypes.bool.isRequired,
+  favoritesPage: PropTypes.bool.isRequired,
   favorites: PropTypes.arrayOf(PropTypes.object).isRequired,
   login: PropTypes.func.isRequired,
+  loginPage: PropTypes.bool.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  authorizationInfo: PropTypes.object,
+  getFavoritesPage: PropTypes.func.isRequired,
+  getLoginPage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -215,9 +257,11 @@ const mapStateToProps = (state) => ({
   nearPlaces: getNearPlaceOffers(state),
   sortType: getSortType(state),
   reviews: getReviews(state),
-  favoritesStatus: getFavoritesStatus(state),
+  favoritesPage: getFavoritesPageStatus(state),
   favorites: getFavorites(state),
   authorizationStatus: getAuthorizationStatus(state),
+  authorizationInfo: getAuthorizationInfo(state),
+  loginPage: getLoginPageStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -234,6 +278,13 @@ const mapDispatchToProps = (dispatch) => ({
   },
   login(authData) {
     dispatch(UserOperation.login(authData));
+  },
+  getFavoritesPage() {
+    dispatch(MainOperation.loadFavorites());
+    dispatch(ActionCreator.favoritesPage());
+  },
+  getLoginPage() {
+    dispatch(UserActionCreator.loginPageEnable());
   }
 });
 

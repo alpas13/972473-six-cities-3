@@ -7,10 +7,15 @@ const AuthorizationStatus = {
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  authInfo: null,
+  loginPage: false,
 };
 
 const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
+  GET_AUTH_INFO: `GET_AUTH_INFO`,
+  LOGIN_PAGE_ENABLE: `LOGIN_PAGE_ENABLE`,
+  LOGIN_PAGE_DISABLE: `LOGIN_PAGE_DISABLE`,
 };
 
 const ActionCreator = {
@@ -19,7 +24,25 @@ const ActionCreator = {
       type: ActionType.REQUIRED_AUTHORIZATION,
       payload: status,
     };
-  }
+  },
+  getAuthInfo: (authInfo) => {
+    return {
+      type: ActionType.GET_AUTH_INFO,
+      payload: authInfo,
+    };
+  },
+  loginPageEnable: () => {
+    return {
+      type: ActionType.LOGIN_PAGE_ENABLE,
+      payload: true,
+    };
+  },
+  loginPageDisable: () => {
+    return {
+      type: ActionType.LOGIN_PAGE_DISABLE,
+      payload: false,
+    };
+  },
 };
 
 const Operation = {
@@ -38,8 +61,10 @@ const Operation = {
       email: authData.login,
       password: authData.password,
     })
-        .then(() => {
+        .then((response) => {
           dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+          dispatch(ActionCreator.getAuthInfo(response.data));
+          dispatch(ActionCreator.loginPageDisable());
         });
   },
 };
@@ -49,6 +74,18 @@ const reducer = (state = initialState, action) => {
     case ActionType.REQUIRED_AUTHORIZATION:
       return extend(state, {
         authorizationStatus: action.payload,
+      });
+    case ActionType.GET_AUTH_INFO:
+      return extend(state, {
+        authInfo: action.payload,
+      });
+    case ActionType.LOGIN_PAGE_ENABLE:
+      return extend(state, {
+        loginPage: action.payload,
+      });
+    case ActionType.LOGIN_PAGE_DISABLE:
+      return extend(state, {
+        loginPage: action.payload,
       });
   }
   return state;

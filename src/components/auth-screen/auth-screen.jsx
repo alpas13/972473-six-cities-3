@@ -17,7 +17,7 @@ class AuthScreen extends PureComponent {
     evt.preventDefault();
 
     onSubmit({
-      email: this.loginRef.current.value,
+      login: this.loginRef.current.value,
       password: this.passwordRef.current.value,
     });
   }

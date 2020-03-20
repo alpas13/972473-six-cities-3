@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import Map from "../map/map.jsx";
+import Header from "../header/header.jsx";
 import ReviewsList from "../reviews-list/reviews-list.jsx";
 import OffersList from "../offers-list/offers-list.jsx";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.jsx";
@@ -12,30 +13,25 @@ class Property extends PureComponent {
     super(props);
   }
   render() {
-    const {offer, nearPlaces, activePin, reviews, handleMouseEnter, onTitleOfferClick, propertyStyle} = this.props;
+    const {
+      offer,
+      nearPlaces,
+      activePin,
+      reviews,
+      handleMouseEnter,
+      onTitleOfferClick,
+      propertyStyle,
+      authInfo,
+      getFavoritesPage,
+      getLoginPage,
+    } = this.props;
     return (
       <div className="page">
-        <header className="header">
-          <div className="container">
-            <div className="header__wrapper">
-              <div className="header__left">
-                <a className="header__logo-link" href="main.html">
-                  <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-                </a>
-              </div>
-              <nav className="header__nav">
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <a className="header__nav-link header__nav-link--profile" href="#">
-                      <div className="header__avatar-wrapper user__avatar-wrapper" />
-                      <span className="header__user-name user__name">{offer.userName}</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </header>
+        <Header
+          authInfo={authInfo}
+          onEmailClick={getFavoritesPage}
+          onSignInClick={getLoginPage}
+        />
         <main className="page__main page__main--property">
           <section className="property">
             <div className="property__gallery-container container">
@@ -217,6 +213,9 @@ Property.propTypes = {
   handleMouseEnter: PropTypes.func.isRequired,
   onTitleOfferClick: PropTypes.func.isRequired,
   propertyStyle: PropTypes.object.isRequired,
+  authInfo: PropTypes.object.isRequired,
+  getFavoritesPage: PropTypes.func.isRequired,
+  getLoginPage: PropTypes.func.isRequired,
 };
 
 export default Property;

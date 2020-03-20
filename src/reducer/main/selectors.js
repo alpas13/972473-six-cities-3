@@ -17,8 +17,8 @@ export const getReviews = (state) => {
   return state[NameSpace.MAIN].reviews;
 }
 
-export const getFavoritesStatus = (state) => {
-  return state[NameSpace.MAIN].favoritesStatus;
+export const getFavoritesPageStatus = (state) => {
+  return state[NameSpace.MAIN].favoritesPage;
 }
 
 export const getFavorites = (state) => {
