@@ -94,4 +94,14 @@ const reviewModel = (reviews) => {
   });
 };
 
-export {dateFormat, extend, offerModel, reviewModel};
+const uniqueFilter = (data, filterValue, limiter = 0) => {
+  const dataSet = new Set();
+
+  data.slice().map((item) => {
+    dataSet.add(item[filterValue]);
+  });
+
+  return limiter > 0 ? Array.from(dataSet).slice(0, limiter) : Array.from(dataSet);
+};
+
+export {dateFormat, extend, offerModel, reviewModel, uniqueFilter};

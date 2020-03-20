@@ -5,19 +5,22 @@ const OfferCard = React.memo(function OfferCard(props) {
   const {offer, onTitleOfferClick, styleSettings, onChange} = props;
 
   return (
-    <article className={`${styleSettings.classSelect} place-card`} onMouseEnter={() => {
-      onChange(offer.coords);
-    }}
+    <article className={`${styleSettings.classSelect} place-card`} onMouseEnter={
+      () => {
+        if (onChange) {
+          onChange(offer.coords);
+        }
+      }}
     >
       {offer.mark ? <div className="place-card__mark">
         <span>{offer.mark}</span>
       </div> : null}
       <div className={`${styleSettings.prefix}image-wrapper place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={offer.previewImage} width={styleSettings.width} height={styleSettings.height} alt="Place image"/>
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={styleSettings.classCardInfo}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{offer.price}</b>
@@ -49,7 +52,7 @@ const OfferCard = React.memo(function OfferCard(props) {
 
 OfferCard.propTypes = {
   onTitleOfferClick: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   offer: PropTypes.shape({
     title: PropTypes.string.isRequired,
     mark: PropTypes.string,

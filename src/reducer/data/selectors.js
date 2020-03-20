@@ -1,6 +1,7 @@
 import {createSelector} from "reselect";
 import {SortType} from "../main/main.js";
 import NameSpace from "../name-space";
+import {uniqueFilter} from "../../utils";
 
 const MAX_CITIES = 6;
 
@@ -49,13 +50,6 @@ export const getCity = (state) => {
 
 export const getCities = (state) => {
   const offers = state[NameSpace.DATA].offers;
-  const citiesSet = new Set();
 
-  offers.slice().map((offer) => {
-    if (citiesSet.size < MAX_CITIES) {
-      citiesSet.add(offer.city);
-    }
-  });
-
-  return Array.from(citiesSet);
+  return uniqueFilter(offers, `city`, MAX_CITIES);
 };

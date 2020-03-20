@@ -19,6 +19,8 @@ const initialState = {
   property: null,
   nearPlaces: [],
   reviews: [],
+  favorites: [],
+  favoritesStatus: false,
 };
 
 export const Operation = {

@@ -7,26 +7,48 @@ import {Operation as UserOperation} from "../../reducer/user/user.js";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
 import AuthScreen from "../auth-screen/auth-screen.jsx";
+import Favorites from "../favorites/favorites.jsx";
+import FavoritesOffersList
+  from "../favorites-offers-list/favorites-offers-list.jsx";
+import FavoritesEmpty from "../favorites-empty/favorites-empty.jsx";
 import Property from "../property/property.jsx";
 import OffersList from "../offers-list/offers-list.jsx";
 import PlacesSorting from "../places-sorting/places-sorting.jsx";
 import withActivePin from "../../hocs/with-active-pin/with-active-pin.jsx";
 import MainEmpty from "../main-empty/main-empty.jsx";
 import {getOffers, getCity, getCities} from "../../reducer/data/selectors.js";
-import {getSortType, getProperty, getNearPlaceOffers, getReviews} from "../../reducer/main/selectors.js";
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import {
+  getSortType,
+  getProperty,
+  getNearPlaceOffers,
+  getReviews,
+  getFavoritesStatus,
+  getFavorites,
+} from "../../reducer/main/selectors.js";
 
 const PropertyWithActivePin = withActivePin(Property);
 const MainWithActivePin = withActivePin(Main);
 
+const PreviewImageSize = {
+  placeCardWidth: `260`,
+  placeCardHeight: `200`,
+  favoritesCardWidth: `150`,
+  favoritesCardHeight: `110`,
+};
 
 const ClassPrefixes = {
   OFFER_FOR_MAIN: `cities__`,
-  OFFER_FOR_PROPERTY: `near-places__`
+  OFFER_FOR_PROPERTY: `near-places__`,
+  OFFER_FOR_FAVORITES: `favorites__`
 };
 
 const ClassArticle = {
   CLASS_FOR_MAIN: `cities__place-card`,
-  CLASS_FOR_PROPERTY: `near-places__card`
+  CLASS_FOR_PROPERTY: `near-places__card`,
+  CLASS_FOR_FAVORITES: `favorites__card`,
+  PLACE_CARD_INFO: `place-card__info`,
+  FAVORITES_CARD_INFO: `favorites__card-info place-card__info`,
 };
 
 class App extends PureComponent {
@@ -35,12 +57,26 @@ class App extends PureComponent {
 
     this._propertyStyle = {
       classSelect: ClassArticle.CLASS_FOR_PROPERTY,
-      prefix: ClassPrefixes.OFFER_FOR_PROPERTY
+      prefix: ClassPrefixes.OFFER_FOR_PROPERTY,
+      classCardInfo: ClassArticle.PLACE_CARD_INFO,
+      width: PreviewImageSize.placeCardWidth,
+      height: PreviewImageSize.placeCardHeight,
     };
 
     this._mainStyle = {
       classSelect: ClassArticle.CLASS_FOR_MAIN,
-      prefix: ClassPrefixes.OFFER_FOR_MAIN
+      prefix: ClassPrefixes.OFFER_FOR_MAIN,
+      classCardInfo: ClassArticle.PLACE_CARD_INFO,
+      width: PreviewImageSize.placeCardWidth,
+      height: PreviewImageSize.placeCardHeight,
+    };
+
+    this._favoritesStyle = {
+      classSelect: ClassArticle.CLASS_FOR_FAVORITES,
+      prefix: ClassPrefixes.OFFER_FOR_FAVORITES,
+      classCardInfo: ClassArticle.FAVORITES_CARD_INFO,
+      width: PreviewImageSize.favoritesCardWidth,
+      height: PreviewImageSize.favoritesCardHeight,
     };
   }
 
@@ -56,6 +92,9 @@ class App extends PureComponent {
       onTitleOfferClick,
       sortType,
       onSortingChange,
+      favoritesStatus,
+      favorites,
+      authorizationStatus,
       login,
     } = this.props;
 
@@ -68,6 +107,24 @@ class App extends PureComponent {
           onTitleOfferClick={onTitleOfferClick}
           propertyStyle={this._propertyStyle}
         />
+      );
+    }
+
+    if (favoritesStatus && !authorizationStatus) {
+      return (
+        <FavoritesEmpty/>
+      );
+    }
+
+    if (favoritesStatus && authorizationStatus) {
+      return (
+        <Favorites>
+          <FavoritesOffersList
+            favoritesOffers={favorites}
+            onTitleOfferClick={onTitleOfferClick}
+            styleSettings={this._favoritesStyle}
+          />
+        </Favorites>
       );
     }
 
@@ -118,6 +175,15 @@ class App extends PureComponent {
               onSubmit={()=>{}}
             />
           </Route>
+          <Route exact path="/dev-favorites">
+            <Favorites>
+              <FavoritesOffersList
+                favoritesOffers={offers}
+                onTitleOfferClick={onTitleOfferClick}
+                styleSettings={this._favoritesStyle}
+              />
+            </Favorites>
+          </Route>
         </Switch>
       </BrowserRouter>
     );
@@ -135,7 +201,10 @@ App.propTypes = {
   sortType: PropTypes.string.isRequired,
   onSortingChange: PropTypes.func.isRequired,
   reviews: PropTypes.array,
+  favoritesStatus: PropTypes.bool.isRequired,
+  favorites: PropTypes.arrayOf(PropTypes.object).isRequired,
   login: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -146,6 +215,9 @@ const mapStateToProps = (state) => ({
   nearPlaces: getNearPlaceOffers(state),
   sortType: getSortType(state),
   reviews: getReviews(state),
+  favoritesStatus: getFavoritesStatus(state),
+  favorites: getFavorites(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
