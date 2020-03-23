@@ -1,12 +1,15 @@
-import {extend, offerModel, reviewModel} from "../../utils.js";
+import {extend, offersModel, offerModel, reviewModel} from "../../utils.js";
 
 const ActionType = {
   LOAD_REVIEWS: `LOAD_REVIEWS`,
   GET_PROPERTY: `GET_PROPERTY`,
+  UPDATE_PROPERTY: `UPDATE_PROPERTY`,
   LOAD_NEAR_PLACES: `LOAD_NEAR_PLACES`,
   CHANGE_SORTING: `CHANGE_SORTING`,
   LOAD_FAVORITES: `LOAD_FAVORITES`,
   FAVORITES_PAGE: `FAVORITES_PAGE`,
+  PROPERTY_PAGE: `PROPERTY_PAGE`,
+  UPDATE_OFFERS: `UPDATE_OFFERS`,
 };
 
 export const SortType = {
@@ -23,6 +26,7 @@ const initialState = {
   reviews: [],
   favorites: [],
   favoritesPage: false,
+  propertyPage: false,
 };
 
 export const Operation = {
@@ -53,6 +57,16 @@ export const Operation = {
           throw err;
         });
   },
+  toggleFavoriteItem: (offerId, currentStatus) => (dispatch, getState, api) => {
+    return api.post(`/favorite/${offerId}/${currentStatus ? 0 : 1}`)
+        .then((response) => {
+          dispatch(ActionCreator.updateProperty(response.data));
+          dispatch(Operation.loadFavorites());
+        })
+        .catch((err) => {
+          throw err;
+        });
+  },
 };
 
 const ActionCreator = {
@@ -65,7 +79,7 @@ const ActionCreator = {
   loadNearPlaceOffers: (offers) => {
     return {
       type: ActionType.LOAD_NEAR_PLACES,
-      payload: offerModel(offers),
+      payload: offersModel(offers),
     };
   },
   changeSorting: (sortValue) => {
@@ -83,7 +97,7 @@ const ActionCreator = {
   loadFavorites: (favorites) => {
     return {
       type: ActionType.LOAD_FAVORITES,
-      payload: offerModel(favorites),
+      payload: offersModel(favorites),
     };
   },
   favoritesPage: () => {
@@ -92,11 +106,27 @@ const ActionCreator = {
       payload: true,
     };
   },
+  propertyPage: () => {
+    return {
+      type: ActionType.PROPERTY_PAGE,
+      payload: true,
+    };
+  },
+  updateProperty: (offer) => {
+    return {
+      type: ActionType.UPDATE_PROPERTY,
+      payload: offerModel(offer),
+    };
+  },
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.GET_PROPERTY:
+      return extend(state, {
+        property: action.payload,
+      });
+    case ActionType.UPDATE_PROPERTY:
       return extend(state, {
         property: action.payload,
       });
@@ -119,6 +149,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.FAVORITES_PAGE:
       return extend(state, {
         favoritesPage: action.payload,
+      });
+    case ActionType.PROPERTY_PAGE:
+      return extend(state, {
+        propertyPage: action.payload,
       });
   }
   return state;

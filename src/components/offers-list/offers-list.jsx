@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import OfferCard from "../offer-card/offer-card.jsx";
 
 const OffersList = React.memo(function OffersList(props) {
-  const {offers, onTitleOfferClick, styleSettings, onChange} = props;
+  const {offers, onTitleOfferClick, styleSettings, onChange, getLoginPage, toggleFavoriteItem, authInfo} = props;
 
   return (
     <div className="cities__places-list places__list tabs__content"
@@ -15,9 +15,13 @@ const OffersList = React.memo(function OffersList(props) {
         return <OfferCard
           key={offerItem.id}
           onTitleOfferClick={onTitleOfferClick}
+          offers={offers}
           offer={offerItem}
           styleSettings={styleSettings}
           onChange={onChange}
+          authInfo={authInfo}
+          getLoginPage={getLoginPage}
+          toggleFavoriteItem={toggleFavoriteItem}
         />;
       })}
     </div>
@@ -29,6 +33,9 @@ OffersList.propTypes = {
   onTitleOfferClick: PropTypes.func.isRequired,
   styleSettings: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
+  authInfo: PropTypes.object,
+  getLoginPage: PropTypes.func.isRequired,
+  toggleFavoriteItem: PropTypes.func.isRequired,
 };
 
 export default OffersList;

@@ -4,7 +4,7 @@ import OfferCard from "../offer-card/offer-card.jsx";
 import {uniqueFilter} from "../../utils";
 
 const FavoritesOffersList = React.memo(function FavoritesOffersList(props) {
-  const {favoritesOffers, onTitleOfferClick, styleSettings} = props;
+  const {favoritesOffers, onTitleOfferClick, styleSettings, getLoginPage, toggleFavoriteItem, authInfo} = props;
 
   return (
     <ul className="favorites__list">
@@ -27,8 +27,12 @@ const FavoritesOffersList = React.memo(function FavoritesOffersList(props) {
                       <OfferCard
                         key={favoriteOffer.id}
                         offer={favoriteOffer}
+                        offers={favoritesOffers}
                         onTitleOfferClick={onTitleOfferClick}
                         styleSettings={styleSettings}
+                        authInfo={authInfo}
+                        getLoginPage={getLoginPage}
+                        toggleFavoriteItem={toggleFavoriteItem}
                       />
                     );
                   })}
@@ -44,6 +48,9 @@ FavoritesOffersList.propTypes = {
   favoritesOffers: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   onTitleOfferClick: PropTypes.func.isRequired,
   styleSettings: PropTypes.object.isRequired,
+  authInfo: PropTypes.object,
+  getLoginPage: PropTypes.func.isRequired,
+  toggleFavoriteItem: PropTypes.func.isRequired,
 };
 
 export default FavoritesOffersList;

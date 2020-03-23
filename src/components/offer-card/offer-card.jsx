@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const OfferCard = React.memo(function OfferCard(props) {
-  const {offer, onTitleOfferClick, styleSettings, onChange} = props;
+  const {offer, onTitleOfferClick, styleSettings, onChange, getLoginPage, toggleFavoriteItem, authInfo} = props;
 
   return (
     <article className={`${styleSettings.classSelect} place-card`} onMouseEnter={
@@ -26,7 +26,17 @@ const OfferCard = React.memo(function OfferCard(props) {
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${offer.bookmark ? `place-card__bookmark-button--active` : ``} button`} type="button">
+          <button
+            className={`place-card__bookmark-button ${offer.bookmark ? `place-card__bookmark-button--active` : ``} button`}
+            type="button"
+            onClick={() => {
+              if (authInfo) {
+                toggleFavoriteItem(offer.id, offer.bookmark);
+              } else {
+                getLoginPage();
+              }
+            }}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark" />
             </svg>
@@ -54,6 +64,7 @@ OfferCard.propTypes = {
   onTitleOfferClick: PropTypes.func.isRequired,
   onChange: PropTypes.func,
   offer: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     mark: PropTypes.string,
     previewImage: PropTypes.string.isRequired,
@@ -64,6 +75,9 @@ OfferCard.propTypes = {
     coords: PropTypes.array.isRequired,
   }).isRequired,
   styleSettings: PropTypes.object.isRequired,
+  authInfo: PropTypes.object,
+  getLoginPage: PropTypes.func.isRequired,
+  toggleFavoriteItem: PropTypes.func.isRequired,
 };
 
 export default OfferCard;

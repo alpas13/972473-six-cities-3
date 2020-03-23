@@ -1,13 +1,28 @@
 import {createSelector} from "reselect";
 import {SortType} from "../main/main.js";
 import NameSpace from "../name-space";
-import {uniqueFilter} from "../../utils";
+import {uniqueFilter, updateOffers} from "../../utils";
 
 const MAX_CITIES = 6;
 
 const getOffersByCity = (state) => {
   const city = state[NameSpace.DATA].city;
   const offers = state[NameSpace.DATA].offers;
+  const favorites = state[NameSpace.MAIN].favorites;
+
+  offers.map((offer) => offer.bookmark = false);
+
+  if (!favorites.length) {
+      return offers.slice().filter((offer) => offer.city === city);
+    }
+
+    favorites.slice().map((offer) => {
+        offers.map((item) => {
+          if (item.id === offer.id) {
+            item.bookmark = true;
+           }
+        });
+      });
 
   return offers.slice().filter((offer) => offer.city === city);
 };

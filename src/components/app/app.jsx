@@ -33,6 +33,7 @@ import {
   getReviews,
   getFavoritesPageStatus,
   getFavorites,
+  getPropertyPageStatus,
 } from "../../reducer/main/selectors.js";
 
 const PropertyWithActivePin = withActivePin(Property);
@@ -108,19 +109,14 @@ class App extends PureComponent {
       login,
       loginPage,
       getLoginPage,
+      toggleFavoriteItem,
+      propertyPage,
     } = this.props;
 
-    if (property) {
+    if ((favoritesPage && !authorizationStatus) || loginPage) {
       return (
-        <PropertyWithActivePin
-          offer={property}
-          nearPlaces={nearPlaces}
-          reviews={reviews}
-          onTitleOfferClick={onTitleOfferClick}
-          propertyStyle={this._propertyStyle}
-          authInfo={authorizationInfo}
-          getFavoritesPage={getFavoritesPage}
-          getLoginPage={getLoginPage}
+        <AuthScreen
+          onSubmit={login}
         />
       );
     }
@@ -131,14 +127,6 @@ class App extends PureComponent {
           authInfo={authorizationInfo}
           getFavoritesPage={getFavoritesPage}
           getLoginPage={getLoginPage}
-        />
-      );
-    }
-
-    if ((favoritesPage && !authorizationStatus) || loginPage) {
-      return (
-        <AuthScreen
-          onSubmit={login}
         />
       );
     }
@@ -154,14 +142,37 @@ class App extends PureComponent {
             favoritesOffers={favorites}
             onTitleOfferClick={onTitleOfferClick}
             styleSettings={this._favoritesStyle}
+            authInfo={authorizationInfo}
+            toggleFavoriteItem={toggleFavoriteItem}
+            getLoginPage={getLoginPage}
           />
         </Favorites>
       );
     }
 
+    if (property && propertyPage) {
+      return (
+        <PropertyWithActivePin
+          offer={property}
+          offers={nearPlaces}
+          reviews={reviews}
+          onTitleOfferClick={onTitleOfferClick}
+          propertyStyle={this._propertyStyle}
+          authInfo={authorizationInfo}
+          getFavoritesPage={getFavoritesPage}
+          getLoginPage={getLoginPage}
+          toggleFavoriteItem={toggleFavoriteItem}
+        />
+      );
+    }
+
     if (!offers.length) {
       return (
-        <MainEmpty/>
+        <MainEmpty
+          authInfo={authorizationInfo}
+          getFavoritesPage={getFavoritesPage}
+          getLoginPage={getLoginPage}
+        />
       );
     }
 
@@ -178,6 +189,7 @@ class App extends PureComponent {
         authInfo={authorizationInfo}
         getFavoritesPage={getFavoritesPage}
         getLoginPage={getLoginPage}
+        toggleFavoriteItem={toggleFavoriteItem}
       >
         <PlacesSorting
           city={city}
@@ -189,7 +201,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {offers, onTitleOfferClick, authorizationInfo, getFavoritesPage, getLoginPage} = this.props;
+    const {offers, onTitleOfferClick, authorizationInfo, getFavoritesPage, getLoginPage, toggleFavoriteItem} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -202,6 +214,8 @@ class App extends PureComponent {
               onTitleOfferClick={onTitleOfferClick}
               styleSettings={this._mainStyle}
               onChange={() => {}}
+              getLoginPage={getLoginPage}
+              toggleFavoriteItem={toggleFavoriteItem}
             />
           </Route>
           <Route exact path="/dev-auth">
@@ -219,6 +233,9 @@ class App extends PureComponent {
                 favoritesOffers={offers}
                 onTitleOfferClick={onTitleOfferClick}
                 styleSettings={this._favoritesStyle}
+                authInfo={authorizationInfo}
+                getLoginPage={getLoginPage}
+                toggleFavoriteItem={toggleFavoriteItem}
               />
             </Favorites>
           </Route>
@@ -233,7 +250,7 @@ App.propTypes = {
   city: PropTypes.string.isRequired,
   cities: PropTypes.array.isRequired,
   property: PropTypes.object,
-  nearPlaces: PropTypes.array,
+  nearPlaces: PropTypes.array.isRequired,
   onTitleOfferClick: PropTypes.func.isRequired,
   onCityClick: PropTypes.func.isRequired,
   sortType: PropTypes.string.isRequired,
@@ -247,6 +264,8 @@ App.propTypes = {
   authorizationInfo: PropTypes.object,
   getFavoritesPage: PropTypes.func.isRequired,
   getLoginPage: PropTypes.func.isRequired,
+  toggleFavoriteItem: PropTypes.func.isRequired,
+  propertyPage: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -262,6 +281,7 @@ const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
   authorizationInfo: getAuthorizationInfo(state),
   loginPage: getLoginPageStatus(state),
+  propertyPage: getPropertyPageStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -269,6 +289,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.getProperty(offer));
     dispatch(MainOperation.loadNearPlaceOffers(offer.id));
     dispatch(MainOperation.loadReviews(offer.id));
+    dispatch(ActionCreator.propertyPage());
   },
   onCityClick(city) {
     dispatch(DataActionCreator.changeCity(city));
@@ -285,6 +306,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getLoginPage() {
     dispatch(UserActionCreator.loginPageEnable());
+  },
+  toggleFavoriteItem(offerId, currentStatus) {
+    dispatch(MainOperation.toggleFavoriteItem(offerId, currentStatus));
   }
 });
 

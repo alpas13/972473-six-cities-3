@@ -1,4 +1,4 @@
-import {extend, offerModel} from "../../utils";
+import {extend, offersModel} from "../../utils";
 
 const initialState = {
   offers: [],
@@ -28,13 +28,13 @@ const ActionCreator = {
   loadOffers: (offers) => {
     return {
       type: ActionType.LOAD_OFFERS,
-      payload: offerModel(offers),
+      payload: offersModel(offers),
     };
   },
   setCity: (offers) => {
     return {
       type: ActionType.SET_CITY,
-      payload: offerModel(offers)[0].city,
+      payload: offersModel(offers)[0].city,
     };
   },
   changeCity: (city) => ({

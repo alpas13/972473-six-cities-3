@@ -24,6 +24,7 @@ const Main = React.memo(function Main(props) {
     authInfo,
     getFavoritesPage,
     getLoginPage,
+    toggleFavoriteItem,
   } = props;
 
   return (
@@ -54,6 +55,9 @@ const Main = React.memo(function Main(props) {
                 onTitleOfferClick={onTitleOfferClick}
                 styleSettings={propertyStyle}
                 handleSelectItem={handleMouseEnter}
+                authInfo={authInfo}
+                getLoginPage={getLoginPage}
+                toggleFavoriteItem={toggleFavoriteItem}
               />
             </section>
             <div className="cities__right-section">
@@ -86,6 +90,7 @@ Main.propTypes = {
   authInfo: PropTypes.object,
   getFavoritesPage: PropTypes.func.isRequired,
   getLoginPage: PropTypes.func.isRequired,
+  toggleFavoriteItem: PropTypes.func.isRequired,
 };
 
 export default Main;
