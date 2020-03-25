@@ -18,6 +18,7 @@ const Property = React.memo(function Property(props) {
     offers,
     activePin,
     reviews,
+    favoritesId,
     handleMouseEnter,
     onTitleOfferClick,
     propertyStyle,
@@ -145,6 +146,7 @@ const Property = React.memo(function Property(props) {
             <div className="near-places__list places__list">
               <OfferListWrapper
                 offers={offers}
+                favoritesId={favoritesId}
                 onTitleOfferClick={onTitleOfferClick}
                 styleSettings={propertyStyle}
                 handleSelectItem={handleMouseEnter}
@@ -182,6 +184,7 @@ Property.propTypes = {
   activePin: PropTypes.array,
   offers: PropTypes.array.isRequired,
   reviews: PropTypes.array.isRequired,
+  favoritesId: PropTypes.array.isRequired,
   handleMouseEnter: PropTypes.func.isRequired,
   onTitleOfferClick: PropTypes.func.isRequired,
   propertyStyle: PropTypes.object.isRequired,

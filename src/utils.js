@@ -108,4 +108,8 @@ const uniqueFilter = (data, filterValue, limiter = 0) => {
   return limiter > 0 ? Array.from(dataSet).slice(0, limiter) : Array.from(dataSet);
 };
 
-export {dateFormat, extend, offersModel, offerModel, reviewModel, uniqueFilter};
+const findMatch = (value, arrayOfValues) => {
+  return arrayOfValues.some((item) => item === value);
+};
+
+export {dateFormat, extend, offersModel, offerModel, reviewModel, uniqueFilter, findMatch};

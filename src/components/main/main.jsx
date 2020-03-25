@@ -17,6 +17,7 @@ const Main = React.memo(function Main(props) {
     cities,
     onCityClick,
     activePin,
+    favoritesId,
     handleMouseEnter,
     onTitleOfferClick,
     propertyStyle,
@@ -52,6 +53,7 @@ const Main = React.memo(function Main(props) {
               {children}
               <OffersListWrapper
                 offers={offers}
+                favoritesId={favoritesId}
                 onTitleOfferClick={onTitleOfferClick}
                 styleSettings={propertyStyle}
                 handleSelectItem={handleMouseEnter}
@@ -88,6 +90,7 @@ Main.propTypes = {
   onTitleOfferClick: PropTypes.func.isRequired,
   propertyStyle: PropTypes.object.isRequired,
   authInfo: PropTypes.object,
+  favoritesId: PropTypes.array.isRequired,
   getFavoritesPage: PropTypes.func.isRequired,
   getLoginPage: PropTypes.func.isRequired,
   toggleFavoriteItem: PropTypes.func.isRequired,

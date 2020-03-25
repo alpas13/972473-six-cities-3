@@ -33,6 +33,7 @@ import {
   getReviews,
   getFavoritesPageStatus,
   getFavorites,
+  getFavoritesId,
   getPropertyPageStatus,
 } from "../../reducer/main/selectors.js";
 
@@ -103,6 +104,7 @@ class App extends PureComponent {
       onSortingChange,
       favoritesPage,
       favorites,
+      favoritesId,
       authorizationStatus,
       authorizationInfo,
       getFavoritesPage,
@@ -112,7 +114,6 @@ class App extends PureComponent {
       toggleFavoriteItem,
       propertyPage,
       sendReview,
-      sendCommentStatus,
     } = this.props;
 
     if ((favoritesPage && !authorizationStatus) || loginPage) {
@@ -158,6 +159,7 @@ class App extends PureComponent {
           offer={property}
           offers={nearPlaces}
           reviews={reviews}
+          favoritesId={favoritesId}
           onTitleOfferClick={onTitleOfferClick}
           propertyStyle={this._propertyStyle}
           authInfo={authorizationInfo}
@@ -165,7 +167,6 @@ class App extends PureComponent {
           getLoginPage={getLoginPage}
           toggleFavoriteItem={toggleFavoriteItem}
           sendReview={sendReview}
-          sendCommentStatus={sendCommentStatus}
         />
       );
     }
@@ -186,6 +187,7 @@ class App extends PureComponent {
         offersCount={offers.length}
         city = {city}
         cities={cities}
+        favoritesId={favoritesId}
         onCityClick={onCityClick}
         onTitleOfferClick={onTitleOfferClick}
         sortType={sortType}
@@ -205,7 +207,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {offers, onTitleOfferClick, authorizationInfo, getFavoritesPage, getLoginPage, toggleFavoriteItem} = this.props;
+    const {offers, favoritesId, onTitleOfferClick, authorizationInfo, getFavoritesPage, getLoginPage, toggleFavoriteItem} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -215,6 +217,7 @@ class App extends PureComponent {
           <Route exact path="/dev-offer">
             <OffersList
               offers={offers}
+              favoritesId={favoritesId}
               onTitleOfferClick={onTitleOfferClick}
               styleSettings={this._mainStyle}
               onChange={() => {}}
@@ -262,6 +265,7 @@ App.propTypes = {
   reviews: PropTypes.array,
   favoritesPage: PropTypes.bool.isRequired,
   favorites: PropTypes.arrayOf(PropTypes.object).isRequired,
+  favoritesId: PropTypes.array.isRequired,
   login: PropTypes.func.isRequired,
   loginPage: PropTypes.bool.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
@@ -283,6 +287,7 @@ const mapStateToProps = (state) => ({
   reviews: getReviews(state),
   favoritesPage: getFavoritesPageStatus(state),
   favorites: getFavorites(state),
+  favoritesId: getFavoritesId(state),
   authorizationStatus: getAuthorizationStatus(state),
   authorizationInfo: getAuthorizationInfo(state),
   loginPage: getLoginPageStatus(state),
@@ -315,8 +320,8 @@ const mapDispatchToProps = (dispatch) => ({
   toggleFavoriteItem(offerId, currentStatus) {
     dispatch(MainOperation.toggleFavoriteItem(offerId, currentStatus));
   },
-  sendReview(offerId, review, callback) {
-    dispatch(MainOperation.sendReview(offerId, review, callback));
+  sendReview(offerId, review, clearForm) {
+    dispatch(MainOperation.sendReview(offerId, review, clearForm));
   }
 });
 

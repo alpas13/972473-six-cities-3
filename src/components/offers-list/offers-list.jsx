@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import OfferCard from "../offer-card/offer-card.jsx";
+import {findMatch} from "../../utils";
 
 const OffersList = React.memo(function OffersList(props) {
-  const {offers, onTitleOfferClick, styleSettings, onChange, getLoginPage, toggleFavoriteItem, authInfo} = props;
+  const {offers, favoritesId, onTitleOfferClick, styleSettings, onChange, getLoginPage, toggleFavoriteItem, authInfo} = props;
 
   return (
     <div className="cities__places-list places__list tabs__content"
@@ -17,6 +18,7 @@ const OffersList = React.memo(function OffersList(props) {
           onTitleOfferClick={onTitleOfferClick}
           offers={offers}
           offer={offerItem}
+          isFavorite={findMatch(offerItem.id, favoritesId)}
           styleSettings={styleSettings}
           onChange={onChange}
           authInfo={authInfo}
@@ -30,6 +32,7 @@ const OffersList = React.memo(function OffersList(props) {
 
 OffersList.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  favoritesId: PropTypes.array.isRequired,
   onTitleOfferClick: PropTypes.func.isRequired,
   styleSettings: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,

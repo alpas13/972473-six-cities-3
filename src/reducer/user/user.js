@@ -1,4 +1,5 @@
 import {extend} from "../../utils.js";
+import {Operation as MainOperation} from "../main/main.js";
 
 const AuthorizationStatus = {
   AUTH: `AUTH`,
@@ -65,6 +66,7 @@ const Operation = {
           dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
           dispatch(ActionCreator.getAuthInfo(response.data));
           dispatch(ActionCreator.loginPageDisable());
+          dispatch(MainOperation.loadFavorites());
         });
   },
 };

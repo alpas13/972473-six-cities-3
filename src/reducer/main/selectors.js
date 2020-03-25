@@ -10,24 +10,7 @@ export const getProperty = (state) => {
 };
 
 export const getNearPlaceOffers = (state) => {
-  const offers = state[NameSpace.MAIN].nearPlaces;
-  const favorites = state[NameSpace.MAIN].favorites;
-
-   offers.map((offer) => offer.bookmark = false);
-
-     if (!favorites.length) {
-         return offers;
-       }
-
-       favorites.slice().map((offer) => {
-           offers.map((item) => {
-             if (item.id === offer.id) {
-               item.bookmark = true;
-              }
-           });
-         });
-
-    return offers;
+  return state[NameSpace.MAIN].nearPlaces;
 };
 
 export const getReviews = (state) => {
@@ -41,6 +24,11 @@ export const getFavoritesPageStatus = (state) => {
 export const getFavorites = (state) => {
   return state[NameSpace.MAIN].favorites;
 };
+
+export const getFavoritesId = (state) => {
+  const favorites = state[NameSpace.MAIN].favorites;
+  return favorites.slice().map((item) => item.id);;
+}
 
 export const getPropertyPageStatus = (state) => {
   return state[NameSpace.MAIN].propertyPage;

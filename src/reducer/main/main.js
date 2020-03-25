@@ -48,17 +48,17 @@ export const Operation = {
           throw err;
         });
   },
-  sendReview: (offerId, review, callback) => (dispatch, getState, api) => {
+  sendReview: (offerId, review, clearForm) => (dispatch, getState, api) => {
     return api.post(`/comments/${offerId}`, {
       comment: review.comment,
       rating: review.rating,
     })
         .then((response) => {
           dispatch(ActionCreator.loadReviews(response.data));
-          callback();
+          clearForm();
         })
         .catch((err) => {
-          callback(false);
+          clearForm(false);
           throw err;
         });
   },

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const OfferCard = React.memo(function OfferCard(props) {
-  const {offer, onTitleOfferClick, styleSettings, onChange, getLoginPage, toggleFavoriteItem, authInfo} = props;
+  const {offer, isFavorite, onTitleOfferClick, styleSettings, onChange, getLoginPage, toggleFavoriteItem, authInfo} = props;
 
   return (
     <article className={`${styleSettings.classSelect} place-card`} onMouseEnter={
@@ -27,11 +27,11 @@ const OfferCard = React.memo(function OfferCard(props) {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            className={`place-card__bookmark-button ${offer.bookmark ? `place-card__bookmark-button--active` : ``} button`}
+            className={`place-card__bookmark-button ${isFavorite ? `place-card__bookmark-button--active` : ``} button`}
             type="button"
             onClick={() => {
               if (authInfo) {
-                toggleFavoriteItem(offer.id, offer.bookmark);
+                toggleFavoriteItem(offer.id, isFavorite);
               } else {
                 getLoginPage();
               }
