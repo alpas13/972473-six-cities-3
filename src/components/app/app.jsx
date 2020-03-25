@@ -34,6 +34,7 @@ import {
   getFavoritesPageStatus,
   getFavorites,
   getPropertyPageStatus,
+  getSendCommentStatus,
 } from "../../reducer/main/selectors.js";
 
 const PropertyWithActivePin = withActivePin(Property);
@@ -111,6 +112,8 @@ class App extends PureComponent {
       getLoginPage,
       toggleFavoriteItem,
       propertyPage,
+      sendReview,
+      sendCommentStatus,
     } = this.props;
 
     if ((favoritesPage && !authorizationStatus) || loginPage) {
@@ -162,6 +165,8 @@ class App extends PureComponent {
           getFavoritesPage={getFavoritesPage}
           getLoginPage={getLoginPage}
           toggleFavoriteItem={toggleFavoriteItem}
+          sendReview={sendReview}
+          sendCommentStatus={sendCommentStatus}
         />
       );
     }
@@ -266,6 +271,8 @@ App.propTypes = {
   getLoginPage: PropTypes.func.isRequired,
   toggleFavoriteItem: PropTypes.func.isRequired,
   propertyPage: PropTypes.bool.isRequired,
+  sendReview: PropTypes.func.isRequired,
+  sendCommentStatus: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -282,6 +289,7 @@ const mapStateToProps = (state) => ({
   authorizationInfo: getAuthorizationInfo(state),
   loginPage: getLoginPageStatus(state),
   propertyPage: getPropertyPageStatus(state),
+  sendCommentStatus: getSendCommentStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -309,6 +317,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   toggleFavoriteItem(offerId, currentStatus) {
     dispatch(MainOperation.toggleFavoriteItem(offerId, currentStatus));
+  },
+  sendReview(offerId, review) {
+    dispatch(MainOperation.sendReview(offerId, review));
   }
 });
 

@@ -9,7 +9,8 @@ const ReviewsList = React.memo(function ReviewList(props) {
     <Fragment>
       {reviews.length > 0 && <h2 className="reviews__title">Reviews  &middot;
         <span className="reviews__amount"> {reviews.length}</span></h2>}
-      {reviews.length > 0 || <h2 className="reviews__title">Reviews</h2>}
+      {reviews.length < 1 && <h2 className="reviews__title">Reviews  &middot;
+        <span className="reviews__amount"> {0}</span></h2>}
       {reviews.length > 0 &&
       <ul className="reviews__list">
         {reviews.map((review) => {

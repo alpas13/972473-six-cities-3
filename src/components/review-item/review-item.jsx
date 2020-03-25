@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import {dateFormat} from "../../utils";
 
+const MAX_RATING = 5;
+
 const ReviewItem = React.memo(function ReviewItem({review}) {
   return (
     <li className="reviews__item">
@@ -14,7 +16,7 @@ const ReviewItem = React.memo(function ReviewItem({review}) {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `${review.rating}%`}} />
+            <span style={{width: `${(review.rating / MAX_RATING) * 100}%`}} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

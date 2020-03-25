@@ -10,6 +10,7 @@ const ActionType = {
   FAVORITES_PAGE: `FAVORITES_PAGE`,
   PROPERTY_PAGE: `PROPERTY_PAGE`,
   UPDATE_OFFERS: `UPDATE_OFFERS`,
+  SEND_COMMENT_STATUS: `SEND_COMMENT_STATUS`,
 };
 
 export const SortType = {
@@ -27,6 +28,7 @@ const initialState = {
   favorites: [],
   favoritesPage: false,
   propertyPage: false,
+  sendCommentStatus: 0,
 };
 
 export const Operation = {
@@ -48,12 +50,27 @@ export const Operation = {
           throw err;
         });
   },
+  sendReview: (offerId, review) => (dispatch, getState, api) => {
+    return api.post(`/comments/${offerId}`, {
+      omment: review.comment,
+      rating: review.rating,
+    })
+        .then((response) => {
+          dispatch(ActionCreator.loadReviews(response.data));
+          dispatch(ActionCreator.sendCommentStatus(response.status));
+        })
+        .catch((err) => {
+          dispatch(ActionCreator.sendCommentStatus(err.response.status));
+          throw err;
+        });
+  },
   loadFavorites: () => (dispatch, getState, api) => {
     return api.get(`/favorite`)
         .then((response) => {
           dispatch(ActionCreator.loadFavorites(response.data));
         })
         .catch((err) => {
+          dispatch(ActionCreator.loadFavorites(false));
           throw err;
         });
   },
@@ -118,6 +135,12 @@ const ActionCreator = {
       payload: offerModel(offer),
     };
   },
+  sendCommentStatus: (status) => {
+    return {
+      type: ActionType.SEND_COMMENT_STATUS,
+      payload: status,
+    };
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -153,6 +176,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.PROPERTY_PAGE:
       return extend(state, {
         propertyPage: action.payload,
+      });
+    case ActionType.SEND_COMMENT_STATUS:
+      return extend(state, {
+        sendCommentStatus: action.payload,
       });
   }
   return state;
