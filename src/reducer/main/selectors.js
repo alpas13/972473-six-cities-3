@@ -45,7 +45,3 @@ export const getFavorites = (state) => {
 export const getPropertyPageStatus = (state) => {
   return state[NameSpace.MAIN].propertyPage;
 };
-
-export const getSendCommentStatus = (state) => {
-  return state[NameSpace.MAIN].sendCommentStatus;
-};

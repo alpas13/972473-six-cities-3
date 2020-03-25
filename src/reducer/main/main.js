@@ -10,7 +10,6 @@ const ActionType = {
   FAVORITES_PAGE: `FAVORITES_PAGE`,
   PROPERTY_PAGE: `PROPERTY_PAGE`,
   UPDATE_OFFERS: `UPDATE_OFFERS`,
-  SEND_COMMENT_STATUS: `SEND_COMMENT_STATUS`,
 };
 
 export const SortType = {
@@ -28,7 +27,6 @@ const initialState = {
   favorites: [],
   favoritesPage: false,
   propertyPage: false,
-  sendCommentStatus: 0,
 };
 
 export const Operation = {
@@ -50,17 +48,17 @@ export const Operation = {
           throw err;
         });
   },
-  sendReview: (offerId, review) => (dispatch, getState, api) => {
+  sendReview: (offerId, review, callback) => (dispatch, getState, api) => {
     return api.post(`/comments/${offerId}`, {
-      omment: review.comment,
+      comment: review.comment,
       rating: review.rating,
     })
         .then((response) => {
           dispatch(ActionCreator.loadReviews(response.data));
-          dispatch(ActionCreator.sendCommentStatus(response.status));
+          callback();
         })
         .catch((err) => {
-          dispatch(ActionCreator.sendCommentStatus(err.response.status));
+          callback(false);
           throw err;
         });
   },

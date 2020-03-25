@@ -26,7 +26,6 @@ const Property = React.memo(function Property(props) {
     getLoginPage,
     toggleFavoriteItem,
     sendReview,
-    sendCommentStatus,
   } = props;
 
   return (
@@ -127,7 +126,6 @@ const Property = React.memo(function Property(props) {
                 {authInfo && <ReviewFormWrapper
                   offerId={offer.id}
                   onSubmit={sendReview}
-                  sendCommentStatus={sendCommentStatus}
                 />}
               </section>
             </div>
@@ -192,7 +190,6 @@ Property.propTypes = {
   getLoginPage: PropTypes.func.isRequired,
   toggleFavoriteItem: PropTypes.func.isRequired,
   sendReview: PropTypes.func.isRequired,
-  sendCommentStatus: PropTypes.number.isRequired,
 };
 
 export default Property;

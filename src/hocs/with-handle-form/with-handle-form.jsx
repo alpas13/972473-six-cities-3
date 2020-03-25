@@ -9,7 +9,7 @@ const withHandleForm = (Component) => {
       this.state = {
         rating: ``,
         comment: ``,
-        status: this.props.sendCommentStatus,
+        status: true,
       };
 
       this.handleChangeRating = this.handleChangeRating.bind(this);
@@ -32,12 +32,15 @@ const withHandleForm = (Component) => {
           });
     }
 
-    handleClearForm(status) {
-      if (status === 200) {
+    handleClearForm(status = true) {
+      if (status) {
         this.setState({
           rating: ``,
           comment: ``,
-          status: 0,
+        });
+      } else if (!status) {
+        this.setState({
+          status,
         });
       }
     }
@@ -50,8 +53,7 @@ const withHandleForm = (Component) => {
       onSubmit(offerId, {
         rating: this.state.rating,
         comment: this.state.comment,
-      })
-          .then(this.handleClearForm(this.state.status));
+      }, this.handleClearForm);
     }
 
     render() {
@@ -62,7 +64,6 @@ const withHandleForm = (Component) => {
           comment={this.state.comment}
           checkedId={this.state.checkedId}
           status={this.state.status}
-          handleClearForm={this.handleClearForm}
           handleChangeRating={this.handleChangeRating}
           handleChangeTextarea={this.handleChangeTextarea}
           handleSubmit={this.handleSubmit}
@@ -74,7 +75,6 @@ const withHandleForm = (Component) => {
   WithHandleForm.propTypes = {
     offerId: PropTypes.number.isRequired,
     onSubmit: PropTypes.func.isRequired,
-    sendCommentStatus: PropTypes.number.isRequired,
   };
 
   return WithHandleForm;

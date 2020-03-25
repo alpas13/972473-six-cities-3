@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const ReviewForm = React.memo(function ReviewForm(props) {
-  const {rating, comment, status, handleClearForm, handleChangeRating, handleChangeTextarea, handleSubmit} = props;
+  const {rating, comment, status, handleChangeRating, handleChangeTextarea, handleSubmit} = props;
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={
       (evt) => {
@@ -12,7 +12,7 @@ const ReviewForm = React.memo(function ReviewForm(props) {
     >
       <label className="reviews__label form__label" htmlFor="review">Your
         review</label>
-      {(status === 400 || status === 401) && <div className={`reviews__error`} style={{backgroundColor: `red`, height: `30px`, marginBottom: `10px`}}>
+      {!status && <div className={`reviews__error`} style={{backgroundColor: `red`, height: `30px`, marginBottom: `10px`}}>
         <p style={{color: `white`, fontWeight: `bold`, textAlign: `center`, paddingTop: `5px`}}>
           Ошибка отправки коментария!
         </p>
@@ -125,11 +125,10 @@ const ReviewForm = React.memo(function ReviewForm(props) {
 ReviewForm.propTypes = {
   rating: PropTypes.string.isRequired,
   comment: PropTypes.string.isRequired,
-  status: PropTypes.number.isRequired,
+  status: PropTypes.bool.isRequired,
   handleChangeRating: PropTypes.func.isRequired,
   handleChangeTextarea: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  handleClearForm: PropTypes.func.isRequired,
 };
 
 export default ReviewForm;

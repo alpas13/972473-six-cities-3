@@ -34,7 +34,6 @@ import {
   getFavoritesPageStatus,
   getFavorites,
   getPropertyPageStatus,
-  getSendCommentStatus,
 } from "../../reducer/main/selectors.js";
 
 const PropertyWithActivePin = withActivePin(Property);
@@ -272,7 +271,6 @@ App.propTypes = {
   toggleFavoriteItem: PropTypes.func.isRequired,
   propertyPage: PropTypes.bool.isRequired,
   sendReview: PropTypes.func.isRequired,
-  sendCommentStatus: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -289,7 +287,6 @@ const mapStateToProps = (state) => ({
   authorizationInfo: getAuthorizationInfo(state),
   loginPage: getLoginPageStatus(state),
   propertyPage: getPropertyPageStatus(state),
-  sendCommentStatus: getSendCommentStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -318,8 +315,8 @@ const mapDispatchToProps = (dispatch) => ({
   toggleFavoriteItem(offerId, currentStatus) {
     dispatch(MainOperation.toggleFavoriteItem(offerId, currentStatus));
   },
-  sendReview(offerId, review) {
-    dispatch(MainOperation.sendReview(offerId, review));
+  sendReview(offerId, review, callback) {
+    dispatch(MainOperation.sendReview(offerId, review, callback));
   }
 });
 
