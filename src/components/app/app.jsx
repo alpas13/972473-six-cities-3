@@ -9,8 +9,6 @@ import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
 import AuthScreen from "../auth-screen/auth-screen.jsx";
 import Favorites from "../favorites/favorites.jsx";
-import FavoritesOffersList
-  from "../favorites-offers-list/favorites-offers-list.jsx";
 import FavoritesEmpty from "../favorites-empty/favorites-empty.jsx";
 import Property from "../property/property.jsx";
 import OffersList from "../offers-list/offers-list.jsx";
@@ -89,18 +87,14 @@ class App extends PureComponent {
     if (favoritesPage && authorizationStatus) {
       return (
         <Favorites
+          offers={favorites}
+          favoritesId={favoritesId}
           authInfo={authorizationInfo}
+          onTitleOfferClick={onTitleOfferClick}
           getFavoritesPage={getFavoritesPage}
           getLoginPage={getLoginPage}
+          toggleFavoriteItem={toggleFavoriteItem}
         >
-          <FavoritesOffersList
-            favoritesOffers={favorites}
-            favoritesId={favoritesId}
-            onTitleOfferClick={onTitleOfferClick}
-            authInfo={authorizationInfo}
-            toggleFavoriteItem={toggleFavoriteItem}
-            getLoginPage={getLoginPage}
-          />
         </Favorites>
       );
     }
@@ -157,7 +151,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {offers, favoritesId, onTitleOfferClick, authorizationInfo, getFavoritesPage, getLoginPage, toggleFavoriteItem} = this.props;
+    const {offers, favorites, favoritesId, onTitleOfferClick, authorizationInfo, getFavoritesPage, getLoginPage, toggleFavoriteItem} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -182,19 +176,16 @@ class App extends PureComponent {
           </Route>
           <Route exact path="/dev-favorites">
             <Favorites
+              offers={favorites}
               authInfo={authorizationInfo}
               getFavoritesPage={getFavoritesPage}
               getLoginPage={getLoginPage}
+              favoritesOffers={offers}
+              favoritesId={favoritesId}
+              onTitleOfferClick={onTitleOfferClick}
+              styleSettings={favoritesStyle}
+              toggleFavoriteItem={toggleFavoriteItem}
             >
-              <FavoritesOffersList
-                favoritesOffers={offers}
-                favoritesId={favoritesId}
-                onTitleOfferClick={onTitleOfferClick}
-                styleSettings={favoritesStyle}
-                authInfo={authorizationInfo}
-                getLoginPage={getLoginPage}
-                toggleFavoriteItem={toggleFavoriteItem}
-              />
             </Favorites>
           </Route>
         </Switch>

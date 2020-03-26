@@ -112,4 +112,9 @@ const findMatch = (value, arrayOfValues) => {
   return arrayOfValues.some((item) => item === value);
 };
 
-export {dateFormat, extend, offersModel, offerModel, reviewModel, uniqueFilter, findMatch};
+const filterByValue = (data, filter, value) => {
+  return data.slice()
+      .filter((item) => item[filter] === value);
+};
+
+export {dateFormat, extend, offersModel, offerModel, reviewModel, uniqueFilter, findMatch, filterByValue};

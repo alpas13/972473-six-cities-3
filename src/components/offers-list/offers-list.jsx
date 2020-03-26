@@ -7,11 +7,7 @@ const OffersList = React.memo(function OffersList(props) {
   const {offers, favoritesId, onTitleOfferClick, styleSettings, onChange, getLoginPage, toggleFavoriteItem, authInfo} = props;
 
   return (
-    <div className="cities__places-list places__list tabs__content"
-      onMouseLeave={() => {
-        onChange(null);
-      }}
-    >
+    <>
       {offers.map((offerItem) => {
         return <OfferCard
           key={offerItem.id}
@@ -26,7 +22,7 @@ const OffersList = React.memo(function OffersList(props) {
           toggleFavoriteItem={toggleFavoriteItem}
         />;
       })}
-    </div>
+    </>
   );
 });
 
@@ -35,7 +31,7 @@ OffersList.propTypes = {
   favoritesId: PropTypes.array.isRequired,
   onTitleOfferClick: PropTypes.func.isRequired,
   styleSettings: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   authInfo: PropTypes.object,
   getLoginPage: PropTypes.func.isRequired,
   toggleFavoriteItem: PropTypes.func.isRequired,

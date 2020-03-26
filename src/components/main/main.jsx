@@ -19,7 +19,7 @@ const Main = React.memo(function Main(props) {
     onCityClick,
     activePin,
     favoritesId,
-    handleMouseEnter,
+    handleMouse,
     onTitleOfferClick,
     children,
     authInfo,
@@ -51,16 +51,22 @@ const Main = React.memo(function Main(props) {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersCount} places to stay in {city}</b>
               {children}
-              <OffersListWrapper
-                offers={offers}
-                favoritesId={favoritesId}
-                onTitleOfferClick={onTitleOfferClick}
-                styleSettings={mainStyle}
-                handleSelectItem={handleMouseEnter}
-                authInfo={authInfo}
-                getLoginPage={getLoginPage}
-                toggleFavoriteItem={toggleFavoriteItem}
-              />
+              <div className="cities__places-list places__list tabs__content"
+                onMouseLeave={() => {
+                  handleMouse(null);
+                }}
+              >
+                <OffersListWrapper
+                  offers={offers}
+                  favoritesId={favoritesId}
+                  onTitleOfferClick={onTitleOfferClick}
+                  styleSettings={mainStyle}
+                  handleSelectItem={handleMouse}
+                  authInfo={authInfo}
+                  getLoginPage={getLoginPage}
+                  toggleFavoriteItem={toggleFavoriteItem}
+                />
+              </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
@@ -86,7 +92,7 @@ Main.propTypes = {
   onCityClick: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
   activePin: PropTypes.array,
-  handleMouseEnter: PropTypes.func.isRequired,
+  handleMouse: PropTypes.func.isRequired,
   onTitleOfferClick: PropTypes.func.isRequired,
   authInfo: PropTypes.object,
   favoritesId: PropTypes.array.isRequired,

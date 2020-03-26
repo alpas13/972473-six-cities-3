@@ -20,7 +20,7 @@ const Property = React.memo(function Property(props) {
     activePin,
     reviews,
     favoritesId,
-    handleMouseEnter,
+    handleMouse,
     onTitleOfferClick,
     authInfo,
     getFavoritesPage,
@@ -144,16 +144,22 @@ const Property = React.memo(function Property(props) {
             <h2 className="near-places__title">Other places in the
               neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OfferListWrapper
-                offers={offers}
-                favoritesId={favoritesId}
-                onTitleOfferClick={onTitleOfferClick}
-                styleSettings={propertyStyle}
-                handleSelectItem={handleMouseEnter}
-                authInfo={authInfo}
-                getLoginPage={getLoginPage}
-                toggleFavoriteItem={toggleFavoriteItem}
-              />
+              <div className="cities__places-list places__list tabs__content"
+                onMouseLeave={() => {
+                  handleMouse(null);
+                }}
+              >
+                <OfferListWrapper
+                  offers={offers}
+                  favoritesId={favoritesId}
+                  onTitleOfferClick={onTitleOfferClick}
+                  styleSettings={propertyStyle}
+                  handleSelectItem={handleMouse}
+                  authInfo={authInfo}
+                  getLoginPage={getLoginPage}
+                  toggleFavoriteItem={toggleFavoriteItem}
+                />
+              </div>
             </div>
           </section>
         </div>
@@ -185,7 +191,7 @@ Property.propTypes = {
   offers: PropTypes.array.isRequired,
   reviews: PropTypes.array.isRequired,
   favoritesId: PropTypes.array.isRequired,
-  handleMouseEnter: PropTypes.func.isRequired,
+  handleMouse: PropTypes.func.isRequired,
   onTitleOfferClick: PropTypes.func.isRequired,
   authInfo: PropTypes.object,
   getFavoritesPage: PropTypes.func.isRequired,

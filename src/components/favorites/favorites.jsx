@@ -1,9 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Header from "../header/header.jsx";
+import OffersList from "../offers-list/offers-list.jsx";
+import {uniqueFilter, filterByValue} from "../../utils";
+import {favoritesStyle} from "../../const";
 
 const Favorites = React.memo(function Favorites(props) {
-  const {children, authInfo, getFavoritesPage, getLoginPage} = props;
+  const {offers, authInfo, getFavoritesPage, getLoginPage, favoritesId, onTitleOfferClick, toggleFavoriteItem} = props;
   return (
     <div className="page">
       <Header
@@ -15,7 +18,32 @@ const Favorites = React.memo(function Favorites(props) {
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
-            {children}
+            <ul className="favorites__list">
+              {uniqueFilter(offers, `city`).map((city) => {
+                return (
+                  <li key={city} className="favorites__locations-items">
+                    <div className="favorites__locations locations locations--current">
+                      <div className="locations__item">
+                        <a className="locations__item-link" href="#">
+                          <span>{city}</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div className="favorites__places">
+                      <OffersList
+                        offers={filterByValue(offers, `city`, city)}
+                        favoritesId={favoritesId}
+                        onTitleOfferClick={onTitleOfferClick}
+                        styleSettings={favoritesStyle}
+                        authInfo={authInfo}
+                        getLoginPage={getLoginPage}
+                        toggleFavoriteItem={toggleFavoriteItem}
+                      />
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
           </section>
         </div>
       </main>
@@ -29,10 +57,13 @@ const Favorites = React.memo(function Favorites(props) {
 });
 
 Favorites.propTypes = {
-  children: PropTypes.node.isRequired,
+  offers: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   authInfo: PropTypes.object,
+  favoritesId: PropTypes.array.isRequired,
+  onTitleOfferClick: PropTypes.func.isRequired,
   getFavoritesPage: PropTypes.func.isRequired,
   getLoginPage: PropTypes.func.isRequired,
+  toggleFavoriteItem: PropTypes.func.isRequired,
 };
 
 export default Favorites;
