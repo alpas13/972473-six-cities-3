@@ -22,8 +22,6 @@ import {
   getLoginPageStatus
 } from "../../reducer/user/selectors.js";
 import {
-  getProperty,
-  getNearPlaceOffers,
   getFavoritesPageStatus,
   getFavorites,
   getPropertyPageStatus,
@@ -36,8 +34,6 @@ class App extends PureComponent {
   _renderApp() {
     const {
       offers,
-      property,
-      nearPlaces,
       favoritesPage,
       favorites,
       authorizationStatus,
@@ -47,7 +43,6 @@ class App extends PureComponent {
       loginPage,
       getLoginPage,
       propertyPage,
-      sendReview,
     } = this.props;
 
     if ((favoritesPage && !authorizationStatus) || loginPage) {
@@ -75,20 +70,16 @@ class App extends PureComponent {
           authInfo={authorizationInfo}
           getFavoritesPage={getFavoritesPage}
           getLoginPage={getLoginPage}
-        >
-        </Favorites>
+        />
       );
     }
 
-    if (property && propertyPage) {
+    if (propertyPage) {
       return (
         <PropertyWithActivePin
-          offer={property}
-          offers={nearPlaces}
           authInfo={authorizationInfo}
           getFavoritesPage={getFavoritesPage}
           getLoginPage={getLoginPage}
-          sendReview={sendReview}
         />
       );
     }
@@ -155,8 +146,6 @@ class App extends PureComponent {
 
 App.propTypes = {
   offers: PropTypes.array.isRequired,
-  property: PropTypes.object,
-  nearPlaces: PropTypes.array.isRequired,
   favoritesPage: PropTypes.bool.isRequired,
   favorites: PropTypes.arrayOf(PropTypes.object).isRequired,
   login: PropTypes.func.isRequired,
@@ -166,13 +155,10 @@ App.propTypes = {
   getFavoritesPage: PropTypes.func.isRequired,
   getLoginPage: PropTypes.func.isRequired,
   propertyPage: PropTypes.bool.isRequired,
-  sendReview: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   offers: getOffers(state),
-  property: getProperty(state),
-  nearPlaces: getNearPlaceOffers(state),
   favoritesPage: getFavoritesPageStatus(state),
   favorites: getFavorites(state),
   authorizationStatus: getAuthorizationStatus(state),
@@ -191,9 +177,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getLoginPage() {
     dispatch(UserActionCreator.loginPageEnable());
-  },
-  sendReview(offerId, review, clearForm) {
-    dispatch(MainOperation.sendReview(offerId, review, clearForm));
   }
 });
 

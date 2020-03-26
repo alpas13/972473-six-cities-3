@@ -133,12 +133,6 @@ const ActionCreator = {
       payload: offerModel(offer),
     };
   },
-  sendCommentStatus: (status) => {
-    return {
-      type: ActionType.SEND_COMMENT_STATUS,
-      payload: status,
-    };
-  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -174,10 +168,6 @@ const reducer = (state = initialState, action) => {
     case ActionType.PROPERTY_PAGE:
       return extend(state, {
         propertyPage: action.payload,
-      });
-    case ActionType.SEND_COMMENT_STATUS:
-      return extend(state, {
-        sendCommentStatus: action.payload,
       });
   }
   return state;

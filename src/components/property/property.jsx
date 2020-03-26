@@ -12,6 +12,7 @@ import {connect} from "react-redux";
 import {
   Operation as MainOperation
 } from "../../reducer/main/main.js";
+import {getNearPlaceOffers, getProperty} from "../../reducer/main/selectors";
 
 const ReviewFormWrapper = withHandleForm(ReviewForm);
 
@@ -195,11 +196,19 @@ Property.propTypes = {
   sendReview: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  offer: getProperty(state),
+  offers: getNearPlaceOffers(state),
+});
+
 const mapDispatchToProps = (dispatch) => ({
   toggleFavoriteItem(offerId, currentStatus) {
     dispatch(MainOperation.toggleFavoriteItem(offerId, currentStatus));
   },
+  sendReview(offerId, review, clearForm) {
+    dispatch(MainOperation.sendReview(offerId, review, clearForm));
+  }
 });
 
 export {Property};
-export default connect(mapDispatchToProps)(Property);
+export default connect(mapStateToProps, mapDispatchToProps)(Property);
