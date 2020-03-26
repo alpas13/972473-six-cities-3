@@ -8,6 +8,10 @@ import OffersList from "../offers-list/offers-list.jsx";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.jsx";
 import ReviewForm from "../review-form/review-form.jsx";
 import withHandleForm from "../../hocs/with-handle-form/with-handle-form.jsx";
+import {connect} from "react-redux";
+import {
+  Operation as MainOperation
+} from "../../reducer/main/main.js";
 
 const ReviewFormWrapper = withHandleForm(ReviewForm);
 
@@ -19,9 +23,7 @@ const Property = React.memo(function Property(props) {
     offers,
     activePin,
     reviews,
-    favoritesId,
     handleMouse,
-    onTitleOfferClick,
     authInfo,
     getFavoritesPage,
     getLoginPage,
@@ -151,13 +153,10 @@ const Property = React.memo(function Property(props) {
               >
                 <OfferListWrapper
                   offers={offers}
-                  favoritesId={favoritesId}
-                  onTitleOfferClick={onTitleOfferClick}
                   styleSettings={propertyStyle}
                   handleSelectItem={handleMouse}
                   authInfo={authInfo}
                   getLoginPage={getLoginPage}
-                  toggleFavoriteItem={toggleFavoriteItem}
                 />
               </div>
             </div>
@@ -190,9 +189,7 @@ Property.propTypes = {
   activePin: PropTypes.array,
   offers: PropTypes.array.isRequired,
   reviews: PropTypes.array.isRequired,
-  favoritesId: PropTypes.array.isRequired,
   handleMouse: PropTypes.func.isRequired,
-  onTitleOfferClick: PropTypes.func.isRequired,
   authInfo: PropTypes.object,
   getFavoritesPage: PropTypes.func.isRequired,
   getLoginPage: PropTypes.func.isRequired,
@@ -200,4 +197,11 @@ Property.propTypes = {
   sendReview: PropTypes.func.isRequired,
 };
 
-export default Property;
+const mapDispatchToProps = (dispatch) => ({
+  toggleFavoriteItem(offerId, currentStatus) {
+    dispatch(MainOperation.toggleFavoriteItem(offerId, currentStatus));
+  },
+});
+
+export {Property};
+export default connect(mapDispatchToProps)(Property);

@@ -6,7 +6,7 @@ import {uniqueFilter, filterByValue} from "../../utils";
 import {favoritesStyle} from "../../const";
 
 const Favorites = React.memo(function Favorites(props) {
-  const {offers, authInfo, getFavoritesPage, getLoginPage, favoritesId, onTitleOfferClick, toggleFavoriteItem} = props;
+  const {offers, authInfo, getFavoritesPage, getLoginPage} = props;
   return (
     <div className="page">
       <Header
@@ -32,12 +32,9 @@ const Favorites = React.memo(function Favorites(props) {
                     <div className="favorites__places">
                       <OffersList
                         offers={filterByValue(offers, `city`, city)}
-                        favoritesId={favoritesId}
-                        onTitleOfferClick={onTitleOfferClick}
                         styleSettings={favoritesStyle}
                         authInfo={authInfo}
                         getLoginPage={getLoginPage}
-                        toggleFavoriteItem={toggleFavoriteItem}
                       />
                     </div>
                   </li>
@@ -59,11 +56,8 @@ const Favorites = React.memo(function Favorites(props) {
 Favorites.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   authInfo: PropTypes.object,
-  favoritesId: PropTypes.array.isRequired,
-  onTitleOfferClick: PropTypes.func.isRequired,
   getFavoritesPage: PropTypes.func.isRequired,
   getLoginPage: PropTypes.func.isRequired,
-  toggleFavoriteItem: PropTypes.func.isRequired,
 };
 
 export default Favorites;

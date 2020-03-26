@@ -18,14 +18,11 @@ const Main = React.memo(function Main(props) {
     cities,
     onCityClick,
     activePin,
-    favoritesId,
     handleMouse,
-    onTitleOfferClick,
     children,
     authInfo,
     getFavoritesPage,
     getLoginPage,
-    toggleFavoriteItem,
   } = props;
 
   return (
@@ -58,13 +55,10 @@ const Main = React.memo(function Main(props) {
               >
                 <OffersListWrapper
                   offers={offers}
-                  favoritesId={favoritesId}
-                  onTitleOfferClick={onTitleOfferClick}
                   styleSettings={mainStyle}
                   handleSelectItem={handleMouse}
                   authInfo={authInfo}
                   getLoginPage={getLoginPage}
-                  toggleFavoriteItem={toggleFavoriteItem}
                 />
               </div>
             </section>
@@ -93,12 +87,9 @@ Main.propTypes = {
   children: PropTypes.node.isRequired,
   activePin: PropTypes.array,
   handleMouse: PropTypes.func.isRequired,
-  onTitleOfferClick: PropTypes.func.isRequired,
   authInfo: PropTypes.object,
-  favoritesId: PropTypes.array.isRequired,
   getFavoritesPage: PropTypes.func.isRequired,
   getLoginPage: PropTypes.func.isRequired,
-  toggleFavoriteItem: PropTypes.func.isRequired,
 };
 
 export default Main;

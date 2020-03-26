@@ -2,9 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 import OfferCard from "../offer-card/offer-card.jsx";
 import {findMatch} from "../../utils";
+import {connect} from "react-redux";
+import {
+  ActionCreator,
+  Operation as MainOperation
+} from "../../reducer/main/main.js";
+import {
+  getFavoritesId,
+} from "../../reducer/main/selectors.js";
 
 const OffersList = React.memo(function OffersList(props) {
-  const {offers, favoritesId, onTitleOfferClick, styleSettings, onChange, getLoginPage, toggleFavoriteItem, authInfo} = props;
+  const {offers, authInfo, getLoginPage, favoritesId, onTitleOfferClick, styleSettings, onChange, toggleFavoriteItem} = props;
 
   return (
     <>
@@ -37,4 +45,22 @@ OffersList.propTypes = {
   toggleFavoriteItem: PropTypes.func.isRequired,
 };
 
-export default OffersList;
+const mapStateToProps = (state) => ({
+  favoritesId: getFavoritesId(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onTitleOfferClick(offer) {
+    dispatch(ActionCreator.getProperty(offer));
+    dispatch(MainOperation.loadNearPlaceOffers(offer.id));
+    dispatch(MainOperation.loadReviews(offer.id));
+    dispatch(ActionCreator.propertyPage());
+  },
+  toggleFavoriteItem(offerId, currentStatus) {
+    dispatch(MainOperation.toggleFavoriteItem(offerId, currentStatus));
+  },
+});
+
+export {OffersList};
+export default connect(mapStateToProps, mapDispatchToProps)(OffersList);
+
