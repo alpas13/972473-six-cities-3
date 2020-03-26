@@ -29,7 +29,6 @@ import {
   getSortType,
   getProperty,
   getNearPlaceOffers,
-  getReviews,
   getFavoritesPageStatus,
   getFavorites,
   getPropertyPageStatus,
@@ -47,7 +46,6 @@ class App extends PureComponent {
       property,
       onCityClick,
       nearPlaces,
-      reviews,
       sortType,
       onSortingChange,
       favoritesPage,
@@ -97,7 +95,6 @@ class App extends PureComponent {
         <PropertyWithActivePin
           offer={property}
           offers={nearPlaces}
-          reviews={reviews}
           authInfo={authorizationInfo}
           getFavoritesPage={getFavoritesPage}
           getLoginPage={getLoginPage}
@@ -187,7 +184,6 @@ App.propTypes = {
   onCityClick: PropTypes.func.isRequired,
   sortType: PropTypes.string.isRequired,
   onSortingChange: PropTypes.func.isRequired,
-  reviews: PropTypes.array,
   favoritesPage: PropTypes.bool.isRequired,
   favorites: PropTypes.arrayOf(PropTypes.object).isRequired,
   login: PropTypes.func.isRequired,
@@ -207,7 +203,6 @@ const mapStateToProps = (state) => ({
   property: getProperty(state),
   nearPlaces: getNearPlaceOffers(state),
   sortType: getSortType(state),
-  reviews: getReviews(state),
   favoritesPage: getFavoritesPageStatus(state),
   favorites: getFavorites(state),
   authorizationStatus: getAuthorizationStatus(state),

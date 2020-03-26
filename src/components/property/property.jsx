@@ -22,7 +22,6 @@ const Property = React.memo(function Property(props) {
     offer,
     offers,
     activePin,
-    reviews,
     handleMouse,
     authInfo,
     getFavoritesPage,
@@ -125,7 +124,7 @@ const Property = React.memo(function Property(props) {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <ReviewsList reviews={reviews}/>
+                <ReviewsList />
                 {authInfo && <ReviewFormWrapper
                   offerId={offer.id}
                   onSubmit={sendReview}
@@ -188,7 +187,6 @@ Property.propTypes = {
   }).isRequired,
   activePin: PropTypes.array,
   offers: PropTypes.array.isRequired,
-  reviews: PropTypes.array.isRequired,
   handleMouse: PropTypes.func.isRequired,
   authInfo: PropTypes.object,
   getFavoritesPage: PropTypes.func.isRequired,

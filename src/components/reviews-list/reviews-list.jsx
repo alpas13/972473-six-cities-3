@@ -1,6 +1,8 @@
 import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 import ReviewItem from "../review-item/review-item.jsx";
+import {connect} from "react-redux";
+import {getReviews} from "../../reducer/main/selectors.js";
 
 
 const ReviewsList = React.memo(function ReviewList(props) {
@@ -27,4 +29,9 @@ ReviewsList.propTypes = {
   reviews: PropTypes.array,
 };
 
-export default ReviewsList;
+const mapStateToProps = (state) => ({
+  reviews: getReviews(state),
+});
+
+export {ReviewsList};
+export default connect(mapStateToProps)(ReviewsList);
