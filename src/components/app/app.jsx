@@ -143,6 +143,7 @@ class App extends PureComponent {
         >
           <FavoritesOffersList
             favoritesOffers={favorites}
+            favoritesId={favoritesId}
             onTitleOfferClick={onTitleOfferClick}
             styleSettings={this._favoritesStyle}
             authInfo={authorizationInfo}
@@ -238,6 +239,7 @@ class App extends PureComponent {
             >
               <FavoritesOffersList
                 favoritesOffers={offers}
+                favoritesId={favoritesId}
                 onTitleOfferClick={onTitleOfferClick}
                 styleSettings={this._favoritesStyle}
                 authInfo={authorizationInfo}

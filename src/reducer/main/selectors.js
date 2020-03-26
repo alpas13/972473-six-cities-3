@@ -27,7 +27,7 @@ export const getFavorites = (state) => {
 
 export const getFavoritesId = (state) => {
   const favorites = state[NameSpace.MAIN].favorites;
-  return favorites.slice().map((item) => item.id);;
+  return favorites.slice().map((item) => item.id);
 }
 
 export const getPropertyPageStatus = (state) => {

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {propertyStyle} from "../../const.js";
 import Map from "../map/map.jsx";
 import Header from "../header/header.jsx";
 import ReviewsList from "../reviews-list/reviews-list.jsx";
@@ -21,7 +22,6 @@ const Property = React.memo(function Property(props) {
     favoritesId,
     handleMouseEnter,
     onTitleOfferClick,
-    propertyStyle,
     authInfo,
     getFavoritesPage,
     getLoginPage,
@@ -187,7 +187,6 @@ Property.propTypes = {
   favoritesId: PropTypes.array.isRequired,
   handleMouseEnter: PropTypes.func.isRequired,
   onTitleOfferClick: PropTypes.func.isRequired,
-  propertyStyle: PropTypes.object.isRequired,
   authInfo: PropTypes.object,
   getFavoritesPage: PropTypes.func.isRequired,
   getLoginPage: PropTypes.func.isRequired,

@@ -74,6 +74,7 @@ OfferCard.propTypes = {
     features: PropTypes.object.isRequired,
     coords: PropTypes.array.isRequired,
   }).isRequired,
+  isFavorite: PropTypes.bool.isRequired,
   styleSettings: PropTypes.object.isRequired,
   authInfo: PropTypes.object,
   getLoginPage: PropTypes.func.isRequired,
