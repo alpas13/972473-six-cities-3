@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import {favoritesStyle, mainStyle} from "../../const.js";
 import {connect} from "react-redux";
 import {ActionCreator, Operation as MainOperation} from "../../reducer/main/main.js";
-import {ActionCreator as DataActionCreator} from "../../reducer/data/data.js";
 import {ActionCreator as UserActionCreator, Operation as UserOperation} from "../../reducer/user/user.js";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
@@ -12,13 +11,10 @@ import Favorites from "../favorites/favorites.jsx";
 import FavoritesEmpty from "../favorites-empty/favorites-empty.jsx";
 import Property from "../property/property.jsx";
 import OffersList from "../offers-list/offers-list.jsx";
-import PlacesSorting from "../places-sorting/places-sorting.jsx";
 import withActivePin from "../../hocs/with-active-pin/with-active-pin.jsx";
 import MainEmpty from "../main-empty/main-empty.jsx";
 import {
   getOffers,
-  getCity,
-  getCities
 } from "../../reducer/data/selectors.js";
 import {
   getAuthorizationStatus,
@@ -26,7 +22,6 @@ import {
   getLoginPageStatus
 } from "../../reducer/user/selectors.js";
 import {
-  getSortType,
   getProperty,
   getNearPlaceOffers,
   getFavoritesPageStatus,
@@ -41,13 +36,8 @@ class App extends PureComponent {
   _renderApp() {
     const {
       offers,
-      city,
-      cities,
       property,
-      onCityClick,
       nearPlaces,
-      sortType,
-      onSortingChange,
       favoritesPage,
       favorites,
       authorizationStatus,
@@ -115,22 +105,10 @@ class App extends PureComponent {
 
     return (
       <MainWithActivePin
-        offers={offers}
-        offersCount={offers.length}
-        city = {city}
-        cities={cities}
-        onCityClick={onCityClick}
-        sortType={sortType}
         authInfo={authorizationInfo}
         getFavoritesPage={getFavoritesPage}
         getLoginPage={getLoginPage}
-      >
-        <PlacesSorting
-          city={city}
-          sortType={sortType}
-          onSortingChange={onSortingChange}
-        />
-      </MainWithActivePin>
+      />
     );
   }
 
@@ -177,13 +155,8 @@ class App extends PureComponent {
 
 App.propTypes = {
   offers: PropTypes.array.isRequired,
-  city: PropTypes.string.isRequired,
-  cities: PropTypes.array.isRequired,
   property: PropTypes.object,
   nearPlaces: PropTypes.array.isRequired,
-  onCityClick: PropTypes.func.isRequired,
-  sortType: PropTypes.string.isRequired,
-  onSortingChange: PropTypes.func.isRequired,
   favoritesPage: PropTypes.bool.isRequired,
   favorites: PropTypes.arrayOf(PropTypes.object).isRequired,
   login: PropTypes.func.isRequired,
@@ -198,11 +171,8 @@ App.propTypes = {
 
 const mapStateToProps = (state) => ({
   offers: getOffers(state),
-  city: getCity(state),
-  cities: getCities(state),
   property: getProperty(state),
   nearPlaces: getNearPlaceOffers(state),
-  sortType: getSortType(state),
   favoritesPage: getFavoritesPageStatus(state),
   favorites: getFavorites(state),
   authorizationStatus: getAuthorizationStatus(state),
@@ -212,12 +182,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onCityClick(city) {
-    dispatch(DataActionCreator.changeCity(city));
-  },
-  onSortingChange(sortValue, city) {
-    dispatch(ActionCreator.changeSorting(sortValue, city));
-  },
   login(authData) {
     dispatch(UserOperation.login(authData));
   },
