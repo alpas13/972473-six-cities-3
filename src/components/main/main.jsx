@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {mainStyle} from "../../const.js";
 import Header from "../header/header.jsx";
 import LocationsList from "../locations-list/locations-list.jsx";
 import OffersList from "../offers-list/offers-list.jsx";
@@ -20,7 +21,6 @@ const Main = React.memo(function Main(props) {
     favoritesId,
     handleMouseEnter,
     onTitleOfferClick,
-    propertyStyle,
     children,
     authInfo,
     getFavoritesPage,
@@ -55,7 +55,7 @@ const Main = React.memo(function Main(props) {
                 offers={offers}
                 favoritesId={favoritesId}
                 onTitleOfferClick={onTitleOfferClick}
-                styleSettings={propertyStyle}
+                styleSettings={mainStyle}
                 handleSelectItem={handleMouseEnter}
                 authInfo={authInfo}
                 getLoginPage={getLoginPage}
@@ -88,7 +88,6 @@ Main.propTypes = {
   activePin: PropTypes.array,
   handleMouseEnter: PropTypes.func.isRequired,
   onTitleOfferClick: PropTypes.func.isRequired,
-  propertyStyle: PropTypes.object.isRequired,
   authInfo: PropTypes.object,
   favoritesId: PropTypes.array.isRequired,
   getFavoritesPage: PropTypes.func.isRequired,

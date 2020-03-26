@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {favoritesStyle, mainStyle} from "../../const.js";
 import {connect} from "react-redux";
 import {ActionCreator, Operation as MainOperation} from "../../reducer/main/main.js";
 import {ActionCreator as DataActionCreator} from "../../reducer/data/data.js";
@@ -40,56 +41,7 @@ import {
 const PropertyWithActivePin = withActivePin(Property);
 const MainWithActivePin = withActivePin(Main);
 
-const PreviewImageSize = {
-  placeCardWidth: `260`,
-  placeCardHeight: `200`,
-  favoritesCardWidth: `150`,
-  favoritesCardHeight: `110`,
-};
-
-const ClassPrefixes = {
-  OFFER_FOR_MAIN: `cities__`,
-  OFFER_FOR_PROPERTY: `near-places__`,
-  OFFER_FOR_FAVORITES: `favorites__`
-};
-
-const ClassArticle = {
-  CLASS_FOR_MAIN: `cities__place-card`,
-  CLASS_FOR_PROPERTY: `near-places__card`,
-  CLASS_FOR_FAVORITES: `favorites__card`,
-  PLACE_CARD_INFO: `place-card__info`,
-  FAVORITES_CARD_INFO: `favorites__card-info place-card__info`,
-};
-
 class App extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this._propertyStyle = {
-      classSelect: ClassArticle.CLASS_FOR_PROPERTY,
-      prefix: ClassPrefixes.OFFER_FOR_PROPERTY,
-      classCardInfo: ClassArticle.PLACE_CARD_INFO,
-      width: PreviewImageSize.placeCardWidth,
-      height: PreviewImageSize.placeCardHeight,
-    };
-
-    this._mainStyle = {
-      classSelect: ClassArticle.CLASS_FOR_MAIN,
-      prefix: ClassPrefixes.OFFER_FOR_MAIN,
-      classCardInfo: ClassArticle.PLACE_CARD_INFO,
-      width: PreviewImageSize.placeCardWidth,
-      height: PreviewImageSize.placeCardHeight,
-    };
-
-    this._favoritesStyle = {
-      classSelect: ClassArticle.CLASS_FOR_FAVORITES,
-      prefix: ClassPrefixes.OFFER_FOR_FAVORITES,
-      classCardInfo: ClassArticle.FAVORITES_CARD_INFO,
-      width: PreviewImageSize.favoritesCardWidth,
-      height: PreviewImageSize.favoritesCardHeight,
-    };
-  }
-
   _renderApp() {
     const {
       offers,
@@ -145,7 +97,6 @@ class App extends PureComponent {
             favoritesOffers={favorites}
             favoritesId={favoritesId}
             onTitleOfferClick={onTitleOfferClick}
-            styleSettings={this._favoritesStyle}
             authInfo={authorizationInfo}
             toggleFavoriteItem={toggleFavoriteItem}
             getLoginPage={getLoginPage}
@@ -162,7 +113,6 @@ class App extends PureComponent {
           reviews={reviews}
           favoritesId={favoritesId}
           onTitleOfferClick={onTitleOfferClick}
-          propertyStyle={this._propertyStyle}
           authInfo={authorizationInfo}
           getFavoritesPage={getFavoritesPage}
           getLoginPage={getLoginPage}
@@ -192,7 +142,6 @@ class App extends PureComponent {
         onCityClick={onCityClick}
         onTitleOfferClick={onTitleOfferClick}
         sortType={sortType}
-        propertyStyle={this._mainStyle}
         authInfo={authorizationInfo}
         getFavoritesPage={getFavoritesPage}
         getLoginPage={getLoginPage}
@@ -220,7 +169,7 @@ class App extends PureComponent {
               offers={offers}
               favoritesId={favoritesId}
               onTitleOfferClick={onTitleOfferClick}
-              styleSettings={this._mainStyle}
+              styleSettings={mainStyle}
               onChange={() => {}}
               getLoginPage={getLoginPage}
               toggleFavoriteItem={toggleFavoriteItem}
@@ -241,7 +190,7 @@ class App extends PureComponent {
                 favoritesOffers={offers}
                 favoritesId={favoritesId}
                 onTitleOfferClick={onTitleOfferClick}
-                styleSettings={this._favoritesStyle}
+                styleSettings={favoritesStyle}
                 authInfo={authorizationInfo}
                 getLoginPage={getLoginPage}
                 toggleFavoriteItem={toggleFavoriteItem}
