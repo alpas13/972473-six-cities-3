@@ -2,8 +2,6 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {favoritesStyle, mainStyle} from "../../const.js";
 import {connect} from "react-redux";
-import {ActionCreator, Operation as MainOperation} from "../../reducer/main/main.js";
-import {ActionCreator as UserActionCreator, Operation as UserOperation} from "../../reducer/user/user.js";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
 import AuthScreen from "../auth-screen/auth-screen.jsx";
@@ -23,9 +21,10 @@ import {
 } from "../../reducer/user/selectors.js";
 import {
   getFavoritesPageStatus,
-  getFavorites,
   getPropertyPageStatus,
+  getEmptyFavoritesPage,
 } from "../../reducer/main/selectors.js";
+import {Operation as UserOperation} from "../../reducer/user/user";
 
 const PropertyWithActivePin = withActivePin(Property);
 const MainWithActivePin = withActivePin(Main);
@@ -35,13 +34,10 @@ class App extends PureComponent {
     const {
       offers,
       favoritesPage,
-      favorites,
-      authorizationStatus,
-      authorizationInfo,
-      getFavoritesPage,
+      emptyFavoritesPage,
       login,
+      authorizationStatus,
       loginPage,
-      getLoginPage,
       propertyPage,
     } = this.props;
 
@@ -53,58 +49,37 @@ class App extends PureComponent {
       );
     }
 
-    if (favoritesPage && !favorites.length) {
+    if (emptyFavoritesPage) {
       return (
-        <FavoritesEmpty
-          authInfo={authorizationInfo}
-          getFavoritesPage={getFavoritesPage}
-          getLoginPage={getLoginPage}
-        />
+        <FavoritesEmpty />
       );
     }
 
     if (favoritesPage && authorizationStatus) {
       return (
-        <Favorites
-          offers={favorites}
-          authInfo={authorizationInfo}
-          getFavoritesPage={getFavoritesPage}
-          getLoginPage={getLoginPage}
-        />
+        <Favorites />
       );
     }
 
     if (propertyPage) {
       return (
-        <PropertyWithActivePin
-          authInfo={authorizationInfo}
-          getFavoritesPage={getFavoritesPage}
-          getLoginPage={getLoginPage}
-        />
+        <PropertyWithActivePin />
       );
     }
 
     if (!offers.length) {
       return (
-        <MainEmpty
-          authInfo={authorizationInfo}
-          getFavoritesPage={getFavoritesPage}
-          getLoginPage={getLoginPage}
-        />
+        <MainEmpty />
       );
     }
 
     return (
-      <MainWithActivePin
-        authInfo={authorizationInfo}
-        getFavoritesPage={getFavoritesPage}
-        getLoginPage={getLoginPage}
-      />
+      <MainWithActivePin />
     );
   }
 
   render() {
-    const {offers, favorites, authorizationInfo, getFavoritesPage, getLoginPage} = this.props;
+    const {offers, favorites} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -118,7 +93,7 @@ class App extends PureComponent {
               onTitleOfferClick={() => {}}
               styleSettings={mainStyle}
               onChange={() => {}}
-              getLoginPage={getLoginPage}
+              getLoginPage={() => {}}
               toggleFavoriteItem={() => {}}
             />
           </Route>
@@ -130,13 +105,8 @@ class App extends PureComponent {
           <Route exact path="/dev-favorites">
             <Favorites
               offers={favorites}
-              authInfo={authorizationInfo}
-              getFavoritesPage={getFavoritesPage}
-              getLoginPage={getLoginPage}
-              favoritesOffers={offers}
               styleSettings={favoritesStyle}
-            >
-            </Favorites>
+            />
           </Route>
         </Switch>
       </BrowserRouter>
@@ -147,20 +117,18 @@ class App extends PureComponent {
 App.propTypes = {
   offers: PropTypes.array.isRequired,
   favoritesPage: PropTypes.bool.isRequired,
-  favorites: PropTypes.arrayOf(PropTypes.object).isRequired,
-  login: PropTypes.func.isRequired,
+  emptyFavoritesPage: PropTypes.bool.isRequired,
   loginPage: PropTypes.bool.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   authorizationInfo: PropTypes.object,
-  getFavoritesPage: PropTypes.func.isRequired,
-  getLoginPage: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
   propertyPage: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   offers: getOffers(state),
   favoritesPage: getFavoritesPageStatus(state),
-  favorites: getFavorites(state),
+  emptyFavoritesPage: getEmptyFavoritesPage(state),
   authorizationStatus: getAuthorizationStatus(state),
   authorizationInfo: getAuthorizationInfo(state),
   loginPage: getLoginPageStatus(state),
@@ -171,13 +139,6 @@ const mapDispatchToProps = (dispatch) => ({
   login(authData) {
     dispatch(UserOperation.login(authData));
   },
-  getFavoritesPage() {
-    dispatch(MainOperation.loadFavorites());
-    dispatch(ActionCreator.favoritesPage());
-  },
-  getLoginPage() {
-    dispatch(UserActionCreator.loginPageEnable());
-  }
 });
 
 export {App};

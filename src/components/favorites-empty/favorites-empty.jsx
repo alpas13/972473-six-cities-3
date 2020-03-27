@@ -1,17 +1,10 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Header from "../header/header.jsx";
 
-const FavoritesEmpty = React.memo(function FavoritesEmpty(props) {
-  const {authInfo, getFavoritesPage, getLoginPage} = props;
-
+const FavoritesEmpty = React.memo(function FavoritesEmpty() {
   return (
     <div className="page page--favorites-empty">
-      <Header
-        authInfo={authInfo}
-        onEmailClick={getFavoritesPage}
-        onSignInClick={getLoginPage}
-      />
+      <Header />
       <main className="page__main page__main--favorites page__main--favorites-empty">
         <div className="page__favorites-container container">
           <section className="favorites favorites--empty">
@@ -32,11 +25,5 @@ const FavoritesEmpty = React.memo(function FavoritesEmpty(props) {
     </div>
   );
 });
-
-FavoritesEmpty.propTypes = {
-  authInfo: PropTypes.object,
-  getFavoritesPage: PropTypes.func.isRequired,
-  getLoginPage: PropTypes.func.isRequired,
-};
 
 export default FavoritesEmpty;

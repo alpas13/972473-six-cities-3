@@ -10,6 +10,8 @@ import {
 import {
   getFavoritesId,
 } from "../../reducer/main/selectors.js";
+import {getAuthorizationInfo} from "../../reducer/user/selectors";
+import {ActionCreator as UserActionCreator} from "../../reducer/user/user";
 
 const OffersList = React.memo(function OffersList(props) {
   const {offers, authInfo, getLoginPage, favoritesId, onTitleOfferClick, styleSettings, onChange, toggleFavoriteItem} = props;
@@ -47,6 +49,7 @@ OffersList.propTypes = {
 
 const mapStateToProps = (state) => ({
   favoritesId: getFavoritesId(state),
+  authInfo: getAuthorizationInfo(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -59,6 +62,9 @@ const mapDispatchToProps = (dispatch) => ({
   toggleFavoriteItem(offerId, currentStatus) {
     dispatch(MainOperation.toggleFavoriteItem(offerId, currentStatus));
   },
+  getLoginPage() {
+    dispatch(UserActionCreator.loginPageEnable());
+  }
 });
 
 export {OffersList};

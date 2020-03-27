@@ -21,6 +21,10 @@ export const getFavoritesPageStatus = (state) => {
   return state[NameSpace.MAIN].favoritesPage;
 };
 
+export const getEmptyFavoritesPage = (state) => {
+  return state[NameSpace.MAIN].emptyFavoritesPage;
+};
+
 export const getFavorites = (state) => {
   return state[NameSpace.MAIN].favorites;
 };
@@ -33,3 +37,8 @@ export const getFavoritesId = (state) => {
 export const getPropertyPageStatus = (state) => {
   return state[NameSpace.MAIN].propertyPage;
 };
+
+export const getFavoritesStatus = (state) => {
+    const favorites = state[NameSpace.MAIN].favorites;
+    return favorites.length > 0;
+}

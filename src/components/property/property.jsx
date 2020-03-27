@@ -13,6 +13,8 @@ import {
   Operation as MainOperation
 } from "../../reducer/main/main.js";
 import {getNearPlaceOffers, getProperty} from "../../reducer/main/selectors";
+import {getAuthorizationInfo} from "../../reducer/user/selectors";
+import {ActionCreator as UserActionCreator} from "../../reducer/user/user";
 
 const ReviewFormWrapper = withHandleForm(ReviewForm);
 
@@ -25,7 +27,6 @@ const Property = React.memo(function Property(props) {
     activePin,
     handleMouse,
     authInfo,
-    getFavoritesPage,
     getLoginPage,
     toggleFavoriteItem,
     sendReview,
@@ -33,11 +34,7 @@ const Property = React.memo(function Property(props) {
 
   return (
     <div className="page">
-      <Header
-        authInfo={authInfo}
-        onEmailClick={getFavoritesPage}
-        onSignInClick={getLoginPage}
-      />
+      <Header />
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
@@ -155,8 +152,6 @@ const Property = React.memo(function Property(props) {
                   offers={offers}
                   styleSettings={propertyStyle}
                   handleSelectItem={handleMouse}
-                  authInfo={authInfo}
-                  getLoginPage={getLoginPage}
                 />
               </div>
             </div>
@@ -190,7 +185,6 @@ Property.propTypes = {
   offers: PropTypes.array.isRequired,
   handleMouse: PropTypes.func.isRequired,
   authInfo: PropTypes.object,
-  getFavoritesPage: PropTypes.func.isRequired,
   getLoginPage: PropTypes.func.isRequired,
   toggleFavoriteItem: PropTypes.func.isRequired,
   sendReview: PropTypes.func.isRequired,
@@ -199,6 +193,7 @@ Property.propTypes = {
 const mapStateToProps = (state) => ({
   offer: getProperty(state),
   offers: getNearPlaceOffers(state),
+  authInfo: getAuthorizationInfo(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -207,6 +202,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   sendReview(offerId, review, clearForm) {
     dispatch(MainOperation.sendReview(offerId, review, clearForm));
+  },
+  getLoginPage() {
+    dispatch(UserActionCreator.loginPageEnable());
   }
 });
 

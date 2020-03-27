@@ -2,15 +2,10 @@ import React from "react";
 import Header from "../header/header.jsx";
 import PropTypes from "prop-types";
 
-const MainEmpty = React.memo(function MainEmpty(props) {
-  const {authInfo, getFavoritesPage, getLoginPage} = props;
+const MainEmpty = React.memo(function MainEmpty() {
   return (
     <div className="page page--gray page--main">
-      <Header
-        authInfo={authInfo}
-        onEmailClick={getFavoritesPage}
-        onSignInClick={getLoginPage}
-      />
+      <Header />
       <main className="page__main page__main--index page__main--index-empty">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
@@ -65,11 +60,5 @@ const MainEmpty = React.memo(function MainEmpty(props) {
     </div>
   );
 });
-
-MainEmpty.propTypes = {
-  authInfo: PropTypes.object,
-  getFavoritesPage: PropTypes.func.isRequired,
-  getLoginPage: PropTypes.func.isRequired,
-};
 
 export default MainEmpty;

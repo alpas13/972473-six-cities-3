@@ -26,18 +26,11 @@ const Main = React.memo(function Main(props) {
     handleMouse,
     sortType,
     onSortingChange,
-    authInfo,
-    getFavoritesPage,
-    getLoginPage,
   } = props;
 
   return (
     <div className="page page--gray page--main">
-      <Header
-        authInfo={authInfo}
-        onEmailClick={getFavoritesPage}
-        onSignInClick={getLoginPage}
-      />
+      <Header />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
@@ -67,8 +60,6 @@ const Main = React.memo(function Main(props) {
                   offers={offers}
                   styleSettings={mainStyle}
                   handleSelectItem={handleMouse}
-                  authInfo={authInfo}
-                  getLoginPage={getLoginPage}
                 />
               </div>
             </section>
@@ -97,9 +88,6 @@ Main.propTypes = {
   onSortingChange: PropTypes.func.isRequired,
   activePin: PropTypes.array,
   handleMouse: PropTypes.func.isRequired,
-  authInfo: PropTypes.object,
-  getFavoritesPage: PropTypes.func.isRequired,
-  getLoginPage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

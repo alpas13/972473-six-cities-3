@@ -4,16 +4,14 @@ import Header from "../header/header.jsx";
 import OffersList from "../offers-list/offers-list.jsx";
 import {uniqueFilter, filterByValue} from "../../utils";
 import {favoritesStyle} from "../../const";
+import {connect} from "react-redux";
+import {getFavorites} from "../../reducer/main/selectors";
 
 const Favorites = React.memo(function Favorites(props) {
-  const {offers, authInfo, getFavoritesPage, getLoginPage} = props;
+  const {offers} = props;
   return (
     <div className="page">
-      <Header
-        authInfo={authInfo}
-        onEmailClick={getFavoritesPage}
-        onSignInClick={getLoginPage}
-      />
+      <Header />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
@@ -33,8 +31,6 @@ const Favorites = React.memo(function Favorites(props) {
                       <OffersList
                         offers={filterByValue(offers, `city`, city)}
                         styleSettings={favoritesStyle}
-                        authInfo={authInfo}
-                        getLoginPage={getLoginPage}
                       />
                     </div>
                   </li>
@@ -55,9 +51,11 @@ const Favorites = React.memo(function Favorites(props) {
 
 Favorites.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-  authInfo: PropTypes.object,
-  getFavoritesPage: PropTypes.func.isRequired,
-  getLoginPage: PropTypes.func.isRequired,
 };
 
-export default Favorites;
+const mapStateToProps = (state) => ({
+  offers: getFavorites(state),
+});
+
+export {Favorites};
+export default connect(mapStateToProps)(Favorites);
