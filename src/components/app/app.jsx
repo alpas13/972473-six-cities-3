@@ -79,7 +79,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {offers, favorites} = this.props;
+    const {offers} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -104,7 +104,6 @@ class App extends PureComponent {
           </Route>
           <Route exact path="/dev-favorites">
             <Favorites
-              offers={favorites}
               styleSettings={favoritesStyle}
             />
           </Route>
