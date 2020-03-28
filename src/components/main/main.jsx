@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {mainStyle} from "../../const.js";
-import Header from "../header/header.jsx";
 import LocationsList from "../locations-list/locations-list.jsx";
 import OffersList from "../offers-list/offers-list.jsx";
 import Map from "../map/map.jsx";
@@ -29,53 +28,50 @@ const Main = React.memo(function Main(props) {
   } = props;
 
   return (
-    <div className="page page--gray page--main">
-      <Header />
-      <main className="page__main page__main--index">
-        <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <LocationsListWrapper
-              cities={cities}
-              handleSelectItem={onCityClick}
+    <main className="page__main page__main--index">
+      <h1 className="visually-hidden">Cities</h1>
+      <div className="tabs">
+        <section className="locations container">
+          <LocationsListWrapper
+            cities={cities}
+            handleSelectItem={onCityClick}
+          />
+        </section>
+      </div>
+      <div className="cities">
+        <div className="cities__places-container container">
+          <section className="cities__places places">
+            <h2 className="visually-hidden">Places</h2>
+            <b className="places__found">{offers.length} places to stay in {city}</b>
+            <PlacesSorting
+              city={city}
+              sortType={sortType}
+              onSortingChange={onSortingChange}
             />
-          </section>
-        </div>
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in {city}</b>
-              <PlacesSorting
-                city={city}
-                sortType={sortType}
-                onSortingChange={onSortingChange}
+            <div className="cities__places-list places__list tabs__content"
+              onMouseLeave={() => {
+                handleMouse(null);
+              }}
+            >
+              <OffersListWrapper
+                offers={offers}
+                styleSettings={mainStyle}
+                handleSelectItem={handleMouse}
               />
-              <div className="cities__places-list places__list tabs__content"
-                onMouseLeave={() => {
-                  handleMouse(null);
-                }}
-              >
-                <OffersListWrapper
-                  offers={offers}
-                  styleSettings={mainStyle}
-                  handleSelectItem={handleMouse}
-                />
-              </div>
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map
-                  offers={offers}
-                  styleSettings={{height: `800px`}}
-                  activePin={activePin}
-                />
-              </section>
             </div>
+          </section>
+          <div className="cities__right-section">
+            <section className="cities__map map">
+              <Map
+                offers={offers}
+                styleSettings={{height: `800px`}}
+                activePin={activePin}
+              />
+            </section>
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 });
 

@@ -43,4 +43,20 @@ const favoritesStyle = {
   height: PreviewImageSize.favoritesCardHeight,
 };
 
-export {mainStyle, propertyStyle, favoritesStyle};
+const pageStyle = (page) => {
+  switch (page) {
+    case `favoritesPage`:
+      return ``;
+    case `propertyPage`:
+      return ``;
+    case `loginPage`:
+      return ` page--gray page--login`;
+    case `favoritesEmptyPage`:
+      return ` page--favorites-empty`;
+    case `mainPage`:
+      return ` page--gray page--main`;
+  }
+  return ` page--gray page--main`;
+};
+
+export {mainStyle, propertyStyle, favoritesStyle, pageStyle};

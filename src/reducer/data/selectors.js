@@ -1,7 +1,7 @@
 import {createSelector} from "reselect";
 import {SortType} from "../main/main.js";
 import NameSpace from "../name-space";
-import {uniqueFilter, updateOffers} from "../../utils";
+import {uniqueFilter} from "../../utils";
 
 const MAX_CITIES = 6;
 
@@ -16,14 +16,10 @@ const getSortType = (state) => {
   return state[NameSpace.MAIN].sortType;
 };
 
-const getOffersByPopular = (state) => {
-    return getOffersByCity(state);
-}
-
 export const getOffers = createSelector(
-  getOffersByCity,
-  getSortType,
-  (resultOne, resultTwo) => {
+    getOffersByCity,
+    getSortType,
+    (resultOne, resultTwo) => {
       switch (resultTwo) {
         case SortType.POPULAR:
           return resultOne;
@@ -41,7 +37,7 @@ export const getOffers = createSelector(
           });
       }
       return resultOne;
-  }
+    }
 );
 
 export const getCity = (state) => {

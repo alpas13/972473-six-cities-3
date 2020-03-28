@@ -6,8 +6,4 @@ export const getAuthorizationStatus = (state) => {
 
 export const getAuthorizationInfo = (state) => {
   return state[NameSpace.USER].authInfo;
-}
-
-export const getLoginPageStatus = (state) => {
-  return state[NameSpace.USER].loginPage;
-}
+};

@@ -1,9 +1,12 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
 import {Favorites} from "./favorites.jsx";
+import {Provider} from "react-redux";
 
-const initialState = {offers: [
+const mockStore = configureStore([]);
+
+const offers = [
   {
     id: 1,
     city: `Hamburg`,
@@ -40,18 +43,17 @@ const initialState = {offers: [
     ],
     coordsZoom: 8,
   }
-]};
-
-const mockStore = configureStore();
+];
 
 test(`Correctly render Favorites component`, () => {
-  const store = mockStore(initialState);
+  const store = mockStore();
   const tree = renderer.create(
-      <Favorites
-        store={store}
-        offers={initialState.offers}
-        getFavoritesPage={() => {}}
-      />
-  ).toJSON();
+      <Provider store={store}>
+        <Favorites
+          offers={offers}
+          getFavoritesPage={() => {}}
+        >
+        </Favorites>
+      </Provider>).toJSON();
   expect(tree).toMatchSnapshot();
 });

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {favoritesStyle, mainStyle} from "../../const.js";
 import {connect} from "react-redux";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
+import Page from "../page/page.jsx";
 import Main from "../main/main.jsx";
 import AuthScreen from "../auth-screen/auth-screen.jsx";
 import Favorites from "../favorites/favorites.jsx";
@@ -17,12 +18,12 @@ import {
 import {
   getAuthorizationStatus,
   getAuthorizationInfo,
-  getLoginPageStatus
 } from "../../reducer/user/selectors.js";
 import {
   getFavoritesPageStatus,
   getPropertyPageStatus,
   getEmptyFavoritesPage,
+  getLoginPageStatus
 } from "../../reducer/main/selectors.js";
 import {Operation as UserOperation} from "../../reducer/user/user";
 
@@ -84,7 +85,9 @@ class App extends PureComponent {
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            {this._renderApp()}
+            <Page>
+              {this._renderApp()}
+            </Page>
           </Route>
           <Route exact path="/dev-offer">
             <OffersList
