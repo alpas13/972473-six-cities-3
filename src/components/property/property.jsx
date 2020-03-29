@@ -200,7 +200,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(MainOperation.sendReview(offerId, review, clearForm));
   },
   getLoginPage() {
-    dispatch(UserActionCreator.loginPageEnable());
+    dispatch(UserActionCreator.loginPage(true));
   }
 });
 

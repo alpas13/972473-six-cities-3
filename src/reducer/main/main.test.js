@@ -1,18 +1,17 @@
-import {reducer} from "../../reducer/main/main";
-import {SortType} from "./main";
+import {reducer, ActionType, SortType, ActionCreator} from "../../reducer/main/main";
 
-/* const offers = [
+const offers = [
   {
     id: 1,
     city: `Hamburg`,
-    cityCoords: [52.3909553943508, 4.85309666406198],
-    cityZoom: 9,
+    cityCoords: [52.370216, 4.895168],
+    cityZoom: 10,
     propertyImage: [`path 1`],
     title: `Title text 1`,
     mark: `Premium`,
     previewImage: `path 1`,
     price: 1,
-    bookmark: true,
+    bookmark: false,
     propertyText: `Text`,
     rating: {
       star: (Math.floor(4) / 5) * 100,
@@ -37,152 +36,159 @@ import {SortType} from "./main";
       4.85309666406198
     ],
     coordsZoom: 8,
+  }
+];
+
+const offer = {
+  id: 1,
+  city: `Hamburg`,
+  cityCoords: [52.370216, 4.895168],
+  cityZoom: 10,
+  propertyImage: [`path 1`],
+  title: `Title text 1`,
+  mark: `Premium`,
+  previewImage: `path 1`,
+  price: 1,
+  bookmark: false,
+  propertyText: `Text`,
+  rating: {
+    star: (Math.floor(4) / 5) * 100,
+    value: 4,
   },
-  {
-    id: 2,
-    city: `Hamburg`,
-    cityCoords: [52.3909553943508, 4.85309666406198],
-    cityZoom: 9,
-    propertyImage: [`path 2`],
-    title: `Title text 2`,
-    mark: `Premium`,
-    previewImage: `path 2`,
-    price: 1,
-    bookmark: true,
-    propertyText: `Text`,
-    rating: {
-      star: (Math.floor(4) / 5) * 100,
-      value: 4,
-    },
-    features: {
-      entire: `type text 2`,
-      bedrooms: 1,
-      adults: 1,
-    },
-    insideList: [
-      `text 2`,
-    ],
-    host: {
-      avatarUrl: `path 2`,
-      id: 3,
-      name: `text 2`,
-      isPro: true,
-    },
-    coords: [
-      52.3920553943508,
-      4.85609666406198
-    ],
-    coordsZoom: 8,
+  features: {
+    entire: `type text 1`,
+    bedrooms: 1,
+    adults: 1,
   },
-  {
+  insideList: [
+    `text 1`,
+  ],
+  host: {
+    avatarUrl: `path 1`,
     id: 3,
-    city: `Hamburg`,
-    cityCoords: [52.3909553943508, 4.85309666406198],
-    cityZoom: 9,
-    propertyImage: [`path 3`],
-    title: `Title text 3`,
-    mark: `Premium`,
-    previewImage: `path 3`,
-    price: 1,
-    bookmark: true,
-    propertyText: `Text`,
-    rating: {
-      star: (Math.floor(4) / 5) * 100,
-      value: 4,
-    },
-    features: {
-      entire: `type text 3`,
-      bedrooms: 1,
-      adults: 1,
-    },
-    insideList: [
-      `text 3`,
-    ],
-    host: {
-      avatarUrl: `path 3`,
-      id: 3,
-      name: `text 3`,
-      isPro: true,
-    },
-    coords: [
-      52.3970553943508,
-      4.85209666406198
-    ],
-    coordsZoom: 8,
+    name: `text 1`,
+    isPro: true,
   },
+  coords: [
+    52.3909553943508,
+    4.85309666406198
+  ],
+  coordsZoom: 8,
+};
+
+const rawOffers = [
   {
-    id: 4,
-    city: `Hamburg`,
-    cityCoords: [52.3909553943508, 4.85309666406198],
-    cityZoom: 9,
-    propertyImage: [`path 4`],
-    title: `Title text 4`,
-    mark: `Premium`,
-    previewImage: `path 4`,
-    price: 1,
-    bookmark: true,
-    propertyText: `Text`,
-    rating: {
-      star: (Math.floor(4) / 5) * 100,
-      value: 4,
+    bedrooms: 1,
+    city: {
+      location: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 10
+      },
+      name: `Hamburg`
     },
-    features: {
-      entire: `type text 4`,
-      bedrooms: 1,
-      adults: 1,
-    },
-    insideList: [
-      `text 4`,
-    ],
+    description: `Text`,
+    goods: [`text 1`],
     host: {
-      avatarUrl: `path 4`,
+      // eslint-disable-next-line camelcase
+      avatar_url: `path 1`,
       id: 3,
-      name: `text 4`,
-      isPro: true,
+      // eslint-disable-next-line camelcase
+      is_pro: true,
+      name: `text 1`
     },
-    coords: [
-      52.3930553943508,
-      4.85809666406198
-    ],
-    coordsZoom: 8,
+    id: 1,
+    images: [`path 1`],
+    // eslint-disable-next-line camelcase
+    is_favorite: false,
+    // eslint-disable-next-line camelcase
+    is_premium: true,
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 8
+    },
+    // eslint-disable-next-line camelcase
+    max_adults: 1,
+    // eslint-disable-next-line camelcase
+    preview_image: `path 1`,
+    price: 1,
+    rating: 4,
+    title: `Title text 1`,
+    type: `type text 1`
+  }
+];
+
+const rawOffer = {
+  bedrooms: 1,
+  city: {
+    location: {
+      latitude: 52.370216,
+      longitude: 4.895168,
+      zoom: 10
+    },
+    name: `Hamburg`
   },
+  description: `Text`,
+  goods: [`text 1`],
+  host: {
+    // eslint-disable-next-line camelcase
+    avatar_url: `path 1`,
+    id: 3,
+    // eslint-disable-next-line camelcase
+    is_pro: true,
+    name: `text 1`
+  },
+  id: 1,
+  images: [`path 1`],
+  // eslint-disable-next-line camelcase
+  is_favorite: false,
+  // eslint-disable-next-line camelcase
+  is_premium: true,
+  location: {
+    latitude: 52.3909553943508,
+    longitude: 4.85309666406198,
+    zoom: 8
+  },
+  // eslint-disable-next-line camelcase
+  max_adults: 1,
+  // eslint-disable-next-line camelcase
+  preview_image: `path 1`,
+  price: 1,
+  rating: 4,
+  title: `Title text 1`,
+  type: `type text 1`
+};
+
+const reviews = [
   {
-    id: 5,
-    city: `Hamburg`,
-    cityCoords: [52.3909553943508, 4.85309666406198],
-    cityZoom: 9,
-    propertyImage: [`path 5`],
-    title: `Title text 5`,
-    mark: `Premium`,
-    previewImage: `path 5`,
-    price: 1,
-    bookmark: true,
-    propertyText: `Text`,
-    rating: {
-      star: (Math.floor(4) / 5) * 100,
-      value: 4,
-    },
-    features: {
-      entire: `type text 5`,
-      bedrooms: 1,
-      adults: 1,
-    },
-    insideList: [
-      `text 5`,
-    ],
-    host: {
-      avatarUrl: `path 5`,
-      id: 3,
-      name: `text 5`,
-      isPro: true,
-    },
-    coords: [
-      52.3909553943508,
-      4.85309666406198
-    ],
-    coordsZoom: 8,
-  },
-];*/
+    description: `Text`,
+    date: `2019-05-08T14:13:56.569Z`,
+    id: 1,
+    rating: 4,
+    userId: 5,
+    userAvatar: `path/path-1`,
+    userName: `User`,
+    proUser: false
+  }
+];
+
+const rawReviews = [
+  {
+    comment: `Text`,
+    date: `2019-05-08T14:13:56.569Z`,
+    id: 1,
+    rating: 4,
+    user: {
+      // eslint-disable-next-line camelcase
+      avatar_url: `path/path-1`,
+      id: 5,
+      // eslint-disable-next-line camelcase
+      is_pro: false,
+      name: `User`
+    }
+  }
+];
 
 test(`Reducer without additional parameter should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
@@ -197,97 +203,310 @@ test(`Reducer without additional parameter should return initial state`, () => {
   });
 });
 
-/* test(`Reducer should gives current offers by filtered with a given value`, () => {
+test(`Reducer should return state with reviews field contains data of given reviews`, () => {
   expect(reducer({
-    offers,
-    city: `Amsterdam`,
+    sortType: SortType.POPULAR,
+    property: null,
+    nearPlaces: [],
+    reviews: [],
+    favorites: [],
+    favoritesPage: false,
+    emptyFavoritesPage: false,
+    propertyPage: false,
   }, {
-    type: ActionType.GET_OFFERS,
+    type: ActionType.LOAD_REVIEWS,
+    payload: reviews,
+  })).toEqual(
+      {
+        sortType: SortType.POPULAR,
+        property: null,
+        nearPlaces: [],
+        reviews,
+        favorites: [],
+        favoritesPage: false,
+        emptyFavoritesPage: false,
+        propertyPage: false,
+      }
+  );
+});
+
+test(`Reducer should return state with property field contains data of given offer`, () => {
+  expect(reducer({
+    sortType: SortType.POPULAR,
+    property: null,
+    nearPlaces: [],
+    reviews: [],
+    favorites: [],
+    favoritesPage: false,
+    emptyFavoritesPage: false,
+    propertyPage: false,
+  }, {
+    type: ActionType.GET_PROPERTY,
+    payload: offer,
+  })).toEqual(
+      {
+        sortType: SortType.POPULAR,
+        property: offer,
+        nearPlaces: [],
+        reviews: [],
+        favorites: [],
+        favoritesPage: false,
+        emptyFavoritesPage: false,
+        propertyPage: false,
+      }
+  );
+});
+
+test(`Reducer should update state with property field contains data of given offer`, () => {
+  expect(reducer({
+    sortType: SortType.POPULAR,
+    property: null,
+    nearPlaces: [],
+    reviews: [],
+    favorites: [],
+    favoritesPage: false,
+    emptyFavoritesPage: false,
+    propertyPage: false,
+  }, {
+    type: ActionType.UPDATE_PROPERTY,
+    payload: offer,
+  })).toEqual(
+      {
+        sortType: SortType.POPULAR,
+        property: offer,
+        nearPlaces: [],
+        reviews: [],
+        favorites: [],
+        favoritesPage: false,
+        emptyFavoritesPage: false,
+        propertyPage: false,
+      }
+  );
+});
+
+test(`Reducer should return state with nearPlaces field contains data of given offers`, () => {
+  expect(reducer({
+    sortType: SortType.POPULAR,
+    property: null,
+    nearPlaces: [],
+    reviews: [],
+    favorites: [],
+    favoritesPage: false,
+    emptyFavoritesPage: false,
+    propertyPage: false,
+  }, {
+    type: ActionType.LOAD_NEAR_PLACES,
     payload: offers,
   })).toEqual(
       {
-        offers,
-        city: `Amsterdam`,
-      }
-  );
-});
-
-test(`Reducer should gives an offer by filtered with a given value`, () => {
-  expect(reducer({
-    city: `Amsterdam`,
-    offers,
-    cities: [`Amsterdam`, `Hamburg`],
-    sortType: `popular`,
-    property: null,
-    nearPlaces: null,
-  }, {
-    type: ActionType.GET_PROPERTY,
-    payload: offers.slice(1),
-  })).toEqual(
-      {
-        city: `Amsterdam`,
-        offers,
-        cities: [`Amsterdam`, `Hamburg`],
-        sortType: `popular`,
-        property: offers.slice(1),
-        nearPlaces: null,
-      }
-  );
-});
-
-test(`Reducer should gives nearPlaces offers by filtered with a given value`, () => {
-  expect(reducer({
-    city: `Amsterdam`,
-    offers,
-    cities: [`Amsterdam`, `Hamburg`],
-    sortType: `popular`,
-    property: null,
-    nearPlaces: null,
-  }, {
-    type: ActionType.GET_NEAR_PLACES,
-    payload: offers.slice(1, 4),
-  })).toEqual(
-      {
-        city: `Amsterdam`,
-        offers,
-        cities: [`Amsterdam`, `Hamburg`],
-        sortType: `popular`,
+        sortType: SortType.POPULAR,
         property: null,
-        nearPlaces: offers.slice(1, 4),
+        nearPlaces: offers,
+        reviews: [],
+        favorites: [],
+        favoritesPage: false,
+        emptyFavoritesPage: false,
+        propertyPage: false,
+      }
+  );
+});
+
+test(`Reducer should return state with sortType field contains given data`, () => {
+  expect(reducer({
+    sortType: SortType.POPULAR,
+    property: null,
+    nearPlaces: [],
+    reviews: [],
+    favorites: [],
+    favoritesPage: false,
+    emptyFavoritesPage: false,
+    propertyPage: false,
+  }, {
+    type: ActionType.CHANGE_SORTING,
+    payload: SortType.TOP_RATED,
+  })).toEqual(
+      {
+        sortType: SortType.TOP_RATED,
+        property: null,
+        nearPlaces: [],
+        reviews: [],
+        favorites: [],
+        favoritesPage: false,
+        emptyFavoritesPage: false,
+        propertyPage: false,
+      }
+  );
+});
+
+test(`Reducer should return state with favorites field contains data of given offers`, () => {
+  expect(reducer({
+    sortType: SortType.POPULAR,
+    property: null,
+    nearPlaces: [],
+    reviews: [],
+    favorites: [],
+    favoritesPage: false,
+    emptyFavoritesPage: false,
+    propertyPage: false,
+  }, {
+    type: ActionType.LOAD_FAVORITES,
+    payload: offers,
+  })).toEqual(
+      {
+        sortType: SortType.POPULAR,
+        property: null,
+        nearPlaces: [],
+        reviews: [],
+        favorites: offers,
+        favoritesPage: false,
+        emptyFavoritesPage: false,
+        propertyPage: false,
+      }
+  );
+});
+
+test(`Reducer should return state with favoritesPage field contains given status`, () => {
+  expect(reducer({
+    sortType: SortType.POPULAR,
+    property: null,
+    nearPlaces: [],
+    reviews: [],
+    favorites: [],
+    favoritesPage: false,
+    emptyFavoritesPage: false,
+    propertyPage: false,
+  }, {
+    type: ActionType.FAVORITES_PAGE,
+    payload: true,
+  })).toEqual(
+      {
+        sortType: SortType.POPULAR,
+        property: null,
+        nearPlaces: [],
+        reviews: [],
+        favorites: [],
+        favoritesPage: true,
+        emptyFavoritesPage: false,
+        propertyPage: false,
+      }
+  );
+});
+
+test(`Reducer should return state with emptyFavoritesPage field contains given status`, () => {
+  expect(reducer({
+    sortType: SortType.POPULAR,
+    property: null,
+    nearPlaces: [],
+    reviews: [],
+    favorites: [],
+    favoritesPage: false,
+    emptyFavoritesPage: false,
+    propertyPage: false,
+  }, {
+    type: ActionType.EMPTY_FAVORITES_PAGE,
+    payload: true,
+  })).toEqual(
+      {
+        sortType: SortType.POPULAR,
+        property: null,
+        nearPlaces: [],
+        reviews: [],
+        favorites: [],
+        favoritesPage: false,
+        emptyFavoritesPage: true,
+        propertyPage: false,
+      }
+  );
+});
+
+test(`Reducer should return state with propertyPage field contains given status`, () => {
+  expect(reducer({
+    sortType: SortType.POPULAR,
+    property: null,
+    nearPlaces: [],
+    reviews: [],
+    favorites: [],
+    favoritesPage: false,
+    emptyFavoritesPage: false,
+    propertyPage: false,
+  }, {
+    type: ActionType.PROPERTY_PAGE,
+    payload: true,
+  })).toEqual(
+      {
+        sortType: SortType.POPULAR,
+        property: null,
+        nearPlaces: [],
+        reviews: [],
+        favorites: [],
+        favoritesPage: false,
+        emptyFavoritesPage: false,
+        propertyPage: true,
       }
   );
 });
 
 describe(`Action creators work correctly`, () => {
-  test(`Action creators for changing city returns correct action`, () => {
-    expect(ActionCreator.changeCity(`Hamburg`)).toEqual({
-      type: ActionType.CHANGE_CITY,
-      payload: `Hamburg`,
-    }
-    );
-  });
-
-  test(`Action creators for getting offers returns correct action`, () => {
-    expect(ActionCreator.getOffers(`Hamburg`)).toEqual({
-      type: ActionType.GET_OFFERS,
-      payload: offers.slice(4, 5),
-    }
-    );
-  });
-
-  test(`Action creators for getting property returns correct action`, () => {
-    expect(ActionCreator.getProperty(offers.slice(0, 1)[0])).toEqual({
+  test(`Action creators for set property returns correct action`, () => {
+    expect(ActionCreator.getProperty(offer)).toEqual({
       type: ActionType.GET_PROPERTY,
-      payload: offers.slice(0, 1)[0],
-    }
-    );
+      payload: offer,
+    });
   });
 
-  test(`Action creators for getting nerPlaces returns correct action`, () => {
-    expect(ActionCreator.getNearPlaces(offers.slice(0, 1)[0])).toEqual({
-      type: ActionType.GET_NEAR_PLACES,
-      payload: offers.slice(1, 4),
-    }
-    );
+  test(`Action creators for loading near place offers returns correct action`, () => {
+    expect(ActionCreator.loadNearPlaceOffers(rawOffers)).toEqual({
+      type: ActionType.LOAD_NEAR_PLACES,
+      payload: offers,
+    });
   });
-});*/
+
+  test(`Action creators for changing sorting returns correct action`, () => {
+    expect(ActionCreator.changeSorting(SortType.TOP_RATED)).toEqual({
+      type: ActionType.CHANGE_SORTING,
+      payload: SortType.TOP_RATED,
+    });
+  });
+
+  test(`Action creators for loading reviews returns correct action`, () => {
+    expect(ActionCreator.loadReviews(rawReviews)).toEqual({
+      type: ActionType.LOAD_REVIEWS,
+      payload: reviews,
+    });
+  });
+
+  test(`Action creators for loading favorites returns correct action`, () => {
+    expect(ActionCreator.loadFavorites(rawOffers)).toEqual({
+      type: ActionType.LOAD_FAVORITES,
+      payload: offers,
+    });
+  });
+
+  test(`Action creators for activating favorites page returns correct action`, () => {
+    expect(ActionCreator.favoritesPage(true)).toEqual({
+      type: ActionType.FAVORITES_PAGE,
+      payload: true,
+    });
+  });
+
+  test(`Action creators for activating empty favorites page returns correct action`, () => {
+    expect(ActionCreator.favoritesPage(false)).toEqual({
+      type: ActionType.EMPTY_FAVORITES_PAGE,
+      payload: true,
+    });
+  });
+
+  test(`Action creators for activating property page returns correct action`, () => {
+    expect(ActionCreator.propertyPage()).toEqual({
+      type: ActionType.PROPERTY_PAGE,
+      payload: true,
+    });
+  });
+
+  test(`Action creators for updating property returns correct action`, () => {
+    expect(ActionCreator.updateProperty(rawOffer)).toEqual({
+      type: ActionType.UPDATE_PROPERTY,
+      payload: offer,
+    });
+  });
+});

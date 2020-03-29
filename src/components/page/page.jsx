@@ -70,7 +70,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.favoritesPage(status));
   },
   getLoginPage() {
-    dispatch(UserActionCreator.loginPageEnable());
+    dispatch(UserActionCreator.loginPage(true));
   }
 });
 

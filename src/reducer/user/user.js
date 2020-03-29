@@ -32,17 +32,18 @@ const ActionCreator = {
       payload: authInfo,
     };
   },
-  loginPageEnable: () => {
-    return {
-      type: ActionType.LOGIN_PAGE_ENABLE,
-      payload: true,
-    };
-  },
-  loginPageDisable: () => {
-    return {
-      type: ActionType.LOGIN_PAGE_DISABLE,
-      payload: false,
-    };
+  loginPage: (status) => {
+    if (status) {
+      return {
+        type: ActionType.LOGIN_PAGE_ENABLE,
+        payload: true,
+      };
+    } else {
+      return {
+        type: ActionType.LOGIN_PAGE_DISABLE,
+        payload: false,
+      };
+    }
   },
 };
 
@@ -65,7 +66,7 @@ const Operation = {
         .then((response) => {
           dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
           dispatch(ActionCreator.getAuthInfo(response.data));
-          dispatch(ActionCreator.loginPageDisable());
+          dispatch(ActionCreator.loginPage(false));
           dispatch(MainOperation.loadFavorites());
         });
   },

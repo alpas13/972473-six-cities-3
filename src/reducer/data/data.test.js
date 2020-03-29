@@ -1,17 +1,60 @@
-import {reducer, ActionType} from "../../reducer/data/data";
+import {reducer, ActionType, ActionCreator} from "../../reducer/data/data";
+
+const rawOffers = [
+  {
+    bedrooms: 1,
+    city: {
+      location: {
+        latitude: 52.370216,
+        longitude: 4.895168,
+        zoom: 10
+      },
+      name: `Hamburg`
+    },
+    description: `Text`,
+    goods: [`text 1`],
+    host: {
+      // eslint-disable-next-line camelcase
+      avatar_url: `path 1`,
+      id: 3,
+      // eslint-disable-next-line camelcase
+      is_pro: true,
+      name: `text 1`
+    },
+    id: 1,
+    images: [`path 1`],
+    // eslint-disable-next-line camelcase
+    is_favorite: false,
+    // eslint-disable-next-line camelcase
+    is_premium: true,
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 8
+    },
+    // eslint-disable-next-line camelcase
+    max_adults: 1,
+    // eslint-disable-next-line camelcase
+    preview_image: `path 1`,
+    price: 1,
+    rating: 4,
+    title: `Title text 1`,
+    type: `type text 1`
+  },
+];
 
 const offers = [
   {
     id: 1,
     city: `Hamburg`,
-    cityCoords: [52.3909553943508, 4.85309666406198],
-    cityZoom: 9,
+    cityCoords: [52.370216, 4.895168],
+    cityZoom: 10,
     propertyImage: [`path 1`],
     title: `Title text 1`,
     mark: `Premium`,
     previewImage: `path 1`,
     price: 1,
-    bookmark: true,
+    bookmark: false,
     propertyText: `Text`,
     rating: {
       star: (Math.floor(4) / 5) * 100,
@@ -36,151 +79,7 @@ const offers = [
       4.85309666406198
     ],
     coordsZoom: 8,
-  },
-  {
-    id: 2,
-    city: `Hamburg`,
-    cityCoords: [52.3909553943508, 4.85309666406198],
-    cityZoom: 9,
-    propertyImage: [`path 2`],
-    title: `Title text 2`,
-    mark: `Premium`,
-    previewImage: `path 2`,
-    price: 1,
-    bookmark: true,
-    propertyText: `Text`,
-    rating: {
-      star: (Math.floor(4) / 5) * 100,
-      value: 4,
-    },
-    features: {
-      entire: `type text 2`,
-      bedrooms: 1,
-      adults: 1,
-    },
-    insideList: [
-      `text 2`,
-    ],
-    host: {
-      avatarUrl: `path 2`,
-      id: 3,
-      name: `text 2`,
-      isPro: true,
-    },
-    coords: [
-      52.3920553943508,
-      4.85609666406198
-    ],
-    coordsZoom: 8,
-  },
-  {
-    id: 3,
-    city: `Hamburg`,
-    cityCoords: [52.3909553943508, 4.85309666406198],
-    cityZoom: 9,
-    propertyImage: [`path 3`],
-    title: `Title text 3`,
-    mark: `Premium`,
-    previewImage: `path 3`,
-    price: 1,
-    bookmark: true,
-    propertyText: `Text`,
-    rating: {
-      star: (Math.floor(4) / 5) * 100,
-      value: 4,
-    },
-    features: {
-      entire: `type text 3`,
-      bedrooms: 1,
-      adults: 1,
-    },
-    insideList: [
-      `text 3`,
-    ],
-    host: {
-      avatarUrl: `path 3`,
-      id: 3,
-      name: `text 3`,
-      isPro: true,
-    },
-    coords: [
-      52.3970553943508,
-      4.85209666406198
-    ],
-    coordsZoom: 8,
-  },
-  {
-    id: 4,
-    city: `Hamburg`,
-    cityCoords: [52.3909553943508, 4.85309666406198],
-    cityZoom: 9,
-    propertyImage: [`path 4`],
-    title: `Title text 4`,
-    mark: `Premium`,
-    previewImage: `path 4`,
-    price: 1,
-    bookmark: true,
-    propertyText: `Text`,
-    rating: {
-      star: (Math.floor(4) / 5) * 100,
-      value: 4,
-    },
-    features: {
-      entire: `type text 4`,
-      bedrooms: 1,
-      adults: 1,
-    },
-    insideList: [
-      `text 4`,
-    ],
-    host: {
-      avatarUrl: `path 4`,
-      id: 3,
-      name: `text 4`,
-      isPro: true,
-    },
-    coords: [
-      52.3930553943508,
-      4.85809666406198
-    ],
-    coordsZoom: 8,
-  },
-  {
-    id: 5,
-    city: `Hamburg`,
-    cityCoords: [52.3909553943508, 4.85309666406198],
-    cityZoom: 9,
-    propertyImage: [`path 5`],
-    title: `Title text 5`,
-    mark: `Premium`,
-    previewImage: `path 5`,
-    price: 1,
-    bookmark: true,
-    propertyText: `Text`,
-    rating: {
-      star: (Math.floor(4) / 5) * 100,
-      value: 4,
-    },
-    features: {
-      entire: `type text 5`,
-      bedrooms: 1,
-      adults: 1,
-    },
-    insideList: [
-      `text 5`,
-    ],
-    host: {
-      avatarUrl: `path 5`,
-      id: 3,
-      name: `text 5`,
-      isPro: true,
-    },
-    coords: [
-      52.3909553943508,
-      4.85309666406198
-    ],
-    coordsZoom: 8,
-  },
+  }
 ];
 
 test(`Reducer without additional parameter should return initial state`, () => {
@@ -220,7 +119,7 @@ test(`Reducer should changes current city by a given value`, () => {
   );
 });
 
-test(`Reducer should gives current offers by filtered with a given value`, () => {
+test(`Reducer should load offers`, () => {
   expect(reducer({
     offers: [],
     city: `Hamburg`,
@@ -233,4 +132,27 @@ test(`Reducer should gives current offers by filtered with a given value`, () =>
         city: `Hamburg`,
       }
   );
+});
+
+describe(`Action creators work correctly`, () => {
+  test(`Action creators for load offers returns correct action`, () => {
+    expect(ActionCreator.loadOffers(rawOffers)).toEqual({
+      type: ActionType.LOAD_OFFERS,
+      payload: offers,
+    });
+  });
+
+  test(`Action creators for set city returns correct action`, () => {
+    expect(ActionCreator.setCity(rawOffers)).toEqual({
+      type: ActionType.SET_CITY,
+      payload: `Hamburg`,
+    });
+  });
+
+  test(`Action creators for changing city returns correct action`, () => {
+    expect(ActionCreator.changeCity(`Amsterdam`)).toEqual({
+      type: ActionType.CHANGE_CITY,
+      payload: `Amsterdam`
+    });
+  });
 });

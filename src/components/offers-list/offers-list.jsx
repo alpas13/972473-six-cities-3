@@ -63,7 +63,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(MainOperation.toggleFavoriteItem(offerId, currentStatus));
   },
   getLoginPage() {
-    dispatch(UserActionCreator.loginPageEnable());
+    dispatch(UserActionCreator.loginPage(true));
   }
 });
 

@@ -45,10 +45,10 @@ exports[`Render App correctly 1`] = `
                   className="header__avatar-wrapper user__avatar-wrapper"
                 />
                 <span
-                  className="header__login"
+                  className="header__user-name user__name"
                   onClick={[Function]}
                 >
-                  Sign in
+                  Oliver.conner@gmail.com
                 </span>
               </a>
             </li>
