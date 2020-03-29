@@ -9,10 +9,10 @@ const withActivePin = (Component) => {
         activePin: null,
       };
 
-      this.handleMouseEnter = this.handleMouseEnter.bind(this);
+      this.handleMouse = this.handleMouse.bind(this);
     }
 
-    handleMouseEnter(item) {
+    handleMouse(item) {
       this.setState(
           {
             activePin: item,
@@ -25,7 +25,7 @@ const withActivePin = (Component) => {
         <Component
           {...this.props}
           activePin={this.state.activePin}
-          handleMouseEnter={this.handleMouseEnter}
+          handleMouse={this.handleMouse}
         />
       );
     }

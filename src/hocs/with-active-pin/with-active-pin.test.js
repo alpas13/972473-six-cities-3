@@ -10,8 +10,9 @@ const MockComponentWrapped = withActivePin(MockComponent);
 
 test(`Should state change`, () => {
   const wrapper = shallow(<MockComponentWrapped
+    handleMouse={() => {}}
   />);
 
-  wrapper.props().handleMouseEnter(`changed state`);
+  wrapper.props().handleMouse(`changed state`);
   expect(wrapper.props().activePin).toEqual(`changed state`);
 });

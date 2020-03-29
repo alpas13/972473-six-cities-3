@@ -3,20 +3,29 @@ import renderer from "react-test-renderer";
 import Main from "./main";
 import OffersList from "../offers-list/offers-list";
 import Map from "../map/map";
+import {Provider} from "react-redux";
+import {TestStore, mainStyle} from "../../const";
+import configureStore from "redux-mock-store";
+
+const mockStore = configureStore([]);
 
 const mock = {
   offers: [
     {
-      userName: `user-name 1`,
+      id: 1,
+      city: `Hamburg`,
+      cityCoords: [52.3909553943508, 4.85309666406198],
+      cityZoom: 9,
       propertyImage: [`path 1`],
       title: `Title text 1`,
-      mark: `mark 1`,
+      mark: `Premium`,
       previewImage: `path 1`,
       price: 1,
-      bookmark: false,
+      bookmark: true,
+      propertyText: `Text`,
       rating: {
-        star: 1,
-        value: 1,
+        star: (Math.floor(4) / 5) * 100,
+        value: 4,
       },
       features: {
         entire: `type text 1`,
@@ -26,59 +35,48 @@ const mock = {
       insideList: [
         `text 1`,
       ],
-      hostName: `text 1`,
-      propertyText: [
-        `text 1`,
-        `text 1`
-      ],
+      host: {
+        avatarUrl: `path 1`,
+        id: 3,
+        name: `text 1`,
+        isPro: true,
+      },
       coords: [
         52.3909553943508,
         4.85309666406198
-      ]
+      ],
+      coordsZoom: 8,
     }
   ]
 };
 
-const ClassPrefixes = {
-  OFFER_FOR_MAIN: `cities__`,
-  OFFER_FOR_PROPERTY: `near-places__`
-};
-
-const ClassArticle = {
-  CLASS_FOR_MAIN: `cities__place-card`,
-  CLASS_FOR_PROPERTY: `near-places__card`
-};
-
 test(`Render Main correctly`, () => {
+  const store = mockStore(TestStore);
   const {offers} = mock;
-  const mainStyle = {
-    classSelect: ClassArticle.CLASS_FOR_MAIN,
-    prefix: ClassPrefixes.OFFER_FOR_MAIN
-  };
   const tree = renderer.create(
-      <Main
-        offers={offers}
-        offersCount={4}
-        city={`Amsterdam`}
-        cities={[`Amsterdam`, `Hamburg`]}
-        onCityClick={() => {}}
-        handleMouseEnter={() => {}}
-        onSortingChange={()=>{}}
-        onTitleOfferClick={() => {}}
-        sortType={`popular`}
-        propertyStyle={mainStyle}
-      >
-        <OffersList
+      <Provider store={store}>
+        <Main
           offers={offers}
-          onTitleOfferClick={() => {}}
-          styleSettings={mainStyle}
-          onChange={()=>{}}
-        />
-        <Map
-          styleSettings={{height: `800px`, top: `170px`}}
-          offers={offers}
-        />
-      </Main>)
+          city={`Amsterdam`}
+          cities={[`Amsterdam`, `Hamburg`]}
+          onCityClick={() => {}}
+          activePin={offers.coords}
+          handleMouse={() => {}}
+          onSortingChange={()=>{}}
+          sortType={`popular`}
+        >
+          <OffersList
+            offers={offers}
+            onTitleOfferClick={() => {}}
+            styleSettings={mainStyle}
+            onChange={()=>{}}
+          />
+          <Map
+            styleSettings={{height: `800px`, top: `170px`}}
+            offers={offers}
+          />
+        </Main>
+      </Provider>)
       .toJSON();
   expect(tree).toMatchSnapshot();
 });

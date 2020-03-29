@@ -1,67 +1,66 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import OffersList from "./offers-list";
+import {mainStyle} from "../../const";
+import {Provider} from "react-redux";
+import {TestStore} from "../../const";
+import configureStore from "redux-mock-store";
 
-const mock = {
-  offers: [
-    {
-      userName: `user-name 1`,
-      propertyImage: [`path 1`],
-      title: `Title text 1`,
-      mark: `mark 1`,
-      previewImage: `path 1`,
-      price: 1,
-      bookmark: false,
-      rating: {
-        star: 1,
-        value: 1,
-      },
-      features: {
-        entire: `type text 1`,
-        bedrooms: 1,
-        adults: 1,
-      },
-      insideList: [
-        `text 1`,
-      ],
-      hostName: `text 1`,
-      propertyText: [
-        `text 1`,
-        `text 1`
-      ],
-      coords: [
-        52.3909553943508,
-        4.85309666406198
-      ]
-    }
-  ]
-};
+const mockStore = configureStore([]);
 
-const ClassPrefixes = {
-  OFFER_FOR_MAIN: `cities__`,
-  OFFER_FOR_PROPERTY: `near-places__`
-};
-
-const ClassArticle = {
-  CLASS_FOR_MAIN: `cities__place-card`,
-  CLASS_FOR_PROPERTY: `near-places__card`
-};
+const offers = [
+  {
+    id: 1,
+    city: `Hamburg`,
+    cityCoords: [52.3909553943508, 4.85309666406198],
+    cityZoom: 9,
+    propertyImage: [`path 1`],
+    title: `Title text 1`,
+    mark: `Premium`,
+    previewImage: `path 1`,
+    price: 1,
+    bookmark: true,
+    propertyText: `Text`,
+    rating: {
+      star: (Math.floor(4) / 5) * 100,
+      value: 4,
+    },
+    features: {
+      entire: `type text 1`,
+      bedrooms: 1,
+      adults: 1,
+    },
+    insideList: [
+      `text 1`,
+    ],
+    host: {
+      avatarUrl: `path 1`,
+      id: 3,
+      name: `text 1`,
+      isPro: true,
+    },
+    coords: [
+      52.3909553943508,
+      4.85309666406198
+    ],
+    coordsZoom: 8,
+  }
+];
 
 test(`Correctly render OffersList component`, () => {
-  const {offers} = mock;
-  const mainStyle = {
-    classSelect: ClassArticle.CLASS_FOR_MAIN,
-    prefix: ClassPrefixes.OFFER_FOR_MAIN
-  };
-
+  const store = mockStore(TestStore);
   const tree = renderer.create(
-      <OffersList
-        offers={offers}
-        offersCount={3}
-        city={`Amsterdam`}
-        onTitleOfferClick={() => {}}
-        styleSettings={mainStyle}
-        onChange={()=>{}}
-      />).toJSON();
+      <Provider store={store}>
+        <OffersList
+          offers={offers}
+          authInfo={`NO_AUTH`}
+          getLoginPage={() => {}}
+          favoritesId={[1]}
+          onTitleOfferClick={() => {}}
+          styleSettings={mainStyle}
+          onChange={() => {}}
+          toggleFavoriteItem={() => {}}
+        />
+      </Provider>).toJSON();
   expect(tree).toMatchSnapshot();
 });

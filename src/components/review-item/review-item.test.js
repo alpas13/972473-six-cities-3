@@ -3,12 +3,14 @@ import renderer from "react-test-renderer";
 import ReviewItem from "./review-item";
 
 const review = {
-  id: 1582457885645.192,
-  userAvatar: `img/avatar-max.jpg`,
-  userName: `Max`,
-  rating: 80,
-  description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
-  date: new Date().toUTCString(),
+  description: `Text`,
+  date: `2019-05-08T14:13:56.569Z`,
+  id: 1,
+  rating: 4,
+  userId: 5,
+  userAvatar: `path/path-1`,
+  userName: `User`,
+  proUser: false
 };
 
 test(`Correctly render ReviewItem component`, () => {

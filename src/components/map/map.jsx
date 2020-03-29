@@ -10,17 +10,17 @@ class Map extends PureComponent {
   }
 
   componentDidMount() {
-    const {offers, offer} = this.props;
-    if (this.mapRef.current === null) {
+    const {offers} = this.props;
+    if (this.mapRef.current === null || !offers.length) {
       return;
     }
 
-    this.city = [52.38333, 4.9];
+    this.city = offers[0].cityCoords;
     const icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
       iconSize: [30, 39]
     });
-    this.zoom = 12;
+    this.zoom = offers[0].cityZoom;
     this.map = leaflet.map(this.mapRef.current, {
       center: this.city,
       zoom: this.zoom,
@@ -38,55 +38,58 @@ class Map extends PureComponent {
     this.markers = leaflet
         .layerGroup();
 
-    if (offer) {
-      offer.neighbourhoodOffers.map((offerItem) => {
-        offers.slice().filter((item) => offerItem === item.id).map((neighbourhood) => {
-          this.markers.addLayer(leaflet.marker(neighbourhood.coords, {icon}));
-        });
-      });
-    } else {
-      offers.map((item) => {
-        this.markers.addLayer(leaflet.marker(item.coords, {icon}));
-      });
-    }
+    offers.map((item) => {
+      this.markers.addLayer(leaflet.marker(item.coords, {icon}));
+    });
 
     this.markers.addTo(this.map);
   }
 
   componentDidUpdate({offers, activePin}) {
     if (this.props.offers !== offers || this.props.activePin !== activePin) {
-
       const icon = leaflet.icon({
         iconUrl: `img/pin.svg`,
         iconSize: [30, 39]
       });
-
       const activeIcon = leaflet.icon({
         iconUrl: `img/pin-active.svg`,
         iconSize: [30, 39]
       });
 
-      this.markers.clearLayers();
+      this.city = this.props.offers[0].cityCoords;
+      this.zoom = this.props.offers[0].cityZoom;
 
-      if (this.props.offer) {
-        this.props.offer.neighbourhoodOffers.map((offerItem) => {
-          this.props.offers.slice().filter((item) => offerItem === item.id).map((neighbourhood) => {
-            if (neighbourhood.coords === this.props.activePin) {
-              this.markers.addLayer(leaflet.marker(neighbourhood.coords, {icon: activeIcon}));
-            } else {
-              this.markers.addLayer(leaflet.marker(neighbourhood.coords, {icon}));
-            }
-          });
+      if (!this.map) {
+        this.map = leaflet.map(this.mapRef.current, {
+          center: this.city,
+          zoom: this.zoom,
+          zoomControl: false,
+          marker: true
         });
-      } else {
-        this.props.offers.map((item) => {
-          if (item.coords === this.props.activePin) {
-            this.markers.addLayer(leaflet.marker(item.coords, {icon: activeIcon}));
-          } else {
-            this.markers.addLayer(leaflet.marker(item.coords, {icon}));
-          }
-        });
+
+        leaflet
+            .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
+              attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
+            })
+            .addTo(this.map);
+
+        this.markers = leaflet
+            .layerGroup();
       }
+
+      this.map.setView(this.city, this.zoom);
+
+      if (this.markers) {
+        this.markers.clearLayers();
+      }
+
+      this.props.offers.map((item) => {
+        if (item.coords === this.props.activePin) {
+          this.markers.addLayer(leaflet.marker(item.coords, {icon: activeIcon}));
+        } else {
+          this.markers.addLayer(leaflet.marker(item.coords, {icon}));
+        }
+      });
 
       this.markers.addTo(this.map);
     }
@@ -102,7 +105,6 @@ class Map extends PureComponent {
 
 Map.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
-  offer: PropTypes.object,
   styleSettings: PropTypes.object.isRequired,
   activePin: PropTypes.array,
 };

@@ -5,7 +5,6 @@ import LocationsList from "./locations-list";
 test(`Correctly render LocationsList component`, () => {
   const tree = renderer.create(
       <LocationsList
-        city={`Amsterdam`}
         cities={[`Amsterdam`, `Hamburg`]}
         onCityClick={()=>{}}
         handleSelectItem={() => {}}

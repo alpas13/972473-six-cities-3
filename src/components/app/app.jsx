@@ -1,99 +1,113 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {favoritesStyle, mainStyle} from "../../const.js";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer.js";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
+import Page from "../page/page.jsx";
 import Main from "../main/main.jsx";
+import AuthScreen from "../auth-screen/auth-screen.jsx";
+import Favorites from "../favorites/favorites.jsx";
+import FavoritesEmpty from "../favorites-empty/favorites-empty.jsx";
 import Property from "../property/property.jsx";
 import OffersList from "../offers-list/offers-list.jsx";
-import PlacesSorting from "../places-sorting/places-sorting.jsx";
 import withActivePin from "../../hocs/with-active-pin/with-active-pin.jsx";
 import MainEmpty from "../main-empty/main-empty.jsx";
+import {
+  getOffers,
+} from "../../reducer/data/selectors.js";
+import {
+  getAuthorizationStatus,
+  getAuthorizationInfo,
+} from "../../reducer/user/selectors.js";
+import {
+  getFavoritesPageStatus,
+  getPropertyPageStatus,
+  getEmptyFavoritesPage,
+  getLoginPageStatus
+} from "../../reducer/main/selectors.js";
+import {Operation as UserOperation} from "../../reducer/user/user";
 
 const PropertyWithActivePin = withActivePin(Property);
 const MainWithActivePin = withActivePin(Main);
 
-
-const ClassPrefixes = {
-  OFFER_FOR_MAIN: `cities__`,
-  OFFER_FOR_PROPERTY: `near-places__`
-};
-
-const ClassArticle = {
-  CLASS_FOR_MAIN: `cities__place-card`,
-  CLASS_FOR_PROPERTY: `near-places__card`
-};
-
 class App extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this._propertyStyle = {
-      classSelect: ClassArticle.CLASS_FOR_PROPERTY,
-      prefix: ClassPrefixes.OFFER_FOR_PROPERTY
-    };
-
-    this._mainStyle = {
-      classSelect: ClassArticle.CLASS_FOR_MAIN,
-      prefix: ClassPrefixes.OFFER_FOR_MAIN
-    };
-  }
-
   _renderApp() {
-    const {offers, city, cities, property, onCityClick, nearPlaces, onTitleOfferClick, sortType, onSortingChange} = this.props;
+    const {
+      offers,
+      favoritesPage,
+      emptyFavoritesPage,
+      login,
+      authorizationStatus,
+      loginPage,
+      propertyPage,
+    } = this.props;
 
-    if (property) {
+    if ((favoritesPage && !authorizationStatus) || loginPage) {
       return (
-        <PropertyWithActivePin
-          offer={property}
-          offers={offers}
-          nearPlaces={nearPlaces}
-          onTitleOfferClick={onTitleOfferClick}
-          propertyStyle={this._propertyStyle}
+        <AuthScreen
+          onSubmit={login}
         />
+      );
+    }
+
+    if (emptyFavoritesPage) {
+      return (
+        <FavoritesEmpty />
+      );
+    }
+
+    if (favoritesPage && authorizationStatus) {
+      return (
+        <Favorites />
+      );
+    }
+
+    if (propertyPage) {
+      return (
+        <PropertyWithActivePin />
       );
     }
 
     if (!offers.length) {
       return (
-        <MainEmpty/>
+        <MainEmpty />
       );
     }
 
     return (
-      <MainWithActivePin
-        offers={offers}
-        offersCount={offers.length}
-        city = {city}
-        cities={cities}
-        onCityClick={onCityClick}
-        onTitleOfferClick={onTitleOfferClick}
-        sortType={sortType}
-        propertyStyle={this._mainStyle}
-      >
-        <PlacesSorting
-          city={city}
-          sortType={sortType}
-          onSortingChange={onSortingChange}
-        />
-      </MainWithActivePin>
+      <MainWithActivePin />
     );
   }
 
   render() {
-    const {offers, onTitleOfferClick} = this.props;
+    const {offers} = this.props;
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            {this._renderApp()}
+            <Page>
+              {this._renderApp()}
+            </Page>
           </Route>
           <Route exact path="/dev-offer">
             <OffersList
               offers={offers}
-              onTitleOfferClick={onTitleOfferClick}
-              styleSettings={this._mainStyle}
+              favoritesId={[1, 3, 4]}
+              onTitleOfferClick={() => {}}
+              styleSettings={mainStyle}
               onChange={() => {}}
+              getLoginPage={() => {}}
+              toggleFavoriteItem={() => {}}
+            />
+          </Route>
+          <Route exact path="/dev-auth">
+            <AuthScreen
+              onSubmit={()=>{}}
+            />
+          </Route>
+          <Route exact path="/dev-favorites">
+            <Favorites
+              styleSettings={favoritesStyle}
             />
           </Route>
         </Switch>
@@ -104,37 +118,29 @@ class App extends PureComponent {
 
 App.propTypes = {
   offers: PropTypes.array.isRequired,
-  city: PropTypes.string.isRequired,
-  cities: PropTypes.array.isRequired,
-  property: PropTypes.object,
-  nearPlaces: PropTypes.array,
-  onTitleOfferClick: PropTypes.func.isRequired,
-  onCityClick: PropTypes.func.isRequired,
-  sortType: PropTypes.string.isRequired,
-  onSortingChange: PropTypes.func.isRequired,
+  favoritesPage: PropTypes.bool.isRequired,
+  emptyFavoritesPage: PropTypes.bool.isRequired,
+  loginPage: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  authorizationInfo: PropTypes.object,
+  login: PropTypes.func.isRequired,
+  propertyPage: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  city: state.city,
-  offers: state.offers,
-  cities: state.cities,
-  property: state.property,
-  nearPlaces: state.nearPlaces,
-  sortType: state.sortType,
+  offers: getOffers(state),
+  favoritesPage: getFavoritesPageStatus(state),
+  emptyFavoritesPage: getEmptyFavoritesPage(state),
+  authorizationStatus: getAuthorizationStatus(state),
+  authorizationInfo: getAuthorizationInfo(state),
+  loginPage: getLoginPageStatus(state),
+  propertyPage: getPropertyPageStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onTitleOfferClick(offer) {
-    dispatch(ActionCreator.getProperty(offer));
-    dispatch(ActionCreator.getNearPlaces(offer));
+  login(authData) {
+    dispatch(UserOperation.login(authData));
   },
-  onCityClick(city) {
-    dispatch(ActionCreator.changeCity(city));
-    dispatch(ActionCreator.getOffers(city));
-  },
-  onSortingChange(sortValue, city) {
-    dispatch(ActionCreator.changeSorting(sortValue, city));
-  }
 });
 
 export {App};

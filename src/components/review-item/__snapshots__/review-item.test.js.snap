@@ -14,14 +14,14 @@ exports[`Correctly render ReviewItem component 1`] = `
         alt="Reviews avatar"
         className="reviews__avatar user__avatar"
         height="54"
-        src="img/avatar-max.jpg"
+        src="path/path-1"
         width="54"
       />
     </div>
     <span
       className="reviews__user-name"
     >
-      Max
+      User
     </span>
   </div>
   <div
@@ -50,14 +50,14 @@ exports[`Correctly render ReviewItem component 1`] = `
     <p
       className="reviews__text"
     >
-      A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
+      Text
     </p>
     <time
       className="reviews__time"
-      dateTime="2020-02-
-          05"
+      dateTime="2019-04-
+          08"
     >
-      March 2020
+      May 2019
     </time>
   </div>
 </li>
