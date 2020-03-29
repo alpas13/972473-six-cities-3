@@ -1,7 +1,6 @@
-import {reducer} from "../../reducer/main/main";
-import {SortType} from "./main";
+import {reducer, ActionType} from "../../reducer/data/data";
 
-/* const offers = [
+const offers = [
   {
     id: 1,
     city: `Hamburg`,
@@ -182,112 +181,56 @@ import {SortType} from "./main";
     ],
     coordsZoom: 8,
   },
-];*/
+];
 
 test(`Reducer without additional parameter should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
-    sortType: SortType.POPULAR,
-    property: null,
-    nearPlaces: [],
-    reviews: [],
-    favorites: [],
-    favoritesPage: false,
-    emptyFavoritesPage: false,
-    propertyPage: false,
+    offers: [],
+    city: ``,
   });
 });
 
-/* test(`Reducer should gives current offers by filtered with a given value`, () => {
+test(`Reducer should set city by a given value`, () => {
+  expect(reducer({
+    offers,
+    city: ``,
+  }, {
+    type: ActionType.SET_CITY,
+    payload: `Hamburg`,
+  })).toEqual(
+      {
+        offers,
+        city: `Hamburg`,
+      }
+  );
+});
+
+test(`Reducer should changes current city by a given value`, () => {
   expect(reducer({
     offers,
     city: `Amsterdam`,
   }, {
-    type: ActionType.GET_OFFERS,
+    type: ActionType.CHANGE_CITY,
+    payload: `Hamburg`,
+  })).toEqual(
+      {
+        offers,
+        city: `Hamburg`,
+      }
+  );
+});
+
+test(`Reducer should gives current offers by filtered with a given value`, () => {
+  expect(reducer({
+    offers: [],
+    city: `Hamburg`,
+  }, {
+    type: ActionType.LOAD_OFFERS,
     payload: offers,
   })).toEqual(
       {
         offers,
-        city: `Amsterdam`,
+        city: `Hamburg`,
       }
   );
 });
-
-test(`Reducer should gives an offer by filtered with a given value`, () => {
-  expect(reducer({
-    city: `Amsterdam`,
-    offers,
-    cities: [`Amsterdam`, `Hamburg`],
-    sortType: `popular`,
-    property: null,
-    nearPlaces: null,
-  }, {
-    type: ActionType.GET_PROPERTY,
-    payload: offers.slice(1),
-  })).toEqual(
-      {
-        city: `Amsterdam`,
-        offers,
-        cities: [`Amsterdam`, `Hamburg`],
-        sortType: `popular`,
-        property: offers.slice(1),
-        nearPlaces: null,
-      }
-  );
-});
-
-test(`Reducer should gives nearPlaces offers by filtered with a given value`, () => {
-  expect(reducer({
-    city: `Amsterdam`,
-    offers,
-    cities: [`Amsterdam`, `Hamburg`],
-    sortType: `popular`,
-    property: null,
-    nearPlaces: null,
-  }, {
-    type: ActionType.GET_NEAR_PLACES,
-    payload: offers.slice(1, 4),
-  })).toEqual(
-      {
-        city: `Amsterdam`,
-        offers,
-        cities: [`Amsterdam`, `Hamburg`],
-        sortType: `popular`,
-        property: null,
-        nearPlaces: offers.slice(1, 4),
-      }
-  );
-});
-
-describe(`Action creators work correctly`, () => {
-  test(`Action creators for changing city returns correct action`, () => {
-    expect(ActionCreator.changeCity(`Hamburg`)).toEqual({
-      type: ActionType.CHANGE_CITY,
-      payload: `Hamburg`,
-    }
-    );
-  });
-
-  test(`Action creators for getting offers returns correct action`, () => {
-    expect(ActionCreator.getOffers(`Hamburg`)).toEqual({
-      type: ActionType.GET_OFFERS,
-      payload: offers.slice(4, 5),
-    }
-    );
-  });
-
-  test(`Action creators for getting property returns correct action`, () => {
-    expect(ActionCreator.getProperty(offers.slice(0, 1)[0])).toEqual({
-      type: ActionType.GET_PROPERTY,
-      payload: offers.slice(0, 1)[0],
-    }
-    );
-  });
-
-  test(`Action creators for getting nerPlaces returns correct action`, () => {
-    expect(ActionCreator.getNearPlaces(offers.slice(0, 1)[0])).toEqual({
-      type: ActionType.GET_NEAR_PLACES,
-      payload: offers.slice(1, 4),
-    }
-    );
-  });
-});*/

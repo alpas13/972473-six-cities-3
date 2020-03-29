@@ -1,3 +1,7 @@
+import {initialState as DATA} from "./reducer/data/data";
+import {initialState as MAIN} from "./reducer/main/main";
+import {initialState as USER} from "./reducer/user/user";
+
 const PreviewImageSize = {
   placeCardWidth: `260`,
   placeCardHeight: `200`,
@@ -59,4 +63,10 @@ const pageStyle = (page) => {
   return ` page--gray page--main`;
 };
 
-export {mainStyle, propertyStyle, favoritesStyle, pageStyle};
+const TestStore = {
+  DATA,
+  MAIN,
+  USER
+};
+
+export {mainStyle, propertyStyle, favoritesStyle, TestStore, pageStyle};

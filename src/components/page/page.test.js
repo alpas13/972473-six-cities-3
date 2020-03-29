@@ -1,9 +1,10 @@
 import * as React from "react";
 import * as renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
-import {Favorites} from "./favorites.jsx";
+import {Page} from "./page.jsx";
 import {Provider} from "react-redux";
 import {TestStore} from "../../const";
+import Main from "../main/main";
 
 const mockStore = configureStore([]);
 
@@ -50,11 +51,27 @@ test(`Correctly render Favorites component`, () => {
   const store = mockStore(TestStore);
   const tree = renderer.create(
       <Provider store={store}>
-        <Favorites
-          offers={offers}
+        <Page
+          currentPage={`mainPage`}
+          authInfo={null}
+          isFavorites={false}
           getFavoritesPage={() => {}}
+          getLoginPage={() => {}}
         >
-        </Favorites>
+          <Main
+            offers={offers}
+            city={`Amsterdam`}
+            cities={[`Amsterdam`, `Hamburg`]}
+            onCityClick={() => {}}
+            activePin={[
+              52.3909553943508,
+              4.85309666406198
+            ]}
+            handleMouse={() => {}}
+            onSortingChange={()=>{}}
+            sortType={`popular`}
+          />
+        </Page>
       </Provider>).toJSON();
   expect(tree).toMatchSnapshot();
 });

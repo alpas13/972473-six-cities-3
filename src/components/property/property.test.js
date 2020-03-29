@@ -1,152 +1,195 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
 import Property from "./property";
 import OffersList from "../offers-list/offers-list";
 import Map from "../map/map";
 import ReviewsList from "../reviews-list/reviews-list";
+import ReviewForm from "../review-form/review-form.jsx";
+import {propertyStyle} from "../../const";
+import {Provider} from "react-redux";
+import {TestStore} from "../../const";
+import configureStore from "redux-mock-store";
 
-const mock = {
-  offer:
-    {
-      userName: `user-name 1`,
-      propertyImage: [`path 1`],
-      title: `Title text 1`,
-      mark: `mark 1`,
-      previewImage: `path 1`,
-      price: 1,
-      bookmark: false,
-      rating: {
-        star: 1,
-        value: 1,
-      },
-      features: {
-        entire: `type text 1`,
-        bedrooms: 1,
-        adults: 1,
-      },
-      insideList: [
-        `text 1`,
-      ],
-      hostName: `text 1`,
-      propertyText: [
-        `text 1`,
-        `text 1`
-      ],
-      coords: [
-        52.3909553943508,
-        4.85309666406198
-      ],
-      reviews: [
-        {
-          id: 1582457643553.8105,
-          userAvatar: `img/avatar-max.jpg`,
-          userName: `Max`,
-          rating: 80,
-          description: `The building is green and from 18th century.`,
-          date: new Date().toUTCString(),
-        },
-      ],
-      neighbourhoodOffers: [
-        1582457443027.0002,
-        1582457508960.5964,
-        1582457581305.9822,
-      ]
-    }
+const mockStore = configureStore([]);
+
+const offer = {
+  id: 1,
+  city: `Hamburg`,
+  cityCoords: [52.3909553943508, 4.85309666406198],
+  cityZoom: 9,
+  propertyImage: [`path 1`],
+  title: `Title text 1`,
+  mark: `Premium`,
+  previewImage: `path 1`,
+  price: 1,
+  bookmark: true,
+  propertyText: `Text`,
+  rating: {
+    star: (Math.floor(4) / 5) * 100,
+    value: 4,
+  },
+  features: {
+    entire: `type text 1`,
+    bedrooms: 1,
+    adults: 1,
+  },
+  insideList: [
+    `text 1`,
+  ],
+  host: {
+    avatarUrl: `path 1`,
+    id: 3,
+    name: `text 1`,
+    isPro: true,
+  },
+  coords: [
+    52.3909553943508,
+    4.85309666406198
+  ],
+  coordsZoom: 8,
 };
 
-const mocks = {
-  offers: [
-    {
-      userName: `user-name 1`,
-      propertyImage: [`path 1`],
-      title: `Title text 1`,
-      mark: `mark 1`,
-      previewImage: `path 1`,
-      price: 1,
-      bookmark: false,
-      rating: {
-        star: 1,
-        value: 1,
-      },
-      features: {
-        entire: `type text 1`,
-        bedrooms: 1,
-        adults: 1,
-      },
-      insideList: [
-        `text 1`,
-      ],
-      hostName: `text 1`,
-      propertyText: [
-        `text 1`,
-        `text 1`
-      ],
-      coords: [
-        52.3909553943508,
-        4.85309666406198
-      ],
-      reviews: [
-        {
-          id: 1582457643553.8105,
-          userAvatar: `img/avatar-max.jpg`,
-          userName: `Max`,
-          rating: 80,
-          description: `The building is green and from 18th century.`,
-          date: new Date().toUTCString(),
-        },
-      ],
-      neighbourhoodOffers: [
-        1582457443027.0002,
-        1582457508960.5964,
-        1582457581305.9822,
-      ]
-    }
-  ]
+const offers = [
+  {
+    id: 1,
+    city: `Hamburg`,
+    cityCoords: [52.3909553943508, 4.85309666406198],
+    cityZoom: 9,
+    propertyImage: [`path 1`],
+    title: `Title text 1`,
+    mark: `Premium`,
+    previewImage: `path 1`,
+    price: 1,
+    bookmark: true,
+    propertyText: `Text`,
+    rating: {
+      star: (Math.floor(4) / 5) * 100,
+      value: 4,
+    },
+    features: {
+      entire: `type text 1`,
+      bedrooms: 1,
+      adults: 1,
+    },
+    insideList: [
+      `text 1`,
+    ],
+    host: {
+      avatarUrl: `path 1`,
+      id: 3,
+      name: `text 1`,
+      isPro: true,
+    },
+    coords: [
+      52.3909553943508,
+      4.85309666406198
+    ],
+    coordsZoom: 8,
+  }
+];
+
+const reviews = [
+  {
+    description: `Text`,
+    date: `2019-05-08T14:13:56.569Z`,
+    id: 1,
+    rating: 4,
+    userId: 5,
+    userAvatar: `path/path-1`,
+    userName: `User`,
+    proUser: false
+  }
+];
+
+const authInfo = {
+  email: `Oliver.conner@gmail.com`,
 };
 
-const ClassPrefixes = {
-  OFFER_FOR_MAIN: `cities__`,
-  OFFER_FOR_PROPERTY: `near-places__`
-};
-
-const ClassArticle = {
-  CLASS_FOR_MAIN: `cities__place-card`,
-  CLASS_FOR_PROPERTY: `near-places__card`
-};
-
-test(`Correctly render Property component`, () => {
-  const {offer} = mock;
-  const {offers} = mocks;
-  const propertyStyle = {
-    classSelect: ClassArticle.CLASS_FOR_PROPERTY,
-    prefix: ClassPrefixes.OFFER_FOR_PROPERTY
-  };
-
-  const tree = renderer.create(
-      <Property
-        offers={offers}
-        offer={offer}
-        styleSettings={propertyStyle}
-        handleMouseEnter={() => {}}
-        onTitleOfferClick={() => {}}
-        propertyStyle={propertyStyle}
-        nearPlaces={offers}
-      >
-        <OffersList
-          key={1}
-          offers={offers}
-          onTitleOfferClick={()=>{}}
-          styleSettings={propertyStyle}
-          onChange={()=>{}}
-        />,
-        <ReviewsList
-          offer={offer}
-        />,
-        <Map
-          key={2}
-          offers={offers}
-          styleSettings={{height: `597px`}}/>
-      </Property>
-  ).toJSON();
-  expect(tree).toMatchSnapshot();
+describe(`render Property`, () => {
+  let store;
+  beforeEach(function () {
+    store = mockStore(TestStore);
+  });
+  test(`Correctly render Property component`, () => {
+    const tree = renderer.create(
+        <Provider store={store}>
+          <Property
+            offer={offer}
+            offers={offers}
+            authInfo={null}
+            handleMouse={() => {}}
+            getLoginPage={() => {}}
+            toggleFavoriteItem={() => {}}
+            sendReview={() => {}}
+            activePin={[
+              52.3909553943508,
+              4.85309666406198
+            ]}
+          >
+            <ReviewsList
+              reviews={reviews}
+            />
+            <Map
+              offers={offers}
+              activePin={[
+                52.3909553943508,
+                4.85309666406198
+              ]}
+              styleSettings={{height: `597px`}}
+            />
+            <OffersList
+              offers={offers}
+              styleSettings={propertyStyle}
+              handleSelectItem={() => {}}
+            />
+          </Property>
+        </Provider>
+    ).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+  test(`Correctly render Property component with ReviewForm`, () => {
+    const tree = renderer.create(
+        <Provider store={store}>
+          <Property
+            offer={offer}
+            offers={offers}
+            authInfo={authInfo}
+            handleMouse={() => {}}
+            getLoginPage={() => {}}
+            toggleFavoriteItem={() => {}}
+            sendReview={() => {}}
+            activePin={[
+              52.3909553943508,
+              4.85309666406198
+            ]}
+          >
+            <ReviewsList
+              reviews={reviews}
+            />
+            <ReviewForm
+              rating={``}
+              comment={``}
+              status={true}
+              handleChangeRating={() => {}}
+              handleChangeTextarea={() => {}}
+              handleSubmit={() => {}}
+            />
+            <Map
+              offers={offers}
+              activePin={[
+                52.3909553943508,
+                4.85309666406198
+              ]}
+              styleSettings={{height: `597px`}}
+            />
+            <OffersList
+              offers={offers}
+              styleSettings={propertyStyle}
+              handleSelectItem={() => {}}
+            />
+          </Property>
+        </Provider>
+    ).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });

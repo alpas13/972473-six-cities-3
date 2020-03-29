@@ -20,7 +20,7 @@ export const SortType = {
   TOP_RATED: `top-rated`,
 };
 
-const initialState = {
+export const initialState = {
   sortType: SortType.POPULAR,
   property: null,
   nearPlaces: [],

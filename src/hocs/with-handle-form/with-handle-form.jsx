@@ -62,7 +62,6 @@ const withHandleForm = (Component) => {
           {...this.props}
           rating={this.state.rating}
           comment={this.state.comment}
-          checkedId={this.state.checkedId}
           status={this.state.status}
           handleChangeRating={this.handleChangeRating}
           handleChangeTextarea={this.handleChangeTextarea}

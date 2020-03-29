@@ -1,23 +1,30 @@
-import React from "react";
-import rerender from "react-test-renderer";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
 import {App} from "./app";
 import Main from "../main/main";
-import OffersList from "../offers-list/offers-list";
-import Map from "../map/map";
+import {Provider} from "react-redux";
+import {TestStore} from "../../const";
+import configureStore from "redux-mock-store";
+
+const mockStore = configureStore([]);
 
 const mock = {
   offers: [
     {
-      userName: `user-name 1`,
+      id: 1,
+      city: `Hamburg`,
+      cityCoords: [52.3909553943508, 4.85309666406198],
+      cityZoom: 9,
       propertyImage: [`path 1`],
       title: `Title text 1`,
-      mark: `mark 1`,
+      mark: `Premium`,
       previewImage: `path 1`,
       price: 1,
-      bookmark: false,
+      bookmark: true,
+      propertyText: `Text`,
       rating: {
-        star: 1,
-        value: 1,
+        star: (Math.floor(4) / 5) * 100,
+        value: 4,
       },
       features: {
         entire: `type text 1`,
@@ -27,76 +34,38 @@ const mock = {
       insideList: [
         `text 1`,
       ],
-      hostName: `text 1`,
-      propertyText: [
-        `text 1`,
-        `text 1`
-      ],
+      host: {
+        avatarUrl: `path 1`,
+        id: 3,
+        name: `text 1`,
+        isPro: true,
+      },
       coords: [
         52.3909553943508,
         4.85309666406198
-      ]
+      ],
+      coordsZoom: 8,
     }
   ]
 };
 
-const ClassPrefixes = {
-  OFFER_FOR_MAIN: `cities__`,
-  OFFER_FOR_PROPERTY: `near-places__`
-};
-
-const ClassArticle = {
-  CLASS_FOR_MAIN: `cities__place-card`,
-  CLASS_FOR_PROPERTY: `near-places__card`
-};
-
 test(`Render App correctly`, () => {
+  const store = mockStore(TestStore);
   const {offers} = mock;
-  const mainStyle = {
-    classSelect: ClassArticle.CLASS_FOR_MAIN,
-    prefix: ClassPrefixes.OFFER_FOR_MAIN
-  };
-  const tree = rerender.create(
-      <App
-        offersCount={3}
-        offers={offers}
-        city={`Amsterdam`}
-        cities={[`Amsterdam`, `Hamburg`]}
-        onTitleOfferClick={() => {}}
-        onCityClick={() => {}}
-        onCardMapPinToggle={()=>{}}
-        onSortingChange={()=>{}}
-        sortType={`popular`}
-      >
-        <Main
+  const tree = renderer.create(
+      <Provider store={store}>
+        <App
           offers={offers}
-          offersCount={4}
-          city={`Amsterdam`}
-          cities={[`Amsterdam`, `Hamburg`]}
-          onCityClick={() => {}}
-          onSortingChange={()=>{}}
-          sortType={`popular`}
-          handleMouseEnter={() => {}}
-          onTitleOfferClick={() => {}}
-          propertyStyle={mainStyle}
+          favoritesPage={false}
+          emptyFavoritesPage={false}
+          login={() => {}}
+          authorizationStatus={`NO_AUTH`}
+          loginPage={false}
+          propertyPage={false}
         >
-          <OffersList
-            offersCount={3}
-            offers={offers}
-            city={`Amsterdam`}
-            onTitleOfferClick={() => {}}
-            styleSettings={{
-              CLASS_FOR_MAIN: `cities__place-card`,
-              OFFER_FOR_MAIN: `cities__`
-            }}
-            onChange={()=>{}}
-          />
-          <Map
-            offers={offers}
-            styleSettings={{height: `800px`, top: `170px`}}
-          />
-        </Main>
-      </App>
+          <Main />
+        </App>
+      </Provider>
   ).toJSON();
   expect(tree).toMatchSnapshot();
 });

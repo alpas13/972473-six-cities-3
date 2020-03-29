@@ -1,11 +1,11 @@
 import {extend, offersModel} from "../../utils";
 
-const initialState = {
+export const initialState = {
   offers: [],
   city: ``,
 };
 
-const ActionType = {
+export const ActionType = {
   SET_CITY: `SET_CITY`,
   LOAD_OFFERS: `LOAD_OFFERS`,
   CHANGE_CITY: `CHANGE_CITY`,

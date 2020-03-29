@@ -6,7 +6,7 @@ const AuthorizationStatus = {
   NO_AUTH: `NO_AUTH`,
 };
 
-const initialState = {
+export const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   authInfo: null,
   loginPage: false,
