@@ -461,7 +461,7 @@ describe(`Action creators work correctly`, () => {
     });
   });
 
-  test(`Action creators for changing sorting returns correct action`, () => {
+  test(`Action creators for change sort type returns correct action`, () => {
     expect(ActionCreator.changeSorting(SortType.TOP_RATED)).toEqual({
       type: ActionType.CHANGE_SORTING,
       payload: SortType.TOP_RATED,
