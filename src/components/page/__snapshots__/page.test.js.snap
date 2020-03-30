@@ -39,14 +39,14 @@ exports[`Correctly render Favorites component 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                href="/login"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
                 />
                 <span
                   className="header__login"
-                  onClick={[Function]}
                 >
                   Sign in
                 </span>

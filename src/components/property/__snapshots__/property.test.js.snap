@@ -46,7 +46,7 @@ exports[`Correctly render Property component 1`] = `
             Title text 1
           </h1>
           <button
-            className="property__bookmark-button property__bookmark-button--active button"
+            className="property__bookmark-button  button"
             onClick={[Function]}
             type="button"
           >
@@ -62,9 +62,29 @@ exports[`Correctly render Property component 1`] = `
             <span
               className="visually-hidden"
             >
-              In bookmarks
+              To bookmarks
             </span>
           </button>
+          <a
+            className="property__bookmark-button button"
+            href="/login"
+            onClick={[Function]}
+          >
+            <svg
+              className="property__bookmark-icon"
+              height="33"
+              width="31"
+            >
+              <use
+                xlinkHref="#icon-bookmark"
+              />
+            </svg>
+            <span
+              className="visually-hidden"
+            >
+              To bookmarks
+            </span>
+          </a>
         </div>
         <div
           className="property__rating rating"

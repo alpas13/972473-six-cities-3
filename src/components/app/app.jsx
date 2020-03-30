@@ -1,15 +1,11 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import {favoritesStyle, mainStyle} from "../../const.js";
+import {appRoute} from "../../const.js";
 import {connect} from "react-redux";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Page from "../page/page.jsx";
 import Main from "../main/main.jsx";
 import AuthScreen from "../auth-screen/auth-screen.jsx";
-import Favorites from "../favorites/favorites.jsx";
-import FavoritesEmpty from "../favorites-empty/favorites-empty.jsx";
-import Property from "../property/property.jsx";
-import OffersList from "../offers-list/offers-list.jsx";
 import withActivePin from "../../hocs/with-active-pin/with-active-pin.jsx";
 import MainEmpty from "../main-empty/main-empty.jsx";
 import {
@@ -27,89 +23,39 @@ import {
 } from "../../reducer/main/selectors.js";
 import {Operation as UserOperation} from "../../reducer/user/user";
 
-const PropertyWithActivePin = withActivePin(Property);
 const MainWithActivePin = withActivePin(Main);
 
 class App extends PureComponent {
-  _renderApp() {
-    const {
-      offers,
-      favoritesPage,
-      emptyFavoritesPage,
-      login,
-      authorizationStatus,
-      loginPage,
-      propertyPage,
-    } = this.props;
-
-    if ((favoritesPage && !authorizationStatus) || loginPage) {
-      return (
-        <AuthScreen
-          onSubmit={login}
-        />
-      );
-    }
-
-    if (emptyFavoritesPage) {
-      return (
-        <FavoritesEmpty />
-      );
-    }
-
-    if (favoritesPage && authorizationStatus) {
-      return (
-        <Favorites />
-      );
-    }
-
-    if (propertyPage) {
-      return (
-        <PropertyWithActivePin />
-      );
-    }
-
-    if (!offers.length) {
-      return (
-        <MainEmpty />
-      );
-    }
-
-    return (
-      <MainWithActivePin />
-    );
-  }
-
   render() {
-    const {offers} = this.props;
+    const {offers, login} = this.props;
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/">
-            <Page>
-              {this._renderApp()}
-            </Page>
-          </Route>
-          <Route exact path="/dev-offer">
-            <OffersList
-              offers={offers}
-              favoritesId={[1, 3, 4]}
-              onTitleOfferClick={() => {}}
-              styleSettings={mainStyle}
-              onChange={() => {}}
-              getLoginPage={() => {}}
-              toggleFavoriteItem={() => {}}
-            />
-          </Route>
-          <Route exact path="/dev-auth">
-            <AuthScreen
-              onSubmit={()=>{}}
-            />
-          </Route>
-          <Route exact path="/dev-favorites">
-            <Favorites
-              styleSettings={favoritesStyle}
-            />
-          </Route>
+          <Route
+            exact
+            path={appRoute().ROOT}
+            render={() => {
+              return (
+                <>
+                  {offers.length > 0 && <Page><MainWithActivePin /></Page>}
+                  {!!offers.length || <Page><MainEmpty /></Page>}
+                </>
+              );
+            }}
+          />
+          <Route
+            exact
+            path={appRoute().LOGIN}
+            render={() => {
+              return (
+                <Page>
+                  <AuthScreen
+                    onSubmit={login}
+                  />
+                </Page>
+              );
+            }}
+          />
         </Switch>
       </BrowserRouter>
     );

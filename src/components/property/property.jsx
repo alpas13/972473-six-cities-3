@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 import {propertyStyle} from "../../const.js";
 import Map from "../map/map.jsx";
 import ReviewsList from "../reviews-list/reviews-list.jsx";
@@ -11,9 +12,15 @@ import {connect} from "react-redux";
 import {
   Operation as MainOperation
 } from "../../reducer/main/main.js";
-import {getNearPlaceOffers, getProperty} from "../../reducer/main/selectors";
+import {
+  getFavoritesId,
+  getNearPlaceOffers,
+  getProperty
+} from "../../reducer/main/selectors";
 import {getAuthorizationInfo} from "../../reducer/user/selectors";
 import {ActionCreator as UserActionCreator} from "../../reducer/user/user";
+import {findMatch} from "../../utils";
+import {appRoute} from "../../const";
 
 const ReviewFormWrapper = withHandleForm(ReviewForm);
 
@@ -24,6 +31,7 @@ const Property = React.memo(function Property(props) {
     offer,
     offers,
     activePin,
+    isFavorite,
     handleMouse,
     authInfo,
     getLoginPage,
@@ -51,22 +59,30 @@ const Property = React.memo(function Property(props) {
             </div> : null}
             <div className="property__name-wrapper">
               <h1 className="property__name">{offer.title}</h1>
-              <button
-                className={`property__bookmark-button ${offer.bookmark ? `property__bookmark-button--active` : ``} button`}
+              {authInfo && <button
+                className={`property__bookmark-button ${isFavorite ? `property__bookmark-button--active` : ``} button`}
                 type="button"
                 onClick={() => {
-                  if (authInfo) {
-                    toggleFavoriteItem(offer.id, offer.bookmark);
-                  } else {
-                    getLoginPage();
-                  }
+                  toggleFavoriteItem(offer.id, offer.bookmark);
                 }}
               >
                 <svg className="property__bookmark-icon" width="31" height="33">
                   <use xlinkHref="#icon-bookmark" />
                 </svg>
-                <span className="visually-hidden">{offer.bookmark ? `In bookmarks` : `To bookmarks`}</span>
-              </button>
+                <span className="visually-hidden">{isFavorite ? `In bookmarks` : `To bookmarks`}</span>
+              </button>}
+              {!!authInfo && <Link
+                className={`property__bookmark-button button`}
+                to={appRoute().LOGIN}
+                onClick={() => {
+                  getLoginPage();
+                }}
+              >
+                <svg className="property__bookmark-icon" width="31" height="33">
+                  <use xlinkHref="#icon-bookmark" />
+                </svg>
+                <span className="visually-hidden">{isFavorite ? `In bookmarks` : `To bookmarks`}</span>
+              </Link>}
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
@@ -177,6 +193,7 @@ Property.propTypes = {
     }).isRequired,
     propertyText: PropTypes.string.isRequired,
   }).isRequired,
+  isFavorite: PropTypes.bool.isRequired,
   activePin: PropTypes.array,
   offers: PropTypes.array.isRequired,
   handleMouse: PropTypes.func.isRequired,
@@ -190,6 +207,7 @@ const mapStateToProps = (state) => ({
   offer: getProperty(state),
   offers: getNearPlaceOffers(state),
   authInfo: getAuthorizationInfo(state),
+  isFavorite: findMatch(getProperty(state).id, getFavoritesId(state)),
 });
 
 const mapDispatchToProps = (dispatch) => ({

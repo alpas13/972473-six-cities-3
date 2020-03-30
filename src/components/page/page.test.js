@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
+import {BrowserRouter} from "react-router-dom";
 import {Page} from "./page.jsx";
 import {Provider} from "react-redux";
 import {TestStore} from "../../const";
@@ -51,27 +52,29 @@ test(`Correctly render Favorites component`, () => {
   const store = mockStore(TestStore);
   const tree = renderer.create(
       <Provider store={store}>
-        <Page
-          currentPage={`mainPage`}
-          authInfo={null}
-          isFavorites={false}
-          getFavoritesPage={() => {}}
-          getLoginPage={() => {}}
-        >
-          <Main
-            offers={offers}
-            city={`Amsterdam`}
-            cities={[`Amsterdam`, `Hamburg`]}
-            onCityClick={() => {}}
-            activePin={[
-              52.3909553943508,
-              4.85309666406198
-            ]}
-            handleMouse={() => {}}
-            onSortingChange={()=>{}}
-            sortType={`popular`}
-          />
-        </Page>
+        <BrowserRouter>
+          <Page
+            currentPage={`mainPage`}
+            authInfo={null}
+            isFavorites={false}
+            getFavoritesPage={() => {}}
+            getLoginPage={() => {}}
+          >
+            <Main
+              offers={offers}
+              city={`Amsterdam`}
+              cities={[`Amsterdam`, `Hamburg`]}
+              onCityClick={() => {}}
+              activePin={[
+                52.3909553943508,
+                4.85309666406198
+              ]}
+              handleMouse={() => {}}
+              onSortingChange={()=>{}}
+              sortType={`popular`}
+            />
+          </Page>
+        </BrowserRouter>
       </Provider>).toJSON();
   expect(tree).toMatchSnapshot();
 });
