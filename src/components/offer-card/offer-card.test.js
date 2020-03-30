@@ -1,5 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {BrowserRouter} from "react-router-dom";
 import OfferCard from "./offer-card";
 import {mainStyle} from "../../const";
 
@@ -42,16 +43,18 @@ const offer = {
 
 test(`Correctly render OfferCard component`, () => {
   const tree = renderer.create(
-      <OfferCard
-        offer={offer}
-        isFavorite={false}
-        styleSettings={mainStyle}
-        getLoginPage={() => {}}
-        toggleFavoriteItem={() => {}}
-        authInfo={null}
-        onTitleOfferClick={() => {}}
-        onChange={() => {}}
-      />
+      <BrowserRouter>
+        <OfferCard
+          offer={offer}
+          isFavorite={false}
+          styleSettings={mainStyle}
+          getLoginPage={() => {}}
+          toggleFavoriteItem={() => {}}
+          authInfo={null}
+          onTitleOfferClick={() => {}}
+          onChange={() => {}}
+        />
+      </BrowserRouter>
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

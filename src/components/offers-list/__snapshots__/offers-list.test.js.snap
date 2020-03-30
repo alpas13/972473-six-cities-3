@@ -65,7 +65,7 @@ exports[`Correctly render OffersList component 1`] = `
         <span
           className="visually-hidden"
         >
-          In bookmarks
+          To bookmarks
         </span>
       </button>
     </div>

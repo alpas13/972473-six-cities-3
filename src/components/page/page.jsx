@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 import {
   getFavoritesStatus,
   getCurrentPage
@@ -8,7 +9,7 @@ import {getAuthorizationInfo} from "../../reducer/user/selectors";
 import {ActionCreator} from "../../reducer/main/main";
 import {ActionCreator as UserActionCreator} from "../../reducer/user/user";
 import {connect} from "react-redux";
-import {pageStyle} from "../../const";
+import {pageStyle, appRoute} from "../../const";
 
 const Page = React.memo(function Page(props) {
   const {currentPage, authInfo, isFavorites, getFavoritesPage, getLoginPage, children} = props;
@@ -25,13 +26,25 @@ const Page = React.memo(function Page(props) {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper"/>
-                    {!!authInfo && <span className="header__user-name user__name" onClick={() => {
+                  {!!authInfo && <a
+                    className="header__nav-link header__nav-link--profile"
+                    onClick={() => {
                       getFavoritesPage(isFavorites);
-                    }}>{authInfo.email}</span>}
-                    {!!authInfo || <span className="header__login" onClick={getLoginPage}>Sign in</span>}
-                  </a>
+                    }}
+                    href="#">
+                    <div className="header__avatar-wrapper user__avatar-wrapper"/>
+                    <span className="header__user-name user__name">{authInfo.email}</span>
+                  </a>}
+                  {!!authInfo || <Link
+                    className="header__nav-link header__nav-link--profile"
+                    to={appRoute().LOGIN}
+                    onClick={getLoginPage}
+                    href="#">
+                    <div className="header__avatar-wrapper user__avatar-wrapper"/>
+                    <span className="header__login">
+                      Sign in
+                    </span>
+                  </Link>}
                 </li>
               </ul>
             </nav>

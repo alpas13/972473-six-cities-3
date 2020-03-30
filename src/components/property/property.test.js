@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as renderer from "react-test-renderer";
+import {BrowserRouter} from "react-router-dom";
 import Property from "./property";
 import OffersList from "../offers-list/offers-list";
 import Map from "../map/map";
@@ -109,44 +110,46 @@ test(`Correctly render Property component`, () => {
   const store = mockStore(TestStore);
   const tree = renderer.create(
       <Provider store={store}>
-        <Property
-          offer={offer}
-          offers={offers}
-          authInfo={authInfo}
-          handleMouse={() => {}}
-          getLoginPage={() => {}}
-          toggleFavoriteItem={() => {}}
-          sendReview={() => {}}
-          activePin={[
-            52.3909553943508,
-            4.85309666406198
-          ]}
-        >
-          <ReviewsList
-            reviews={reviews}
-          />
-          <ReviewForm
-            rating={``}
-            comment={``}
-            status={true}
-            handleChangeRating={() => {}}
-            handleChangeTextarea={() => {}}
-            handleSubmit={() => {}}
-          />
-          <Map
+        <BrowserRouter>
+          <Property
+            offer={offer}
             offers={offers}
+            authInfo={authInfo}
+            handleMouse={() => {}}
+            getLoginPage={() => {}}
+            toggleFavoriteItem={() => {}}
+            sendReview={() => {}}
             activePin={[
               52.3909553943508,
               4.85309666406198
             ]}
-            styleSettings={{height: `597px`}}
-          />
-          <OffersList
-            offers={offers}
-            styleSettings={propertyStyle}
-            handleSelectItem={() => {}}
-          />
-        </Property>
+          >
+            <ReviewsList
+              reviews={reviews}
+            />
+            <ReviewForm
+              rating={``}
+              comment={``}
+              status={true}
+              handleChangeRating={() => {}}
+              handleChangeTextarea={() => {}}
+              handleSubmit={() => {}}
+            />
+            <Map
+              offers={offers}
+              activePin={[
+                52.3909553943508,
+                4.85309666406198
+              ]}
+              styleSettings={{height: `597px`}}
+            />
+            <OffersList
+              offers={offers}
+              styleSettings={propertyStyle}
+              handleSelectItem={() => {}}
+            />
+          </Property>
+        </BrowserRouter>
       </Provider>
   ).toJSON();
   expect(tree).toMatchSnapshot();

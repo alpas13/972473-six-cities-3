@@ -117,4 +117,13 @@ const TestStore = {
   }})
 };
 
-export {mainStyle, propertyStyle, favoritesStyle, TestStore, pageStyle};
+const appRoute = (parameter = ``) => {
+  return {
+    ROOT: `/`,
+    LOGIN: `/login`,
+    OFFER: `/offer/${parameter}`,
+    FAVORITES: `/favorites`
+  };
+};
+
+export {mainStyle, propertyStyle, favoritesStyle, TestStore, pageStyle, appRoute};
