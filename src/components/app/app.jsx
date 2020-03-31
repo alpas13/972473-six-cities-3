@@ -2,10 +2,11 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {appRoute} from "../../const.js";
 import {connect} from "react-redux";
-import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Page from "../page/page.jsx";
 import Main from "../main/main.jsx";
 import AuthScreen from "../auth-screen/auth-screen.jsx";
+import Property from "../property/property.jsx";
 import withActivePin from "../../hocs/with-active-pin/with-active-pin.jsx";
 import MainEmpty from "../main-empty/main-empty.jsx";
 import {
@@ -23,13 +24,14 @@ import {
 } from "../../reducer/main/selectors.js";
 import {Operation as UserOperation} from "../../reducer/user/user";
 
+const PropertyWithActivePin = withActivePin(Property);
 const MainWithActivePin = withActivePin(Main);
 
 class App extends PureComponent {
   render() {
     const {offers, login} = this.props;
     return (
-      <BrowserRouter>
+      <Router>
         <Switch>
           <Route
             exact
@@ -56,8 +58,19 @@ class App extends PureComponent {
               );
             }}
           />
+          <Route
+            exact
+            path={appRoute().OFFER}
+            render={(props) => {
+              return (
+                <Page>
+                  <PropertyWithActivePin {...props} />
+                </Page>
+              );
+            }}
+          />
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }

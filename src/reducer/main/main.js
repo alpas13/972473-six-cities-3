@@ -1,8 +1,8 @@
-import {extend, offersModel, offerModel, reviewModel} from "../../utils.js";
+import {extend, offersModel, reviewModel} from "../../utils.js";
 
 const ActionType = {
   LOAD_REVIEWS: `LOAD_REVIEWS`,
-  GET_PROPERTY: `GET_PROPERTY`,
+  SET_PROPERTY_ID: `SET_PROPERTY_ID`,
   UPDATE_PROPERTY: `UPDATE_PROPERTY`,
   LOAD_NEAR_PLACES: `LOAD_NEAR_PLACES`,
   CHANGE_SORTING: `CHANGE_SORTING`,
@@ -21,7 +21,7 @@ export const SortType = {
 
 export const initialState = {
   sortType: SortType.POPULAR,
-  property: null,
+  propertyId: null,
   nearPlaces: [],
   reviews: [],
   favorites: [],
@@ -75,8 +75,7 @@ export const Operation = {
   },
   toggleFavoriteItem: (offerId, currentStatus) => (dispatch, getState, api) => {
     return api.post(`/favorite/${offerId}/${currentStatus ? 0 : 1}`)
-        .then((response) => {
-          dispatch(ActionCreator.updateProperty(response.data));
+        .then(() => {
           dispatch(Operation.loadFavorites());
         })
         .catch((err) => {
@@ -86,10 +85,10 @@ export const Operation = {
 };
 
 const ActionCreator = {
-  getProperty: (offer) => {
+  setPropertyId: (offerId) => {
     return {
-      type: ActionType.GET_PROPERTY,
-      payload: offer
+      type: ActionType.SET_PROPERTY_ID,
+      payload: offerId,
     };
   },
   loadNearPlaceOffers: (offers) => {
@@ -135,23 +134,13 @@ const ActionCreator = {
       payload: true,
     };
   },
-  updateProperty: (offer) => {
-    return {
-      type: ActionType.UPDATE_PROPERTY,
-      payload: offerModel(offer),
-    };
-  },
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.GET_PROPERTY:
+    case ActionType.SET_PROPERTY_ID:
       return extend(state, {
-        property: action.payload,
-      });
-    case ActionType.UPDATE_PROPERTY:
-      return extend(state, {
-        property: action.payload,
+        propertyId: action.payload,
       });
     case ActionType.LOAD_NEAR_PLACES:
       return extend(state, {

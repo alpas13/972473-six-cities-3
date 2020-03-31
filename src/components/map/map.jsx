@@ -17,7 +17,7 @@ class Map extends PureComponent {
 
     this.city = offers[0].cityCoords;
     const icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
+      iconUrl: `/img/pin.svg`,
       iconSize: [30, 39]
     });
     this.zoom = offers[0].cityZoom;
@@ -48,11 +48,11 @@ class Map extends PureComponent {
   componentDidUpdate({offers, activePin}) {
     if (this.props.offers !== offers || this.props.activePin !== activePin) {
       const icon = leaflet.icon({
-        iconUrl: `img/pin.svg`,
+        iconUrl: `/img/pin.svg`,
         iconSize: [30, 39]
       });
       const activeIcon = leaflet.icon({
-        iconUrl: `img/pin-active.svg`,
+        iconUrl: `/img/pin-active.svg`,
         iconSize: [30, 39]
       });
 

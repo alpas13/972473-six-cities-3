@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as renderer from "react-test-renderer";
+import {BrowserRouter as Router} from "react-router-dom";
 import configureStore from "redux-mock-store";
 import {Favorites} from "./favorites.jsx";
 import {Provider} from "react-redux";
@@ -50,11 +51,13 @@ test(`Correctly render Favorites component`, () => {
   const store = mockStore(TestStore);
   const tree = renderer.create(
       <Provider store={store}>
-        <Favorites
-          offers={offers}
-          getFavoritesPage={() => {}}
-        >
-        </Favorites>
+        <Router>
+          <Favorites
+            offers={offers}
+            getFavoritesPage={() => {}}
+          >
+          </Favorites>
+        </Router>
       </Provider>).toJSON();
   expect(tree).toMatchSnapshot();
 });

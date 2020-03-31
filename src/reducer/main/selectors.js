@@ -5,8 +5,10 @@ export const getSortType = (state) => {
   return state[NameSpace.MAIN].sortType;
 };
 
-export const getProperty = (state) => {
-  return state[NameSpace.MAIN].property;
+export const getPropertyId = (state) => {
+  const offerId = state[NameSpace.MAIN].propertyId;
+
+  return Number(offerId);
 };
 
 export const getNearPlaceOffers = (state) => {

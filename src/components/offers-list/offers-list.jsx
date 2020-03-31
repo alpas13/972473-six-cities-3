@@ -53,10 +53,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onTitleOfferClick(offer) {
-    dispatch(ActionCreator.getProperty(offer));
-    dispatch(MainOperation.loadNearPlaceOffers(offer.id));
-    dispatch(MainOperation.loadReviews(offer.id));
+  onTitleOfferClick(offerId) {
+    dispatch(ActionCreator.setPropertyId(offerId));
+    dispatch(MainOperation.loadNearPlaceOffers(offerId));
+    dispatch(MainOperation.loadReviews(offerId));
     dispatch(ActionCreator.propertyPage());
   },
   toggleFavoriteItem(offerId, currentStatus) {

@@ -60,9 +60,12 @@ const OfferCard = React.memo(function OfferCard(props) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#" onClick={() => {
-            onTitleOfferClick(offer);
-          }}>{offer.title}</a>
+          <Link
+            href="#"
+            to={appRoute(offer.id).OFFER}
+            onClick={() => {
+              onTitleOfferClick(offer.id);
+            }}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.features[`entire`]}</p>
       </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import {BrowserRouter as Router} from "react-router-dom";
 import renderer from "react-test-renderer";
 import OffersList from "./offers-list";
 import {mainStyle} from "../../const";
@@ -51,16 +52,18 @@ test(`Correctly render OffersList component`, () => {
   const store = mockStore(TestStore);
   const tree = renderer.create(
       <Provider store={store}>
-        <OffersList
-          offers={offers}
-          authInfo={`NO_AUTH`}
-          getLoginPage={() => {}}
-          favoritesId={[1]}
-          onTitleOfferClick={() => {}}
-          styleSettings={mainStyle}
-          onChange={() => {}}
-          toggleFavoriteItem={() => {}}
-        />
+        <Router>
+          <OffersList
+            offers={offers}
+            authInfo={`NO_AUTH`}
+            getLoginPage={() => {}}
+            favoritesId={[1]}
+            onTitleOfferClick={() => {}}
+            styleSettings={mainStyle}
+            onChange={() => {}}
+            toggleFavoriteItem={() => {}}
+          />
+        </Router>
       </Provider>).toJSON();
   expect(tree).toMatchSnapshot();
 });

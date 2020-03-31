@@ -117,12 +117,12 @@ const TestStore = {
   }})
 };
 
-const appRoute = (parameter = ``) => {
+const appRoute = (id = `:id`) => {
   return {
     ROOT: `/`,
     LOGIN: `/login`,
-    OFFER: `/offer/${parameter}`,
-    FAVORITES: `/favorites`
+    OFFER: `/offer/${id}`,
+    FAVORITES: `/favorites`,
   };
 };
 
