@@ -1,4 +1,5 @@
 import {extend, offersModel, reviewModel} from "../../utils.js";
+import history from "../../history/history";
 
 const ActionType = {
   LOAD_REVIEWS: `LOAD_REVIEWS`,
@@ -79,6 +80,7 @@ export const Operation = {
           dispatch(Operation.loadFavorites());
         })
         .catch((err) => {
+          history.push(`/login`);
           throw err;
         });
   },
