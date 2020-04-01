@@ -108,6 +108,7 @@ const authInfo = {
 
 test(`Correctly render Property component`, () => {
   const store = mockStore(TestStore);
+  const updateOfferId = jest.fn();
   const tree = renderer.create(
       <Provider store={store}>
         <Router>
@@ -125,7 +126,7 @@ test(`Correctly render Property component`, () => {
               52.3909553943508,
               4.85309666406198
             ]}
-            updateOfferId={() => {}}
+            updateOfferId={updateOfferId}
           >
             <ReviewsList
               reviews={reviews}

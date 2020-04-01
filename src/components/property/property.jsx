@@ -30,17 +30,28 @@ const OfferListWrapper = withActiveItem(OffersList);
 class Property extends PureComponent {
   constructor(props) {
     super(props);
-
-    const {offerId, updateOfferId} = props;
-
-    const {id} = this.props.match.params;
-
-    this.proofOfferId(offerId, id, updateOfferId);
   }
 
   proofOfferId(currentId, newId, changeId) {
     if (!currentId || (currentId && currentId !== Number(newId))) {
       changeId(Number(newId));
+    }
+  }
+
+  componentDidMount() {
+    const {offerId, updateOfferId, offer} = this.props;
+    const {id} = this.props.match.params;
+    if (!offer) {
+      return;
+    }
+    if (!offerId) {
+      updateOfferId(id);
+    }
+  }
+
+  componentDidUpdate(offerId) {
+    if (this.props.offerId !== offerId) {
+      this.proofOfferId(this.props.offerId, this.props.match.params.id, this.props.updateOfferId);
     }
   }
 
@@ -57,8 +68,8 @@ class Property extends PureComponent {
     } = this.props;
 
     return (
-      <>{offer &&
-        <main className="page__main page__main--property">
+      <>
+        {offer && <main className="page__main page__main--property">
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">

@@ -55,6 +55,7 @@ test(`Render App correctly`, () => {
   const tree = renderer.create(
       <Provider store={store}>
         <App
+          favorites={offers}
           offers={offers}
           favoritesPage={false}
           emptyFavoritesPage={false}
