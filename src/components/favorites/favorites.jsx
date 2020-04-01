@@ -4,7 +4,6 @@ import OffersList from "../offers-list/offers-list.jsx";
 import {uniqueFilter, filterByValue} from "../../utils";
 import {favoritesStyle} from "../../const";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/main/main";
 import {getFavorites} from "../../reducer/main/selectors";
 
 const Favorites = React.memo(function Favorites(props) {
@@ -63,11 +62,5 @@ const mapStateToProps = (state) => ({
   offers: getFavorites(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getFavoritesPage(status) {
-    dispatch(ActionCreator.favoritesPage(status));
-  }
-});
-
 export {Favorites};
-export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
+export default connect(mapStateToProps)(Favorites);

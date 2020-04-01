@@ -8,9 +8,6 @@ const ActionType = {
   LOAD_NEAR_PLACES: `LOAD_NEAR_PLACES`,
   CHANGE_SORTING: `CHANGE_SORTING`,
   LOAD_FAVORITES: `LOAD_FAVORITES`,
-  FAVORITES_PAGE: `FAVORITES_PAGE`,
-  EMPTY_FAVORITES_PAGE: `EMPTY_FAVORITES_PAGE`,
-  PROPERTY_PAGE: `PROPERTY_PAGE`,
 };
 
 export const SortType = {
@@ -26,9 +23,6 @@ export const initialState = {
   nearPlaces: [],
   reviews: [],
   favorites: [],
-  favoritesPage: false,
-  emptyFavoritesPage: false,
-  propertyPage: false,
 };
 
 export const Operation = {
@@ -119,25 +113,6 @@ const ActionCreator = {
       payload: offersModel(favorites),
     };
   },
-  favoritesPage: (status) => {
-    if (status) {
-      return {
-        type: ActionType.FAVORITES_PAGE,
-        payload: true,
-      };
-    } else {
-      return {
-        type: ActionType.EMPTY_FAVORITES_PAGE,
-        payload: true,
-      };
-    }
-  },
-  propertyPage: () => {
-    return {
-      type: ActionType.PROPERTY_PAGE,
-      payload: true,
-    };
-  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -161,18 +136,6 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_FAVORITES:
       return extend(state, {
         favorites: action.payload,
-      });
-    case ActionType.FAVORITES_PAGE:
-      return extend(state, {
-        favoritesPage: action.payload,
-      });
-    case ActionType.EMPTY_FAVORITES_PAGE:
-      return extend(state, {
-        emptyFavoritesPage: action.payload,
-      });
-    case ActionType.PROPERTY_PAGE:
-      return extend(state, {
-        propertyPage: action.payload,
       });
   }
   return state;

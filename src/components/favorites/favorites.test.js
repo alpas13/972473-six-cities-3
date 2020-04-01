@@ -54,7 +54,6 @@ test(`Correctly render Favorites component`, () => {
         <Router>
           <Favorites
             offers={offers}
-            getFavoritesPage={() => {}}
           >
           </Favorites>
         </Router>

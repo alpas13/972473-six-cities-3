@@ -57,12 +57,8 @@ test(`Render App correctly`, () => {
         <App
           favorites={offers}
           offers={offers}
-          favoritesPage={false}
-          emptyFavoritesPage={false}
           login={() => {}}
           authorizationStatus={`NO_AUTH`}
-          loginPage={false}
-          propertyPage={false}
         >
           <Main />
         </App>

@@ -10,14 +10,11 @@ const AuthorizationStatus = {
 export const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   authInfo: null,
-  loginPage: false,
 };
 
 const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
   GET_AUTH_INFO: `GET_AUTH_INFO`,
-  LOGIN_PAGE_ENABLE: `LOGIN_PAGE_ENABLE`,
-  LOGIN_PAGE_DISABLE: `LOGIN_PAGE_DISABLE`,
 };
 
 const ActionCreator = {
@@ -32,19 +29,6 @@ const ActionCreator = {
       type: ActionType.GET_AUTH_INFO,
       payload: authInfo,
     };
-  },
-  loginPage: (status) => {
-    if (status) {
-      return {
-        type: ActionType.LOGIN_PAGE_ENABLE,
-        payload: true,
-      };
-    } else {
-      return {
-        type: ActionType.LOGIN_PAGE_DISABLE,
-        payload: false,
-      };
-    }
   },
 };
 
@@ -69,7 +53,6 @@ const Operation = {
           history.goBack();
           dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
           dispatch(ActionCreator.getAuthInfo(response.data));
-          dispatch(ActionCreator.loginPage(false));
           dispatch(MainOperation.loadFavorites());
         });
   },
@@ -84,14 +67,6 @@ const reducer = (state = initialState, action) => {
     case ActionType.GET_AUTH_INFO:
       return extend(state, {
         authInfo: action.payload,
-      });
-    case ActionType.LOGIN_PAGE_ENABLE:
-      return extend(state, {
-        loginPage: action.payload,
-      });
-    case ActionType.LOGIN_PAGE_DISABLE:
-      return extend(state, {
-        loginPage: action.payload,
       });
   }
   return state;

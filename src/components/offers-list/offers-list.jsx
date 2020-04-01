@@ -14,10 +14,9 @@ import {
   getAuthorizationInfo,
   getAuthorizationStatus
 } from "../../reducer/user/selectors";
-import {ActionCreator as UserActionCreator} from "../../reducer/user/user";
 
 const OffersList = React.memo(function OffersList(props) {
-  const {offers, authInfo, authorizationStatus, getLoginPage, favoritesId, onTitleOfferClick, styleSettings, onChange, toggleFavoriteItem} = props;
+  const {offers, authInfo, authorizationStatus, favoritesId, onTitleOfferClick, styleSettings, onChange, toggleFavoriteItem} = props;
 
   return (
     <>
@@ -31,7 +30,6 @@ const OffersList = React.memo(function OffersList(props) {
           styleSettings={styleSettings}
           onChange={onChange}
           authInfo={authInfo}
-          getLoginPage={getLoginPage}
           toggleFavoriteItem={toggleFavoriteItem}
           authorizationStatus={authorizationStatus}
         />;
@@ -47,7 +45,6 @@ OffersList.propTypes = {
   styleSettings: PropTypes.object.isRequired,
   onChange: PropTypes.func,
   authInfo: PropTypes.object,
-  getLoginPage: PropTypes.func.isRequired,
   toggleFavoriteItem: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
 };
@@ -63,14 +60,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.setPropertyId(offerId));
     dispatch(MainOperation.loadNearPlaceOffers(offerId));
     dispatch(MainOperation.loadReviews(offerId));
-    dispatch(ActionCreator.propertyPage());
   },
   toggleFavoriteItem(offerId, currentStatus) {
     dispatch(MainOperation.toggleFavoriteItem(offerId, currentStatus));
   },
-  getLoginPage() {
-    dispatch(UserActionCreator.loginPage(true));
-  }
 });
 
 export {OffersList};
