@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import {configure, mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import Main from "./main.jsx";
@@ -58,30 +58,32 @@ test(`Mouseleave event should pass null to handler`, () => {
 
   const wrapper = mount(
       <Provider store={store}>
-        <Main
-          offers={offers}
-          city={`Amsterdam`}
-          cities={[`Amsterdam`, `Hamburg`]}
-          onCityClick={() => {}}
-          activePin={[
-            52.3909553943508,
-            4.85309666406198
-          ]}
-          handleMouse={handleMouse}
-          onSortingChange={()=>{}}
-          sortType={`popular`}
-        >
-          <OffersList
+        <Fragment>
+          <Main
             offers={offers}
-            onTitleOfferClick={() => {}}
-            styleSettings={mainStyle}
-            onChange={()=>{}}
-          />
-          <Map
-            styleSettings={{height: `800px`, top: `170px`}}
-            offers={offers}
-          />
-        </Main>
+            city={`Amsterdam`}
+            cities={[`Amsterdam`, `Hamburg`]}
+            onCityClick={() => {}}
+            activePin={[
+              52.3909553943508,
+              4.85309666406198
+            ]}
+            handleMouse={handleMouse}
+            onSortingChange={()=>{}}
+            sortType={`popular`}
+          >
+            <OffersList
+              offers={offers}
+              onTitleOfferClick={() => {}}
+              styleSettings={mainStyle}
+              onChange={()=>{}}
+            />
+            <Map
+              styleSettings={{height: `800px`, top: `170px`}}
+              offers={offers}
+            />
+          </Main>
+        </Fragment>
       </Provider>
   );
 

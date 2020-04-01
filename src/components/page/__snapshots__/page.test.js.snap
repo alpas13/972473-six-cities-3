@@ -60,7 +60,7 @@ exports[`Correctly render Favorites component 1`] = `
     </div>
   </header>
   <main
-    className="page__main page__main--index"
+    className="page__main page__main--index page__main--index-empty"
   >
     <h1
       className="visually-hidden"
@@ -75,142 +75,108 @@ exports[`Correctly render Favorites component 1`] = `
       >
         <ul
           className="locations__list tabs__list"
-        />
+        >
+          <li
+            className="locations__item"
+          >
+            <a
+              className="locations__item-link tabs__item"
+              href="#"
+            >
+              <span>
+                Paris
+              </span>
+            </a>
+          </li>
+          <li
+            className="locations__item"
+          >
+            <a
+              className="locations__item-link tabs__item"
+              href="#"
+            >
+              <span>
+                Cologne
+              </span>
+            </a>
+          </li>
+          <li
+            className="locations__item"
+          >
+            <a
+              className="locations__item-link tabs__item"
+              href="#"
+            >
+              <span>
+                Brussels
+              </span>
+            </a>
+          </li>
+          <li
+            className="locations__item"
+          >
+            <a
+              className="locations__item-link tabs__item"
+            >
+              <span>
+                Amsterdam
+              </span>
+            </a>
+          </li>
+          <li
+            className="locations__item"
+          >
+            <a
+              className="locations__item-link tabs__item"
+              href="#"
+            >
+              <span>
+                Hamburg
+              </span>
+            </a>
+          </li>
+          <li
+            className="locations__item"
+          >
+            <a
+              className="locations__item-link tabs__item tabs__item--active"
+              href="#"
+            >
+              <span>
+                Dusseldorf
+              </span>
+            </a>
+          </li>
+        </ul>
       </section>
     </div>
     <div
       className="cities"
     >
       <div
-        className="cities__places-container container"
+        className="cities__places-container cities__places-container--empty container"
       >
         <section
-          className="cities__places places"
+          className="cities__no-places"
         >
-          <h2
-            className="visually-hidden"
-          >
-            Places
-          </h2>
-          <b
-            className="places__found"
-          >
-            0
-             places to stay in 
-            
-          </b>
-          <form
-            action="#"
-            className="places__sorting"
-            method="get"
-            name="sorting"
-            onClick={[Function]}
-          >
-            <span
-              className="places__sorting-caption"
-            >
-              Sort by
-            </span>
-            <span
-              className="places__sorting-type"
-              onClick={[Function]}
-              tabIndex="0"
-            >
-              Popular
-              <svg
-                className="places__sorting-arrow"
-                height="4"
-                width="7"
-              >
-                <use
-                  xlinkHref="#icon-arrow-select"
-                />
-              </svg>
-            </span>
-            <ul
-              className="places__options places__options--custom"
-              onClick={[Function]}
-            >
-              <li
-                className="places__option places__option--active"
-                data-sort="popular"
-                tabIndex="0"
-              >
-                Popular
-              </li>
-              <li
-                className="places__option"
-                data-sort="to-high"
-                tabIndex="0"
-              >
-                Price: low to high
-              </li>
-              <li
-                className="places__option"
-                data-sort="to-low"
-                tabIndex="0"
-              >
-                Price: high to low
-              </li>
-              <li
-                className="places__option"
-                data-sort="top-rated"
-                tabIndex="0"
-              >
-                Top rated first
-              </li>
-            </ul>
-            <select
-              className="places__sorting-type visually-hidden"
-              id="places-sorting"
-            >
-              <option
-                className="places__option"
-                defaultValue={true}
-                value="popular"
-              >
-                Popular
-              </option>
-              <option
-                className="places__option"
-                value="to-high"
-              >
-                Price: low to high
-              </option>
-              <option
-                className="places__option"
-                value="to-low"
-              >
-                Price: high to low
-              </option>
-              <option
-                className="places__option"
-                value="top-rated"
-              >
-                Top rated first
-              </option>
-            </select>
-          </form>
           <div
-            className="cities__places-list places__list tabs__content"
-            onMouseLeave={[Function]}
-          />
+            className="cities__status-wrapper tabs__content"
+          >
+            <b
+              className="cities__status"
+            >
+              No places to stay available
+            </b>
+            <p
+              className="cities__status-description"
+            >
+              We could not find any property availbale at the moment in Dusseldorf
+            </p>
+          </div>
         </section>
         <div
           className="cities__right-section"
-        >
-          <section
-            className="cities__map map"
-          >
-            <div
-              style={
-                Object {
-                  "height": "800px",
-                }
-              }
-            />
-          </section>
-        </div>
+        />
       </div>
     </div>
   </main>

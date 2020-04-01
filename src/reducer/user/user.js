@@ -1,5 +1,6 @@
 import {extend} from "../../utils.js";
 import {Operation as MainOperation} from "../main/main.js";
+import history from "../../history/history";
 
 const AuthorizationStatus = {
   AUTH: `AUTH`,
@@ -65,6 +66,7 @@ const Operation = {
       password: authData.password,
     })
         .then((response) => {
+          history.goBack();
           dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
           dispatch(ActionCreator.getAuthInfo(response.data));
           dispatch(ActionCreator.loginPage(false));

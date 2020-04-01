@@ -17,7 +17,8 @@ class Page extends PureComponent {
     const {favorites, authInfo, authorizationStatus, isFavorites, getFavoritesPage, getLoginPage, children, match} = this.props;
     return (
       <>
-        {(authInfo || (!authInfo && authorizationStatus === AuthorizationStatus.NO_AUTH)) && <div className={`page${match.path === appRoute().FAVORITES && !!favorites.length
+        {(authInfo || (!authInfo && authorizationStatus === AuthorizationStatus.NO_AUTH))
+        && <div className={`page${match.path === appRoute().FAVORITES && !!favorites.length
           ? `` : pageStyle(match.path)}`}>
           <header className="header">
             <div className="container">

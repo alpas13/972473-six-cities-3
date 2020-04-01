@@ -1,5 +1,8 @@
-import React, {PureComponent, createRef} from "react";
+import React, {PureComponent, createRef, Fragment} from "react";
 import PropTypes from "prop-types";
+import history from "../../history/history";
+import {AuthorizationStatus} from "../../reducer/user/user";
+import {appRoute} from "../../const";
 
 class AuthScreen extends PureComponent {
   constructor(props) {
@@ -22,59 +25,78 @@ class AuthScreen extends PureComponent {
     });
   }
 
+  componentDidMount() {
+    const {authorizationStatus} = this.props;
+    if (authorizationStatus === AuthorizationStatus.AUTH) {
+      history.push(appRoute().ROOT);
+      return;
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.authorizationStatus === AuthorizationStatus.AUTH) {
+      history.push(appRoute().ROOT);
+      return;
+    }
+  }
+
   render() {
+    const {authorizationStatus} = this.props;
     return (
-      <main className="page__main page__main--login">
-        <div className="page__login-container container">
-          <section className="login">
-            <h1 className="login__title">Sign in</h1>
-            <form
-              className="login__form form"
-              action="#" method="post"
-              onSubmit={this.handleSubmit}
-            >
-              <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">E-mail</label>
-                <input
-                  className="login__input form__input"
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  required=""
-                  ref={this.loginRef}
-                />
+      <Fragment>
+        {authorizationStatus === AuthorizationStatus.NO_AUTH && <main className="page__main page__main--login">
+          <div className="page__login-container container">
+            <section className="login">
+              <h1 className="login__title">Sign in</h1>
+              <form
+                className="login__form form"
+                action="#" method="post"
+                onSubmit={this.handleSubmit}
+              >
+                <div className="login__input-wrapper form__input-wrapper">
+                  <label className="visually-hidden">E-mail</label>
+                  <input
+                    className="login__input form__input"
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    required=""
+                    ref={this.loginRef}
+                  />
+                </div>
+                <div className="login__input-wrapper form__input-wrapper">
+                  <label className="visually-hidden">Password</label>
+                  <input
+                    className="login__input form__input"
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    required=""
+                    ref={this.passwordRef}
+                  />
+                </div>
+                <button className="login__submit form__submit button" type="submit">Sign
+                  in
+                </button>
+              </form>
+            </section>
+            <section className="locations locations--login locations--current">
+              <div className="locations__item">
+                <a className="locations__item-link" href="#">
+                  <span>Amsterdam</span>
+                </a>
               </div>
-              <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">Password</label>
-                <input
-                  className="login__input form__input"
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  required=""
-                  ref={this.passwordRef}
-                />
-              </div>
-              <button className="login__submit form__submit button" type="submit">Sign
-                in
-              </button>
-            </form>
-          </section>
-          <section className="locations locations--login locations--current">
-            <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
-            </div>
-          </section>
-        </div>
-      </main>
+            </section>
+          </div>
+        </main>}
+      </Fragment>
     );
   }
 }
 
 AuthScreen.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 export default AuthScreen;

@@ -1,22 +1,22 @@
-import React from "react";
+import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 import OffersList from "../offers-list/offers-list.jsx";
 import {uniqueFilter, filterByValue} from "../../utils";
 import {favoritesStyle} from "../../const";
 import {connect} from "react-redux";
-import {getFavorites} from "../../reducer/main/selectors";
 import {ActionCreator} from "../../reducer/main/main";
+import {getFavorites} from "../../reducer/main/selectors";
 
 const Favorites = React.memo(function Favorites(props) {
-  const {offers, getFavoritesPage} = props;
+  const {offers} = props;
   return (
-    <main className="page__main page__main--favorites">
-      <div className="page__favorites-container container">
-        <section className="favorites">
-          <h1 className="favorites__title">Saved listing</h1>
-          <ul className="favorites__list">
-            {offers.length === 0 ? getFavoritesPage(false) :
-              uniqueFilter(offers, `city`).map((city) => {
+    <Fragment>
+      {!!offers.length && <main className="page__main page__main--favorites">
+        <div className="page__favorites-container container">
+          <section className="favorites">
+            <h1 className="favorites__title">Saved listing</h1>
+            <ul className="favorites__list">
+              {uniqueFilter(offers, `city`).map((city) => {
                 return (
                   <li key={city} className="favorites__locations-items">
                     <div className="favorites__locations locations locations--current">
@@ -35,16 +35,28 @@ const Favorites = React.memo(function Favorites(props) {
                   </li>
                 );
               })}
-          </ul>
-        </section>
-      </div>
-    </main>
+            </ul>
+          </section>
+        </div>
+      </main>}
+      {!!offers.length || <main className="page__main page__main--favorites page__main--favorites-empty">
+        <div className="page__favorites-container container">
+          <section className="favorites favorites--empty">
+            <h1 className="visually-hidden">Favorites (empty)</h1>
+            <div className="favorites__status-wrapper">
+              <b className="favorites__status">Nothing yet saved.</b>
+              <p className="favorites__status-description">Save properties to
+                narrow down search or plan yor future trips.</p>
+            </div>
+          </section>
+        </div>
+      </main>}
+    </Fragment>
   );
 });
 
 Favorites.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-  getFavoritesPage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

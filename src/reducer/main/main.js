@@ -80,7 +80,9 @@ export const Operation = {
           dispatch(Operation.loadFavorites());
         })
         .catch((err) => {
-          history.push(`/login`);
+          if (err.response.status === 401) {
+            history.push(`/login`);
+          }
           throw err;
         });
   },
