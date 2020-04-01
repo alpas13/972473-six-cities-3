@@ -49,15 +49,13 @@ const favoritesStyle = {
 
 const pageStyle = (page) => {
   switch (page) {
-    case `favoritesPage`:
-      return ``;
-    case `propertyPage`:
-      return ``;
-    case `loginPage`:
-      return ` page--gray page--login`;
-    case `favoritesEmptyPage`:
+    case appRoute().FAVORITES:
       return ` page--favorites-empty`;
-    case `mainPage`:
+    case appRoute().OFFER:
+      return ``;
+    case appRoute().LOGIN:
+      return ` page--gray page--login`;
+    case appRoute().ROOT:
       return ` page--gray page--main`;
   }
   return ` page--gray page--main`;
@@ -117,12 +115,12 @@ const TestStore = {
   }})
 };
 
-const appRoute = (parameter = ``) => {
+const appRoute = (id = `:id`) => {
   return {
     ROOT: `/`,
     LOGIN: `/login`,
-    OFFER: `/offer/${parameter}`,
-    FAVORITES: `/favorites`
+    OFFER: `/offer/${id}`,
+    FAVORITES: `/favorites`,
   };
 };
 

@@ -18,12 +18,14 @@ exports[`Render App correctly 1`] = `
         >
           <a
             className="header__logo-link header__logo-link--active"
+            href="/"
+            onClick={[Function]}
           >
             <img
               alt="6 cities logo"
               className="header__logo"
               height="41"
-              src="img/logo.svg"
+              src="/img/logo.svg"
               width="81"
             />
           </a>
@@ -39,16 +41,16 @@ exports[`Render App correctly 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                href="/login"
                 onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
                 />
                 <span
-                  className="header__user-name user__name"
+                  className="header__login"
                 >
-                  Oliver.conner@gmail.com
+                  Sign in
                 </span>
               </a>
             </li>

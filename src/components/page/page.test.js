@@ -2,7 +2,7 @@ import * as React from "react";
 import * as renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
 import {BrowserRouter} from "react-router-dom";
-import {Page} from "./page.jsx";
+import {PageWithRouter} from "./page.jsx";
 import {Provider} from "react-redux";
 import {TestStore} from "../../const";
 import Main from "../main/main";
@@ -53,7 +53,9 @@ test(`Correctly render Favorites component`, () => {
   const tree = renderer.create(
       <Provider store={store}>
         <BrowserRouter>
-          <Page
+          <PageWithRouter
+            authorizationStatus={`NO_AUTH`}
+            favorites={offers}
             currentPage={`mainPage`}
             authInfo={null}
             isFavorites={false}
@@ -73,7 +75,7 @@ test(`Correctly render Favorites component`, () => {
               onSortingChange={()=>{}}
               sortType={`popular`}
             />
-          </Page>
+          </PageWithRouter>
         </BrowserRouter>
       </Provider>).toJSON();
   expect(tree).toMatchSnapshot();

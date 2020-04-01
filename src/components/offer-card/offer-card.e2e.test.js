@@ -86,8 +86,8 @@ test(`Should link of title be clicked`, () => {
         onTitleOfferClick={onTitleOfferClick}
       />);
 
-  const titleLink = wrapper.find(`.place-card__name > a`);
+  const titleLink = wrapper.find(`.place-card__name > Link`);
   titleLink.simulate(`click`);
   expect(onTitleOfferClick).toHaveBeenCalledTimes(1);
-  expect(onTitleOfferClick.mock.calls[0][0]).toMatchObject(offer);
+  expect(onTitleOfferClick.mock.calls[0][0]).toEqual(offer.id);
 });

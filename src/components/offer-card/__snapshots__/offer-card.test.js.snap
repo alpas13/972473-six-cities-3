@@ -48,10 +48,10 @@ exports[`Correctly render OfferCard component 1`] = `
           / night
         </span>
       </div>
-      <a
-        className="place-card__bookmark-button button"
-        href="/login"
+      <button
+        className="place-card__bookmark-button  button"
         onClick={[Function]}
+        type="button"
       >
         <svg
           className="place-card__bookmark-icon"
@@ -67,7 +67,7 @@ exports[`Correctly render OfferCard component 1`] = `
         >
           To bookmarks
         </span>
-      </a>
+      </button>
     </div>
     <div
       className="place-card__rating rating"
@@ -93,7 +93,7 @@ exports[`Correctly render OfferCard component 1`] = `
       className="place-card__name"
     >
       <a
-        href="#"
+        href="/offer/1"
         onClick={[Function]}
       >
         Title text 1

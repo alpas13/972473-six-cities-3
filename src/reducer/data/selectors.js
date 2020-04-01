@@ -5,16 +5,30 @@ import {uniqueFilter} from "../../utils";
 
 const MAX_CITIES = 6;
 
-const getOffersByCity = (state) => {
-  const city = state[NameSpace.DATA].city;
-  const offers = state[NameSpace.DATA].offers;
+const getAllOffers = (state) => {
+  return state[NameSpace.DATA].offers;
+};
 
-  return offers.slice().filter((offer) => offer.city === city);
+export const getCity = (state) => {
+  return state[NameSpace.DATA].city;
+};
+
+
+const getOfferId = (state) => {
+  return state[NameSpace.MAIN].propertyId;
 };
 
 const getSortType = (state) => {
   return state[NameSpace.MAIN].sortType;
 };
+
+const getOffersByCity = createSelector(
+    getAllOffers,
+    getCity,
+    (resultOne, resultTwo) => {
+      return resultOne.slice().filter((offer) => offer.city === resultTwo);
+    }
+);
 
 export const getOffers = createSelector(
     getOffersByCity,
@@ -40,9 +54,16 @@ export const getOffers = createSelector(
     }
 );
 
-export const getCity = (state) => {
-  return state[NameSpace.DATA].city;
-};
+export const getOfferById = createSelector(
+    getAllOffers,
+    getOfferId,
+    (resultOne, resultTwo) => {
+      if (resultTwo) {
+        return resultOne.slice().filter((offer) => offer.id === resultTwo)[0];
+      }
+      return resultOne[0];
+    }
+);
 
 export const getCities = (state) => {
   const offers = state[NameSpace.DATA].offers;

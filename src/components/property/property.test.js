@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as renderer from "react-test-renderer";
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter as Router} from "react-router-dom";
 import Property from "./property";
 import OffersList from "../offers-list/offers-list";
 import Map from "../map/map";
@@ -108,10 +108,13 @@ const authInfo = {
 
 test(`Correctly render Property component`, () => {
   const store = mockStore(TestStore);
+  const updateOfferId = jest.fn();
   const tree = renderer.create(
       <Provider store={store}>
-        <BrowserRouter>
+        <Router>
           <Property
+            match={{params: {id: 1}}}
+            offerId={1}
             offer={offer}
             offers={offers}
             authInfo={authInfo}
@@ -123,6 +126,7 @@ test(`Correctly render Property component`, () => {
               52.3909553943508,
               4.85309666406198
             ]}
+            updateOfferId={updateOfferId}
           >
             <ReviewsList
               reviews={reviews}
@@ -149,7 +153,7 @@ test(`Correctly render Property component`, () => {
               handleSelectItem={() => {}}
             />
           </Property>
-        </BrowserRouter>
+        </Router>
       </Provider>
   ).toJSON();
   expect(tree).toMatchSnapshot();
