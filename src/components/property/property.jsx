@@ -18,8 +18,14 @@ import {
   getFavoritesId,
   getNearPlaceOffers,
 } from "../../reducer/main/selectors";
-import {getAuthorizationInfo} from "../../reducer/user/selectors";
-import {ActionCreator as UserActionCreator} from "../../reducer/user/user";
+import {
+  getAuthorizationInfo,
+  getAuthorizationStatus
+} from "../../reducer/user/selectors";
+import {
+  ActionCreator as UserActionCreator,
+  AuthorizationStatus
+} from "../../reducer/user/user";
 import {findMatch} from "../../utils";
 import {appRoute} from "../../const";
 import {ActionCreator} from "../../reducer/main/main";
@@ -56,6 +62,7 @@ class Property extends PureComponent {
       getLoginPage,
       toggleFavoriteItem,
       sendReview,
+      authorizationStatus
     } = this.props;
 
     return (
@@ -79,7 +86,7 @@ class Property extends PureComponent {
                 </div> : null}
                 <div className="property__name-wrapper">
                   <h1 className="property__name">{offer.title}</h1>
-                  {authInfo && <button
+                  {(authorizationStatus === AuthorizationStatus.AUTH) && <button
                     className={`property__bookmark-button ${isFavorite ? `property__bookmark-button--active` : ``} button`}
                     type="button"
                     onClick={() => {
@@ -91,7 +98,7 @@ class Property extends PureComponent {
                     </svg>
                     <span className="visually-hidden">{isFavorite ? `In bookmarks` : `To bookmarks`}</span>
                   </button>}
-                  {!!authInfo && <Link
+                  {(authorizationStatus === AuthorizationStatus.AUTH) || <Link
                     className={`property__bookmark-button button`}
                     to={appRoute().LOGIN}
                     onClick={() => {
@@ -228,6 +235,7 @@ Property.propTypes = {
   toggleFavoriteItem: PropTypes.func.isRequired,
   sendReview: PropTypes.func.isRequired,
   updateOfferId: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -236,6 +244,7 @@ const mapStateToProps = (state) => ({
   offers: getNearPlaceOffers(state),
   authInfo: getAuthorizationInfo(state),
   isFavorite: findMatch(getPropertyId(state), getFavoritesId(state)),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

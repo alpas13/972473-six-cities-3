@@ -10,11 +10,14 @@ import {
 import {
   getFavoritesId,
 } from "../../reducer/main/selectors.js";
-import {getAuthorizationInfo} from "../../reducer/user/selectors";
+import {
+  getAuthorizationInfo,
+  getAuthorizationStatus
+} from "../../reducer/user/selectors";
 import {ActionCreator as UserActionCreator} from "../../reducer/user/user";
 
 const OffersList = React.memo(function OffersList(props) {
-  const {offers, authInfo, getLoginPage, favoritesId, onTitleOfferClick, styleSettings, onChange, toggleFavoriteItem} = props;
+  const {offers, authInfo, authorizationStatus, getLoginPage, favoritesId, onTitleOfferClick, styleSettings, onChange, toggleFavoriteItem} = props;
 
   return (
     <>
@@ -30,6 +33,7 @@ const OffersList = React.memo(function OffersList(props) {
           authInfo={authInfo}
           getLoginPage={getLoginPage}
           toggleFavoriteItem={toggleFavoriteItem}
+          authorizationStatus={authorizationStatus}
         />;
       })}
     </>
@@ -45,11 +49,13 @@ OffersList.propTypes = {
   authInfo: PropTypes.object,
   getLoginPage: PropTypes.func.isRequired,
   toggleFavoriteItem: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   favoritesId: getFavoritesId(state),
   authInfo: getAuthorizationInfo(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

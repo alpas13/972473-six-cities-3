@@ -2,9 +2,20 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {appRoute} from "../../const";
+import {AuthorizationStatus} from "../../reducer/user/user";
 
 const OfferCard = React.memo(function OfferCard(props) {
-  const {offer, isFavorite, onTitleOfferClick, styleSettings, onChange, getLoginPage, toggleFavoriteItem, authInfo} = props;
+  const {
+    offer,
+    isFavorite,
+    onTitleOfferClick,
+    styleSettings,
+    onChange,
+    getLoginPage,
+    toggleFavoriteItem,
+    authInfo,
+    authorizationStatus
+  } = props;
 
   return (
     <article className={`${styleSettings.classSelect} place-card`} onMouseEnter={
@@ -28,7 +39,7 @@ const OfferCard = React.memo(function OfferCard(props) {
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          {authInfo && <button
+          {(authorizationStatus === AuthorizationStatus.AUTH) && <button
             className={`place-card__bookmark-button ${isFavorite ? `place-card__bookmark-button--active` : ``} button`}
             type="button"
             onClick={() => {
@@ -40,7 +51,7 @@ const OfferCard = React.memo(function OfferCard(props) {
             </svg>
             <span className="visually-hidden">{isFavorite ? `In bookmarks` : `To bookmarks`}</span>
           </button>}
-          {!!authInfo || <Link
+          {(authorizationStatus === AuthorizationStatus.AUTH) || <Link
             className={`place-card__bookmark-button button`}
             to={appRoute().LOGIN}
             onClick={() => {
