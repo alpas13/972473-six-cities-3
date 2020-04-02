@@ -27,53 +27,36 @@ class PlacesSorting extends PureComponent {
     return this._SortType.POPULAR;
   }
 
-  _changeSelectValue(sort) {
-    const selectValue = document.querySelector(`#places-sorting`);
-    selectValue.value = sort;
-  }
-
-  _changeActiveListElement(evt) {
-    document.querySelector(`.places__option--active`).classList.remove(`places__option--active`);
-    evt.target.classList.add(`places__option--active`);
-  }
-
   render() {
-    const {city, sortType, onSortingChange} = this.props;
+    const {sortType, isOpen, onSortingPopupToggle, onSortingChange} = this.props;
     return (
-      <form className="places__sorting" name="sorting" onClick={(evt) => {
-        const selectValue = document.querySelector(`#places-sorting`);
-        if (evt.target.tagName === `LI` && sortType !== selectValue.value) {
-          onSortingChange(selectValue.value, city);
-        }
-      }} action="#" method="get">
+      <form className="places__sorting" name="sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
-        <span className="places__sorting-type" onClick={(evt) => {
-          const list = document.querySelector(`ul.places__options`);
-          if ((evt.target.tagName === `SPAN` || evt.target.tagName === `svg` || evt.target.tagName === `use`)
-              && !list.classList.contains(`places__options--opened`)) {
-            document.querySelector(`ul.places__options`).classList.add(`places__options--opened`);
-          }
+        <span className={`places__sorting-type`} onClick={(evt) => {
+          onSortingPopupToggle(evt.target.tagName);
         }} tabIndex="0">
           {this._getSortType(sortType)}
           <svg className="places__sorting-arrow" width="7" height="4">
             <use xlinkHref="#icon-arrow-select" />
           </svg>
         </span>
-        <ul className="places__options places__options--custom" onClick={(evt) => {
-          if (evt.target.tagName === `LI` && !evt.target.classList.contains(`places__option--active`)) {
-            this._changeActiveListElement(evt);
-            this._changeSelectValue(evt.target.dataset.sort);
-          }
-          evt.currentTarget.classList.remove(`places__options--opened`);
-        }}>
-          <li className="places__option places__option--active" data-sort="popular" tabIndex="0">Popular</li>
-          <li className="places__option" data-sort="to-high" tabIndex="0">Price: low to
+        <ul className={`places__options places__options--custom${isOpen ? ` places__options--opened` : ``}`}
+          onClick={(evt) => {
+            onSortingChange(evt.target.dataset.sort);
+            onSortingPopupToggle(evt.target.tagName);
+          }}>
+          <li className={`places__option${sortType === `popular` ? ` places__option--active` : ``}`}
+            data-sort="popular" tabIndex="0">Popular</li>
+          <li className={`places__option${sortType === `to-high` ? ` places__option--active` : ``}`}
+            data-sort="to-high" tabIndex="0">Price: low to
             high
           </li>
-          <li className="places__option" data-sort="to-low" tabIndex="0">Price: high to
+          <li className={`places__option${sortType === `popular` ? ` to-low` : ``}`}
+            data-sort="to-low" tabIndex="0">Price: high to
             low
           </li>
-          <li className="places__option" data-sort="top-rated" tabIndex="0">Top rated first
+          <li className={`places__option${sortType === `popular` ? ` top-rated` : ``}`}
+            data-sort="top-rated" tabIndex="0">Top rated first
           </li>
         </ul>
         <select className="places__sorting-type visually-hidden" id="places-sorting">
@@ -88,8 +71,9 @@ class PlacesSorting extends PureComponent {
 }
 
 PlacesSorting.propTypes = {
-  city: PropTypes.string.isRequired,
+  isOpen: PropTypes.bool.isRequired,
   sortType: PropTypes.string.isRequired,
+  onSortingPopupToggle: PropTypes.func.isRequired,
   onSortingChange: PropTypes.func.isRequired,
 };
 
