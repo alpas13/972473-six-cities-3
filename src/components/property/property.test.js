@@ -119,7 +119,6 @@ test(`Correctly render Property component`, () => {
             offers={offers}
             authInfo={authInfo}
             handleMouse={() => {}}
-            getLoginPage={() => {}}
             toggleFavoriteItem={() => {}}
             sendReview={() => {}}
             activePin={[

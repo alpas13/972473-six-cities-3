@@ -1,23 +1,21 @@
-import React, {PureComponent} from "react";
+import React, {Fragment, PureComponent} from "react";
 import PropTypes from "prop-types";
 import {Link, withRouter} from "react-router-dom";
 import {
   getFavoritesStatus,
-  getCurrentPage,
-  getFavorites
 } from "../../reducer/main/selectors";
 import {getAuthorizationInfo, getAuthorizationStatus} from "../../reducer/user/selectors";
-import {ActionCreator} from "../../reducer/main/main";
-import {ActionCreator as UserActionCreator, AuthorizationStatus} from "../../reducer/user/user";
+import {AuthorizationStatus} from "../../reducer/user/user";
 import {connect} from "react-redux";
 import {pageStyle, appRoute} from "../../const";
 
 class Page extends PureComponent {
   render() {
-    const {favorites, authInfo, authorizationStatus, isFavorites, getFavoritesPage, getLoginPage, children, match} = this.props;
+    const {authInfo, authorizationStatus, isFavorites, children, match} = this.props;
     return (
-      <>
-        {(authInfo || (!authInfo && authorizationStatus === AuthorizationStatus.NO_AUTH)) && <div className={`page${match.path === appRoute().FAVORITES && !!favorites.length
+      <Fragment>
+        {(authInfo || (!authInfo && authorizationStatus === AuthorizationStatus.NO_AUTH))
+        && <div className={`page${match.path === appRoute().FAVORITES && isFavorites
           ? `` : pageStyle(match.path)}`}>
           <header className="header">
             <div className="container">
@@ -33,9 +31,6 @@ class Page extends PureComponent {
                       {(authorizationStatus === AuthorizationStatus.AUTH) && <Link
                         className="header__nav-link header__nav-link--profile"
                         to={appRoute().FAVORITES}
-                        onClick={() => {
-                          getFavoritesPage(isFavorites);
-                        }}
                         href="#">
                         <div className="header__avatar-wrapper user__avatar-wrapper"/>
                         <span className="header__user-name user__name">{authInfo.email}</span>
@@ -43,7 +38,6 @@ class Page extends PureComponent {
                       {(authorizationStatus === AuthorizationStatus.AUTH) || <Link
                         className="header__nav-link header__nav-link--profile"
                         to={appRoute().LOGIN}
-                        onClick={getLoginPage}
                         href="#">
                         <div className="header__avatar-wrapper user__avatar-wrapper"/>
                         <span className="header__login">
@@ -63,43 +57,29 @@ class Page extends PureComponent {
             </Link>
           </footer>}
         </div>}
-      </>
+      </Fragment>
     );
   }
 }
 
 Page.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  currentPage: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   authInfo: PropTypes.shape({
     email: PropTypes.string,
   }),
   isFavorites: PropTypes.bool.isRequired,
-  getFavoritesPage: PropTypes.func.isRequired,
-  getLoginPage: PropTypes.func.isRequired,
   match: PropTypes.shape({
     path: PropTypes.string.isRequired,
   }).isRequired,
-  favorites: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  currentPage: getCurrentPage(state),
   isFavorites: getFavoritesStatus(state),
   authInfo: getAuthorizationInfo(state),
   authorizationStatus: getAuthorizationStatus(state),
-  favorites: getFavorites(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getFavoritesPage(status) {
-    dispatch(ActionCreator.favoritesPage(status));
-  },
-  getLoginPage() {
-    dispatch(UserActionCreator.loginPage(true));
-  }
-});
 const PageWithRouter = withRouter(Page);
 export {PageWithRouter};
-export default connect(mapStateToProps, mapDispatchToProps)(PageWithRouter);
+export default connect(mapStateToProps)(PageWithRouter);

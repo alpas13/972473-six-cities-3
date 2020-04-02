@@ -61,7 +61,6 @@ test(`Mouseenter event over offer card pass data about this offer to handler`, (
         authInfo={null}
         styleSettings={mainStyle}
         onChange={onChange}
-        getLoginPage={() => {}}
         toggleFavoriteItem={() => {}}
         onTitleOfferClick={() => {}}
       />);
@@ -81,7 +80,6 @@ test(`Should link of title be clicked`, () => {
         authInfo={null}
         styleSettings={mainStyle}
         onChange={() => {}}
-        getLoginPage={() => {}}
         toggleFavoriteItem={() => {}}
         onTitleOfferClick={onTitleOfferClick}
       />);

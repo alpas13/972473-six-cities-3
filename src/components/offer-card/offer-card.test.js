@@ -48,7 +48,6 @@ test(`Correctly render OfferCard component`, () => {
           offer={offer}
           isFavorite={false}
           styleSettings={mainStyle}
-          getLoginPage={() => {}}
           toggleFavoriteItem={() => {}}
           authInfo={null}
           onTitleOfferClick={() => {}}

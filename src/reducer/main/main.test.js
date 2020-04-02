@@ -119,9 +119,6 @@ test(`Reducer without additional parameter should return initial state`, () => {
     nearPlaces: [],
     reviews: [],
     favorites: [],
-    favoritesPage: false,
-    emptyFavoritesPage: false,
-    propertyPage: false,
   });
 });
 
@@ -132,9 +129,6 @@ test(`Reducer should return state with reviews field contains data of given revi
     nearPlaces: [],
     reviews: [],
     favorites: [],
-    favoritesPage: false,
-    emptyFavoritesPage: false,
-    propertyPage: false,
   }, {
     type: ActionType.LOAD_REVIEWS,
     payload: reviews,
@@ -145,9 +139,6 @@ test(`Reducer should return state with reviews field contains data of given revi
         nearPlaces: [],
         reviews,
         favorites: [],
-        favoritesPage: false,
-        emptyFavoritesPage: false,
-        propertyPage: false,
       }
   );
 });
@@ -159,9 +150,6 @@ test(`Reducer should return state with property field contains data of given off
     nearPlaces: [],
     reviews: [],
     favorites: [],
-    favoritesPage: false,
-    emptyFavoritesPage: false,
-    propertyPage: false,
   }, {
     type: ActionType.SET_PROPERTY_ID,
     payload: 1,
@@ -172,9 +160,6 @@ test(`Reducer should return state with property field contains data of given off
         nearPlaces: [],
         reviews: [],
         favorites: [],
-        favoritesPage: false,
-        emptyFavoritesPage: false,
-        propertyPage: false,
       }
   );
 });
@@ -186,9 +171,6 @@ test(`Reducer should return state with nearPlaces field contains data of given o
     nearPlaces: [],
     reviews: [],
     favorites: [],
-    favoritesPage: false,
-    emptyFavoritesPage: false,
-    propertyPage: false,
   }, {
     type: ActionType.LOAD_NEAR_PLACES,
     payload: offers,
@@ -199,9 +181,6 @@ test(`Reducer should return state with nearPlaces field contains data of given o
         nearPlaces: offers,
         reviews: [],
         favorites: [],
-        favoritesPage: false,
-        emptyFavoritesPage: false,
-        propertyPage: false,
       }
   );
 });
@@ -213,9 +192,6 @@ test(`Reducer should return state with sortType field contains given data`, () =
     nearPlaces: [],
     reviews: [],
     favorites: [],
-    favoritesPage: false,
-    emptyFavoritesPage: false,
-    propertyPage: false,
   }, {
     type: ActionType.CHANGE_SORTING,
     payload: SortType.TOP_RATED,
@@ -226,9 +202,6 @@ test(`Reducer should return state with sortType field contains given data`, () =
         nearPlaces: [],
         reviews: [],
         favorites: [],
-        favoritesPage: false,
-        emptyFavoritesPage: false,
-        propertyPage: false,
       }
   );
 });
@@ -240,9 +213,6 @@ test(`Reducer should return state with favorites field contains data of given of
     nearPlaces: [],
     reviews: [],
     favorites: [],
-    favoritesPage: false,
-    emptyFavoritesPage: false,
-    propertyPage: false,
   }, {
     type: ActionType.LOAD_FAVORITES,
     payload: offers,
@@ -253,90 +223,6 @@ test(`Reducer should return state with favorites field contains data of given of
         nearPlaces: [],
         reviews: [],
         favorites: offers,
-        favoritesPage: false,
-        emptyFavoritesPage: false,
-        propertyPage: false,
-      }
-  );
-});
-
-test(`Reducer should return state with favoritesPage field contains given status`, () => {
-  expect(reducer({
-    sortType: SortType.POPULAR,
-    propertyId: null,
-    nearPlaces: [],
-    reviews: [],
-    favorites: [],
-    favoritesPage: false,
-    emptyFavoritesPage: false,
-    propertyPage: false,
-  }, {
-    type: ActionType.FAVORITES_PAGE,
-    payload: true,
-  })).toEqual(
-      {
-        sortType: SortType.POPULAR,
-        propertyId: null,
-        nearPlaces: [],
-        reviews: [],
-        favorites: [],
-        favoritesPage: true,
-        emptyFavoritesPage: false,
-        propertyPage: false,
-      }
-  );
-});
-
-test(`Reducer should return state with emptyFavoritesPage field contains given status`, () => {
-  expect(reducer({
-    sortType: SortType.POPULAR,
-    propertyId: null,
-    nearPlaces: [],
-    reviews: [],
-    favorites: [],
-    favoritesPage: false,
-    emptyFavoritesPage: false,
-    propertyPage: false,
-  }, {
-    type: ActionType.EMPTY_FAVORITES_PAGE,
-    payload: true,
-  })).toEqual(
-      {
-        sortType: SortType.POPULAR,
-        propertyId: null,
-        nearPlaces: [],
-        reviews: [],
-        favorites: [],
-        favoritesPage: false,
-        emptyFavoritesPage: true,
-        propertyPage: false,
-      }
-  );
-});
-
-test(`Reducer should return state with propertyPage field contains given status`, () => {
-  expect(reducer({
-    sortType: SortType.POPULAR,
-    propertyId: null,
-    nearPlaces: [],
-    reviews: [],
-    favorites: [],
-    favoritesPage: false,
-    emptyFavoritesPage: false,
-    propertyPage: false,
-  }, {
-    type: ActionType.PROPERTY_PAGE,
-    payload: true,
-  })).toEqual(
-      {
-        sortType: SortType.POPULAR,
-        propertyId: null,
-        nearPlaces: [],
-        reviews: [],
-        favorites: [],
-        favoritesPage: false,
-        emptyFavoritesPage: false,
-        propertyPage: true,
       }
   );
 });
@@ -374,27 +260,6 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.loadFavorites(rawOffers)).toEqual({
       type: ActionType.LOAD_FAVORITES,
       payload: offers,
-    });
-  });
-
-  test(`Action creators for activating favorites page returns correct action`, () => {
-    expect(ActionCreator.favoritesPage(true)).toEqual({
-      type: ActionType.FAVORITES_PAGE,
-      payload: true,
-    });
-  });
-
-  test(`Action creators for activating empty favorites page returns correct action`, () => {
-    expect(ActionCreator.favoritesPage(false)).toEqual({
-      type: ActionType.EMPTY_FAVORITES_PAGE,
-      payload: true,
-    });
-  });
-
-  test(`Action creators for activating property page returns correct action`, () => {
-    expect(ActionCreator.propertyPage()).toEqual({
-      type: ActionType.PROPERTY_PAGE,
-      payload: true,
     });
   });
 });

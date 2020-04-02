@@ -56,7 +56,6 @@ test(`Correctly render OffersList component`, () => {
           <OffersList
             offers={offers}
             authInfo={`NO_AUTH`}
-            getLoginPage={() => {}}
             favoritesId={[1]}
             onTitleOfferClick={() => {}}
             styleSettings={mainStyle}

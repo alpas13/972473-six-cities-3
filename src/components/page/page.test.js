@@ -59,8 +59,6 @@ test(`Correctly render Favorites component`, () => {
             currentPage={`mainPage`}
             authInfo={null}
             isFavorites={false}
-            getFavoritesPage={() => {}}
-            getLoginPage={() => {}}
           >
             <Main
               offers={offers}

@@ -6,6 +6,7 @@ test(`Correctly render AuthScreen component`, () => {
   const tree = renderer.create(
       <AuthScreen
         onSubmit={()=>{}}
+        authorizationStatus={`NO_AUTH`}
       />
   ).toJSON();
 

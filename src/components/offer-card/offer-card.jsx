@@ -86,7 +86,6 @@ OfferCard.propTypes = {
   isFavorite: PropTypes.bool.isRequired,
   styleSettings: PropTypes.object.isRequired,
   authInfo: PropTypes.object,
-  getLoginPage: PropTypes.func.isRequired,
   toggleFavoriteItem: PropTypes.func.isRequired,
 };
 

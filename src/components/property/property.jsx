@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import React, {Fragment, PureComponent} from "react";
 import PropTypes from "prop-types";
 import {propertyStyle} from "../../const.js";
 import Map from "../map/map.jsx";
@@ -68,7 +68,7 @@ class Property extends PureComponent {
     } = this.props;
 
     return (
-      <>
+      <Fragment>
         {offer && <main className="page__main page__main--property">
           <section className="property">
             <div className="property__gallery-container container">
@@ -188,7 +188,7 @@ class Property extends PureComponent {
             </section>
           </div>
         </main>}
-      </>
+      </Fragment>
     );
   }
 }

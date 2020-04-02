@@ -10,34 +10,20 @@ import PrivateRoute from "../private-route/private-route.jsx";
 import AuthScreen from "../auth-screen/auth-screen.jsx";
 import Property from "../property/property.jsx";
 import Favorites from "../favorites/favorites.jsx";
-import FavoritesEmpty from "../favorites-empty/favorites-empty.jsx";
 import withActivePin from "../../hocs/with-active-pin/with-active-pin.jsx";
-import MainEmpty from "../main-empty/main-empty.jsx";
 import {
-  AuthorizationStatus,
   Operation as UserOperation
 } from "../../reducer/user/user";
 import {
-  getOffers,
-} from "../../reducer/data/selectors.js";
-import {
   getAuthorizationStatus,
-  getAuthorizationInfo,
 } from "../../reducer/user/selectors.js";
-import {
-  getFavoritesPageStatus,
-  getPropertyPageStatus,
-  getEmptyFavoritesPage,
-  getLoginPageStatus,
-  getFavorites
-} from "../../reducer/main/selectors.js";
 
 const PropertyWithActivePin = withActivePin(Property);
 const MainWithActivePin = withActivePin(Main);
 
 class App extends PureComponent {
   render() {
-    const {offers, login, favorites, authorizationStatus} = this.props;
+    const {login, authorizationStatus} = this.props;
     return (
       <Router history={history}>
         <Switch>
@@ -46,10 +32,9 @@ class App extends PureComponent {
             path={appRoute().ROOT}
             render={(props) => {
               return (
-                <>
-                  {offers.length > 0 && <PageWithRouter {...props}><MainWithActivePin /></PageWithRouter>}
-                  {!!offers.length || <PageWithRouter {...props}><MainEmpty /></PageWithRouter>}
-                </>
+                <PageWithRouter {...props}>
+                  <MainWithActivePin />
+                </PageWithRouter>
               );
             }}
           />
@@ -58,13 +43,12 @@ class App extends PureComponent {
             path={appRoute().LOGIN}
             render={(props) => {
               return (
-                <>
-                  {authorizationStatus === AuthorizationStatus.NO_AUTH ? <PageWithRouter {...props}>
-                    <AuthScreen
-                      onSubmit={login}
-                    />
-                  </PageWithRouter> : history.go(-1)}
-                </>
+                <PageWithRouter {...props}>
+                  <AuthScreen
+                    onSubmit={login}
+                    authorizationStatus={authorizationStatus}
+                  />
+                </PageWithRouter>
               );
             }}
           />
@@ -84,15 +68,9 @@ class App extends PureComponent {
             path={appRoute().FAVORITES}
             render={(props) => {
               return (
-                <>
-                  {favorites.length > 0
-                    ? <PageWithRouter {...props}>
-                      <Favorites />
-                    </PageWithRouter>
-                    : <PageWithRouter {...props}>
-                      <FavoritesEmpty />
-                    </PageWithRouter>}
-                </>
+                <PageWithRouter {...props}>
+                  <Favorites />
+                </PageWithRouter>
               );
             }}
           />
@@ -103,26 +81,12 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  offers: PropTypes.array.isRequired,
-  favorites: PropTypes.array.isRequired,
-  favoritesPage: PropTypes.bool.isRequired,
-  emptyFavoritesPage: PropTypes.bool.isRequired,
-  loginPage: PropTypes.bool.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  authorizationInfo: PropTypes.object,
   login: PropTypes.func.isRequired,
-  propertyPage: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  offers: getOffers(state),
-  favorites: getFavorites(state),
-  favoritesPage: getFavoritesPageStatus(state),
-  emptyFavoritesPage: getEmptyFavoritesPage(state),
   authorizationStatus: getAuthorizationStatus(state),
-  authorizationInfo: getAuthorizationInfo(state),
-  loginPage: getLoginPageStatus(state),
-  propertyPage: getPropertyPageStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
