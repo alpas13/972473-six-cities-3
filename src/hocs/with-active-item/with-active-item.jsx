@@ -5,9 +5,10 @@ const withActiveItem = (Component) => {
   class WithActiveItem extends PureComponent {
     constructor(props) {
       super(props);
+      const {cities} = this.props;
 
       this.state = {
-        activeItem: null,
+        activeItem: cities ? cities[0] : null,
       };
 
       this.handleChangeItem = this.handleChangeItem.bind(this);
@@ -33,6 +34,7 @@ const withActiveItem = (Component) => {
 
   WithActiveItem.propTypes = {
     handleSelectItem: PropTypes.func.isRequired,
+    cities: PropTypes.array,
   };
 
   return WithActiveItem;
