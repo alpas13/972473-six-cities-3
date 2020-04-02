@@ -29,14 +29,12 @@ class AuthScreen extends PureComponent {
     const {authorizationStatus} = this.props;
     if (authorizationStatus === AuthorizationStatus.AUTH) {
       history.push(appRoute().ROOT);
-      return;
     }
   }
 
   componentDidUpdate() {
     if (this.props.authorizationStatus === AuthorizationStatus.AUTH) {
       history.push(appRoute().ROOT);
-      return;
     }
   }
 

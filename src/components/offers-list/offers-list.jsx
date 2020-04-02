@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 import OfferCard from "../offer-card/offer-card.jsx";
 import {findMatch} from "../../utils";
@@ -19,7 +19,7 @@ const OffersList = React.memo(function OffersList(props) {
   const {offers, authInfo, authorizationStatus, favoritesId, onTitleOfferClick, styleSettings, onChange, toggleFavoriteItem} = props;
 
   return (
-    <>
+    <Fragment>
       {offers.map((offerItem) => {
         return <OfferCard
           key={offerItem.id}
@@ -34,7 +34,7 @@ const OffersList = React.memo(function OffersList(props) {
           authorizationStatus={authorizationStatus}
         />;
       })}
-    </>
+    </Fragment>
   );
 });
 

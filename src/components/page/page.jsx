@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import React, {Fragment, PureComponent} from "react";
 import PropTypes from "prop-types";
 import {Link, withRouter} from "react-router-dom";
 import {
@@ -13,7 +13,7 @@ class Page extends PureComponent {
   render() {
     const {authInfo, authorizationStatus, isFavorites, children, match} = this.props;
     return (
-      <>
+      <Fragment>
         {(authInfo || (!authInfo && authorizationStatus === AuthorizationStatus.NO_AUTH))
         && <div className={`page${match.path === appRoute().FAVORITES && isFavorites
           ? `` : pageStyle(match.path)}`}>
@@ -57,7 +57,7 @@ class Page extends PureComponent {
             </Link>
           </footer>}
         </div>}
-      </>
+      </Fragment>
     );
   }
 }

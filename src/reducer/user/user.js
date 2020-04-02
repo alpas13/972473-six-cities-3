@@ -50,8 +50,8 @@ const Operation = {
       password: authData.password,
     })
         .then((response) => {
-          history.goBack();
           dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+          history.goBack();
           dispatch(ActionCreator.getAuthInfo(response.data));
           dispatch(MainOperation.loadFavorites());
         });
