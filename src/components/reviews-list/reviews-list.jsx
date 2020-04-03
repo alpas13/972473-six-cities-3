@@ -15,7 +15,9 @@ const ReviewsList = React.memo(function ReviewList(props) {
         <span className="reviews__amount"> {0}</span></h2>}
       {reviews.length > 0 &&
       <ul className="reviews__list">
-        {reviews.map((review) => {
+        {reviews.slice().sort((a, b) => {
+          return Date.parse(b.date) - Date.parse(a.date);
+        }).map((review) => {
           return <ReviewItem
             key={review.id}
             review={review}
