@@ -7,7 +7,7 @@ const PlacesSorting = React.memo(function PlacesSorting(props) {
   return (
     <form className="places__sorting" name="sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
-      <span className={`places__sorting-type`} onClick={(evt) => {
+      <span className={`places__sorting-type`} onClick={() => {
         onSortingPopupToggle();
       }} tabIndex="0">
         {getSortType(sortType)}

@@ -84,11 +84,10 @@ class Map extends PureComponent {
       }
 
       this.props.offers.map((item) => {
-        if (item.coords === this.props.activePin) {
-          this.markers.addLayer(leaflet.marker(item.coords, {icon: activeIcon}));
-        } else {
+        // eslint-disable-next-line no-unused-expressions
+        item.coords === this.props.activePin ?
+          this.markers.addLayer(leaflet.marker(item.coords, {icon: activeIcon})) :
           this.markers.addLayer(leaflet.marker(item.coords, {icon}));
-        }
       });
 
       this.markers.addTo(this.map);
