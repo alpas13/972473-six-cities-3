@@ -65,38 +65,32 @@ const offerModel = (offer) => {
   };
 };
 
-const offersModel = (offers) => {
-  return offers.map((offer) => {
-    return offerModel(offer);
-  });
-};
+const offersModel = (offers) => offers.map((offer) => offerModel(offer));
 
-const reviewModel = (reviews) => {
-  return reviews.map((review) => {
-    const {
-      comment: description,
-      date,
-      id,
-      rating,
-    } = review;
-    const {
-      id: userId,
-      avatar_url: userAvatar,
-      name: userName,
-      is_pro: proUser,
-    } = review.user;
-    return {
-      description,
-      date,
-      id,
-      rating,
-      userId,
-      userAvatar,
-      userName,
-      proUser
-    };
-  });
-};
+const reviewModel = (reviews) => reviews.map((review) => {
+  const {
+    comment: description,
+    date,
+    id,
+    rating,
+  } = review;
+  const {
+    id: userId,
+    avatar_url: userAvatar,
+    name: userName,
+    is_pro: proUser,
+  } = review.user;
+  return {
+    description,
+    date,
+    id,
+    rating,
+    userId,
+    userAvatar,
+    userName,
+    proUser
+  };
+});
 
 const uniqueFilter = (data, filterValue, limiter = 0) => {
   const dataSet = new Set();

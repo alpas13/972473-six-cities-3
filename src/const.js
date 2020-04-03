@@ -143,6 +143,6 @@ const getSortType = (sortValue) => {
       return SortingDirection.TOP_RATED;
   }
   return SortingDirection.POPULAR;
-}
+};
 
 export {mainStyle, propertyStyle, favoritesStyle, TestStore, pageStyle, appRoute, getSortType};

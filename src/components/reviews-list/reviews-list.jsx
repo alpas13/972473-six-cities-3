@@ -15,7 +15,7 @@ const ReviewsList = React.memo(function ReviewList(props) {
         <span className="reviews__amount"> {0}</span></h2>}
       {reviews.length > 0 &&
       <ul className="reviews__list">
-        {reviews.slice().sort((a, b) => {
+        {reviews.slice(0, 10).sort((a, b) => {
           return Date.parse(b.date) - Date.parse(a.date);
         }).map((review) => {
           return <ReviewItem
@@ -28,7 +28,16 @@ const ReviewsList = React.memo(function ReviewList(props) {
 });
 
 ReviewsList.propTypes = {
-  reviews: PropTypes.array,
+  reviews: PropTypes.arrayOf(PropTypes.shape({
+    description: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    userId: PropTypes.number.isRequired,
+    userAvatar: PropTypes.string.isRequired,
+    userName: PropTypes.string.isRequired,
+    proUser: PropTypes.bool.isRequired,
+  }).isRequired).isRequired,
 };
 
 const mapStateToProps = (state) => ({

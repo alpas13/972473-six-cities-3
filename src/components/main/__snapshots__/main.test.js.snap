@@ -112,7 +112,8 @@ exports[`Render Main correctly 1`] = `
           <p
             className="cities__status-description"
           >
-            We could not find any property availbale at the moment in Dusseldorf
+            We could not find any property availbale at the moment in 
+            
           </p>
         </div>
       </section>

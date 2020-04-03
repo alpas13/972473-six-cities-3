@@ -87,7 +87,7 @@ const ReviewForm = React.memo(function ReviewForm(props) {
           onChange={
             (evt) => {
               const target = evt.target;
-              if (target.id === `1-stars`) {
+              if (target.id === `1-star`) {
                 handleChangeRating(target.value);
               }
             }
