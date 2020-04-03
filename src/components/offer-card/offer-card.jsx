@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-import {appRoute} from "../../const";
+import {AppRoute} from "../../const";
 
 
 const OfferCard = React.memo(function OfferCard(props) {
@@ -58,7 +58,7 @@ const OfferCard = React.memo(function OfferCard(props) {
         <h2 className="place-card__name">
           <Link
             href="#"
-            to={appRoute(offer.id).OFFER}
+            to={AppRoute.OFFER + offer.id}
             onClick={() => {
               onTitleOfferClick(offer.id);
             }}>{offer.title}</Link>

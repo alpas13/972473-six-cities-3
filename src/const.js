@@ -56,13 +56,13 @@ const favoritesStyle = {
 
 const pageStyle = (page) => {
   switch (page) {
-    case appRoute().FAVORITES:
+    case AppRoute.FAVORITES:
       return ` page--favorites-empty`;
-    case appRoute().OFFER:
+    case AppRoute.OFFER:
       return ``;
-    case appRoute().LOGIN:
+    case AppRoute.LOGIN:
       return ` page--gray page--login`;
-    case appRoute().ROOT:
+    case AppRoute.ROOT:
       return ` page--gray page--main`;
   }
   return ` page--gray page--main`;
@@ -122,13 +122,11 @@ const TestStore = {
   }})
 };
 
-const appRoute = (id = `:id`) => {
-  return {
-    ROOT: `/`,
-    LOGIN: `/login`,
-    OFFER: `/offer/${id}`,
-    FAVORITES: `/favorites`,
-  };
+const AppRoute = {
+  ROOT: `/`,
+  LOGIN: `/login`,
+  OFFER: `/offer/`,
+  FAVORITES: `/favorites`,
 };
 
 const getSortType = (sortValue) => {
@@ -145,4 +143,4 @@ const getSortType = (sortValue) => {
   return SortingDirection.POPULAR;
 };
 
-export {mainStyle, propertyStyle, favoritesStyle, TestStore, pageStyle, appRoute, getSortType};
+export {mainStyle, propertyStyle, favoritesStyle, TestStore, pageStyle, AppRoute, getSortType};

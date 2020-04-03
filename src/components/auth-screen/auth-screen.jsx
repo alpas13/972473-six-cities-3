@@ -2,7 +2,7 @@ import React, {PureComponent, createRef, Fragment} from "react";
 import PropTypes from "prop-types";
 import history from "../../history/history";
 import {AuthorizationStatus} from "../../reducer/user/user";
-import {appRoute} from "../../const";
+import {AppRoute} from "../../const";
 
 class AuthScreen extends PureComponent {
   constructor(props) {
@@ -28,13 +28,13 @@ class AuthScreen extends PureComponent {
   componentDidMount() {
     const {authorizationStatus} = this.props;
     if (authorizationStatus === AuthorizationStatus.AUTH) {
-      history.push(appRoute().ROOT);
+      history.push(AppRoute.ROOT);
     }
   }
 
   componentDidUpdate() {
     if (this.props.authorizationStatus === AuthorizationStatus.AUTH) {
-      history.push(appRoute().ROOT);
+      history.push(AppRoute.ROOT);
     }
   }
 

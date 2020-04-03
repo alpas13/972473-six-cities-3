@@ -2,7 +2,7 @@ import React from "react";
 import rerender from "react-test-renderer";
 import {BrowserRouter as Router} from "react-router-dom";
 import PrivateRoute from "./private-route";
-import {appRoute} from "../../const";
+import {AppRoute} from "../../const";
 import {Provider} from "react-redux";
 import {TestStore} from "../../const";
 import configureStore from "redux-mock-store";
@@ -16,7 +16,7 @@ test(`Correctly render PrivateRoute component`, () => {
         <Router>
           <PrivateRoute
             render={() => {}}
-            path={appRoute().FAVORITES}
+            path={AppRoute.FAVORITES}
             exact={true}
             authorizationStatus={`NO_AUTH`}
           />

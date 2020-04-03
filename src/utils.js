@@ -95,7 +95,7 @@ const reviewModel = (reviews) => reviews.map((review) => {
 const uniqueFilter = (data, filterValue, limiter = 0) => {
   const dataSet = new Set();
 
-  data.slice().map((item) => {
+  data.map((item) => {
     dataSet.add(item[filterValue]);
   });
 

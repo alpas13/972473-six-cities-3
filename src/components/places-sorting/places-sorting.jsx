@@ -8,7 +8,7 @@ const PlacesSorting = React.memo(function PlacesSorting(props) {
     <form className="places__sorting" name="sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
       <span className={`places__sorting-type`} onClick={(evt) => {
-        onSortingPopupToggle(evt.target.tagName);
+        onSortingPopupToggle();
       }} tabIndex="0">
         {getSortType(sortType)}
         <svg className="places__sorting-arrow" width="7" height="4">
@@ -18,7 +18,7 @@ const PlacesSorting = React.memo(function PlacesSorting(props) {
       <ul className={`places__options places__options--custom${isOpen ? ` places__options--opened` : ``}`}
         onClick={(evt) => {
           onSortingChange(evt.target.dataset.sort);
-          onSortingPopupToggle(evt.target.tagName);
+          onSortingPopupToggle();
         }}>
         <li className={`places__option${sortType === `popular` ? ` places__option--active` : ``}`}
           data-sort="popular" tabIndex="0">Popular</li>

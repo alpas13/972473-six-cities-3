@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {appRoute} from "../../const.js";
+import {AppRoute} from "../../const.js";
 import {connect} from "react-redux";
 import {Router, Switch, Route} from "react-router-dom";
 import history from "../../history/history";
@@ -26,7 +26,7 @@ const App = React.memo(function App(props) {
   return (
     <Router history={history}>
       <Switch>
-        <Route exact path={appRoute().ROOT} render={
+        <Route exact path={AppRoute.ROOT} render={
           // eslint-disable-next-line no-shadow
           (props) => {
             return (
@@ -35,7 +35,7 @@ const App = React.memo(function App(props) {
               </PageWithRouter>
             );
           }}/>
-        <Route exact path={appRoute().LOGIN} render={
+        <Route exact path={AppRoute.LOGIN} render={
           // eslint-disable-next-line no-shadow
           (props) => {
             return (
@@ -44,7 +44,7 @@ const App = React.memo(function App(props) {
               </PageWithRouter>
             );
           }}/>
-        <Route exact path={appRoute().OFFER} render={
+        <Route exact path={AppRoute.OFFER + `:id`} render={
           // eslint-disable-next-line no-shadow
           (props) => {
             return (
@@ -53,7 +53,7 @@ const App = React.memo(function App(props) {
               </PageWithRouter>
             );
           }}/>
-        <PrivateRoute exact path={appRoute().FAVORITES} render={
+        <PrivateRoute exact path={AppRoute.FAVORITES} render={
           // eslint-disable-next-line no-shadow
           (props) => {
             return (

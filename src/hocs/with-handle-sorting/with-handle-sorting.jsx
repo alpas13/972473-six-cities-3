@@ -24,16 +24,10 @@ const withHandleSorting = (Component) => {
           this.props.onSortingChange(item, this.state.city));
     }
 
-    handleSortingPopupToggle(clickTarget) {
-      let popupStatus = null;
-      if ((clickTarget === `SPAN` || clickTarget === `svg` || clickTarget === `use`) && !this.state.isOpen) {
-        popupStatus = true;
-      } else if (clickTarget === `LI`) {
-        popupStatus = false;
-      }
+    handleSortingPopupToggle() {
       this.setState(
           {
-            isOpen: popupStatus,
+            isOpen: !this.state.isOpen,
           });
     }
 
