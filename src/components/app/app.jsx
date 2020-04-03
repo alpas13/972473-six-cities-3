@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {appRoute} from "../../const.js";
 import {connect} from "react-redux";
@@ -21,64 +21,51 @@ import {
 const PropertyWithActivePin = withActivePin(Property);
 const MainWithActivePin = withActivePin(Main);
 
-class App extends PureComponent {
-  render() {
-    const {login, authorizationStatus} = this.props;
-    return (
-      <Router history={history}>
-        <Switch>
-          <Route
-            exact
-            path={appRoute().ROOT}
-            render={(props) => {
-              return (
-                <PageWithRouter {...props}>
-                  <MainWithActivePin />
-                </PageWithRouter>
-              );
-            }}
-          />
-          <Route
-            exact
-            path={appRoute().LOGIN}
-            render={(props) => {
-              return (
-                <PageWithRouter {...props}>
-                  <AuthScreen
-                    onSubmit={login}
-                    authorizationStatus={authorizationStatus}
-                  />
-                </PageWithRouter>
-              );
-            }}
-          />
-          <Route
-            exact
-            path={appRoute().OFFER}
-            render={(props) => {
-              return (
-                <PageWithRouter {...props}>
-                  <PropertyWithActivePin {...props} />
-                </PageWithRouter>
-              );
-            }}
-          />
-          <PrivateRoute
-            exact
-            path={appRoute().FAVORITES}
-            render={(props) => {
-              return (
-                <PageWithRouter {...props}>
-                  <Favorites />
-                </PageWithRouter>
-              );
-            }}
-          />
-        </Switch>
-      </Router>
-    );
-  }
-}
+const App = React.memo(function App(props) {
+  const {login, authorizationStatus} = props;
+  return (
+    <Router history={history}>
+      <Switch>
+        <Route exact path={appRoute().ROOT} render={
+          // eslint-disable-next-line no-shadow
+          (props) => {
+            return (
+              <PageWithRouter {...props}>
+                <MainWithActivePin/>
+              </PageWithRouter>
+            );
+          }}/>
+        <Route exact path={appRoute().LOGIN} render={
+          // eslint-disable-next-line no-shadow
+          (props) => {
+            return (
+              <PageWithRouter {...props}>
+                <AuthScreen onSubmit={login} authorizationStatus={authorizationStatus}/>
+              </PageWithRouter>
+            );
+          }}/>
+        <Route exact path={appRoute().OFFER} render={
+          // eslint-disable-next-line no-shadow
+          (props) => {
+            return (
+              <PageWithRouter {...props}>
+                <PropertyWithActivePin {...props} />
+              </PageWithRouter>
+            );
+          }}/>
+        <PrivateRoute exact path={appRoute().FAVORITES} render={
+          // eslint-disable-next-line no-shadow
+          (props) => {
+            return (
+              <PageWithRouter {...props}>
+                <Favorites/>
+              </PageWithRouter>
+            );
+          }}/>
+      </Switch>
+    </Router>
+  );
+});
 
 App.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,

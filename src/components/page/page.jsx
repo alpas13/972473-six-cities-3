@@ -1,4 +1,4 @@
-import React, {Fragment, PureComponent} from "react";
+import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 import {Link, withRouter} from "react-router-dom";
 import {
@@ -9,12 +9,11 @@ import {AuthorizationStatus} from "../../reducer/user/user";
 import {connect} from "react-redux";
 import {pageStyle, appRoute} from "../../const";
 
-class Page extends PureComponent {
-  render() {
-    const {authInfo, authorizationStatus, isFavorites, children, match} = this.props;
-    return (
-      <Fragment>
-        {(authInfo || (!authInfo && authorizationStatus === AuthorizationStatus.NO_AUTH))
+const Page = React.memo(function Page(props) {
+  const {authInfo, authorizationStatus, isFavorites, children, match} = props;
+  return (
+    <Fragment>
+      {(authInfo || (!authInfo && authorizationStatus === AuthorizationStatus.NO_AUTH))
         && <div className={`page${match.path === appRoute().FAVORITES && isFavorites
           ? `` : pageStyle(match.path)}`}>
           <header className="header">
@@ -57,10 +56,9 @@ class Page extends PureComponent {
             </Link>
           </footer>}
         </div>}
-      </Fragment>
-    );
-  }
-}
+    </Fragment>
+  );
+});
 
 Page.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,

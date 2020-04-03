@@ -2,6 +2,13 @@ import {initialState as DATA} from "./reducer/data/data";
 import {initialState as MAIN} from "./reducer/main/main";
 import {initialState as USER} from "./reducer/user/user";
 
+const SortingDirection = {
+  POPULAR: `Popular`,
+  TO_HIGH: `Price: low to high`,
+  TO_LOW: `Price: high to low`,
+  TOP_RATED: `Top rated first`,
+};
+
 const PreviewImageSize = {
   placeCardWidth: `260`,
   placeCardHeight: `200`,
@@ -124,4 +131,18 @@ const appRoute = (id = `:id`) => {
   };
 };
 
-export {mainStyle, propertyStyle, favoritesStyle, TestStore, pageStyle, appRoute};
+const getSortType = (sortValue) => {
+  switch (sortValue) {
+    case `popular`:
+      return SortingDirection.POPULAR;
+    case `to-high`:
+      return SortingDirection.TO_HIGH;
+    case `to-low`:
+      return SortingDirection.TO_LOW;
+    case `top-rated`:
+      return SortingDirection.TOP_RATED;
+  }
+  return SortingDirection.POPULAR;
+}
+
+export {mainStyle, propertyStyle, favoritesStyle, TestStore, pageStyle, appRoute, getSortType};
