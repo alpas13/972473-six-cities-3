@@ -31,6 +31,7 @@ exports[`Correctly render AuthScreen component 1`] = `
           </label>
           <input
             className="login__input form__input"
+            defaultValue=""
             name="email"
             placeholder="Email"
             required=""
@@ -47,6 +48,7 @@ exports[`Correctly render AuthScreen component 1`] = `
           </label>
           <input
             className="login__input form__input"
+            defaultValue=""
             name="password"
             placeholder="Password"
             required=""
