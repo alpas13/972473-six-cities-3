@@ -6,7 +6,7 @@ import {Router, Switch, Route} from "react-router-dom";
 import history from "../../history/history";
 import PageWithRouter from "../page/page.jsx";
 import Main from "../main/main.jsx";
-import PrivateRoute from "../private-route/private-route.jsx";
+import PrivateRoute from "../private-route/private-route.js";
 import AuthScreen from "../auth-screen/auth-screen.jsx";
 import Property from "../property/property.jsx";
 import Favorites from "../favorites/favorites.jsx";

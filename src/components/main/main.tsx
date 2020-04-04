@@ -5,7 +5,7 @@ import LocationsList from "../locations-list/locations-list.jsx";
 import OffersList from "../offers-list/offers-list.jsx";
 import Map from "../map/map.jsx";
 import withActiveItem from "../../hocs/with-active-item/with-active-item.jsx";
-import PlacesSorting from "../places-sorting/places-sorting.jsx";
+import PlacesSorting from "../places-sorting/places-sorting.js";
 import {connect} from "react-redux";
 import {ActionCreator as DataActionCreator} from "../../reducer/data/data";
 import {ActionCreator} from "../../reducer/main/main";
