@@ -1,17 +1,17 @@
-import React, {Fragment, PureComponent} from "react";
+import * as React, {Fragment, PureComponent} from "react";
 import PropTypes from "prop-types";
-import {propertyStyle} from "../../const.js";
-import Map from "../map/map.jsx";
-import ReviewsList from "../reviews-list/reviews-list.jsx";
-import OffersList from "../offers-list/offers-list.jsx";
-import withActiveItem from "../../hocs/with-active-item/with-active-item.jsx";
-import ReviewForm from "../review-form/review-form.jsx";
-import withHandleForm from "../../hocs/with-handle-form/with-handle-form.jsx";
+import {propertyStyle} from "../../const";
+import Map from "../map/map";
+import ReviewsList from "../reviews-list/reviews-list";
+import OffersList from "../offers-list/offers-list";
+import withActiveItem from "../../hocs/with-active-item/with-active-item";
+import ReviewForm from "../review-form/review-form";
+import withHandleForm from "../../hocs/with-handle-form/with-handle-form";
 import {connect} from "react-redux";
-import {getOfferById} from "../../reducer/data/selectors.js";
+import {getOfferById} from "../../reducer/data/selectors";
 import {
   Operation as MainOperation
-} from "../../reducer/main/main.js";
+} from "../../reducer/main/main";
 import {
   getPropertyId,
   getFavoritesId,

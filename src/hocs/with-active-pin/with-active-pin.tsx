@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import * as React, {PureComponent} from "react";
 
 const withActivePin = (Component) => {
   class WithActivePin extends PureComponent {

@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import * as React, {Fragment} from "react";
 import PropTypes from "prop-types";
 import {Link, withRouter} from "react-router-dom";
 import {

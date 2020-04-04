@@ -1,6 +1,6 @@
-import React from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
-import LocationsItem from "../locations-item/locations-item.jsx";
+import LocationsItem from "../locations-item/locations-item";
 
 const LocationsList = React.memo(function LocationsList(props) {
   const {cities, activeItem, onChange} = props;

@@ -2,7 +2,7 @@ import * as React from "react";
 import * as renderer from "react-test-renderer";
 import {BrowserRouter as Router} from "react-router-dom";
 import configureStore from "redux-mock-store";
-import {Favorites} from "./favorites.jsx";
+import {Favorites} from "./favorites";
 import {Provider} from "react-redux";
 import {TestStore} from "../../const";
 

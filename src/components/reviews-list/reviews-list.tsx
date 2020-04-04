@@ -1,8 +1,8 @@
-import React, {Fragment} from "react";
+import * as React, {Fragment} from "react";
 import PropTypes from "prop-types";
-import ReviewItem from "../review-item/review-item.jsx";
+import ReviewItem from "../review-item/review-item";
 import {connect} from "react-redux";
-import {getReviews} from "../../reducer/main/selectors.js";
+import {getReviews} from "../../reducer/main/selectors";
 
 
 const ReviewsList = React.memo(function ReviewList(props) {

@@ -1,6 +1,6 @@
-import React, {Fragment} from "react";
+import * as React, {Fragment} from "react";
 import PropTypes from "prop-types";
-import OffersList from "../offers-list/offers-list.jsx";
+import OffersList from "../offers-list/offers-list";
 import {uniqueFilter, filterByValue} from "../../utils";
 import {favoritesStyle} from "../../const";
 import {connect} from "react-redux";

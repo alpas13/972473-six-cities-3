@@ -1,7 +1,7 @@
 import React from "react";
 import {configure, shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import withActivePin from "./with-active-pin.jsx";
+import withActivePin from "./with-active-pin";
 
 configure({adapter: new Adapter()});
 

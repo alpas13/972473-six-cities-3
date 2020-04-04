@@ -2,7 +2,7 @@ import * as React from "react";
 import * as renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
 import {BrowserRouter} from "react-router-dom";
-import {PageWithRouter} from "./page.jsx";
+import {PageWithRouter} from "./page";
 import {Provider} from "react-redux";
 import {TestStore} from "../../const";
 import Main from "../main/main";

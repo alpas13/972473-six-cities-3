@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import ReviewForm from "./review-form.jsx";
+import ReviewForm from "./review-form";
 
 test(`Correctly render ReviewItem component`, () => {
   const tree = renderer.create(

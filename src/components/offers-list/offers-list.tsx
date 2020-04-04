@@ -1,15 +1,15 @@
-import React, {Fragment} from "react";
+import * as React, {Fragment} from "react";
 import PropTypes from "prop-types";
-import OfferCard from "../offer-card/offer-card.jsx";
+import OfferCard from "../offer-card/offer-card";
 import {findMatch} from "../../utils";
 import {connect} from "react-redux";
 import {
   ActionCreator,
   Operation as MainOperation
-} from "../../reducer/main/main.js";
+} from "../../reducer/main/main";
 import {
   getFavoritesId,
-} from "../../reducer/main/selectors.js";
+} from "../../reducer/main/selectors";
 import {
   getAuthorizationInfo,
   getAuthorizationStatus

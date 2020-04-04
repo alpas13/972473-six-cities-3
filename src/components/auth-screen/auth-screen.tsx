@@ -1,4 +1,4 @@
-import React, {PureComponent, createRef, Fragment} from "react";
+import * as React, {PureComponent, createRef, Fragment} from "react";
 import PropTypes from "prop-types";
 import history from "../../history/history";
 import {AuthorizationStatus} from "../../reducer/user/user";

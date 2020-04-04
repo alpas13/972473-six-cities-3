@@ -1,18 +1,18 @@
-import React, {Fragment} from "react";
+import * as React, {Fragment} from "react";
 import PropTypes from "prop-types";
-import {mainStyle} from "../../const.js";
-import LocationsList from "../locations-list/locations-list.jsx";
-import OffersList from "../offers-list/offers-list.jsx";
-import Map from "../map/map.jsx";
-import withActiveItem from "../../hocs/with-active-item/with-active-item.jsx";
-import PlacesSorting from "../places-sorting/places-sorting.js";
+import {mainStyle} from "../../const";
+import LocationsList from "../locations-list/locations-list";
+import OffersList from "../offers-list/offers-list";
+import Map from "../map/map";
+import withActiveItem from "../../hocs/with-active-item/with-active-item";
+import PlacesSorting from "../places-sorting/places-sorting";
 import {connect} from "react-redux";
 import {ActionCreator as DataActionCreator} from "../../reducer/data/data";
 import {ActionCreator} from "../../reducer/main/main";
 import {getCities, getCity, getOffers} from "../../reducer/data/selectors";
 import {getSortType} from "../../reducer/main/selectors";
 import withHandleSorting
-  from "../../hocs/with-handle-sorting/with-handle-sorting.jsx";
+  from "../../hocs/with-handle-sorting/with-handle-sorting";
 
 const LocationsListWrapper = withActiveItem(LocationsList);
 const OffersListWrapper = withActiveItem(OffersList);

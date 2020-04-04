@@ -1,22 +1,22 @@
-import React from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
-import {AppRoute} from "../../const.js";
+import {AppRoute} from "../../const";
 import {connect} from "react-redux";
 import {Router, Switch, Route} from "react-router-dom";
 import history from "../../history/history";
-import PageWithRouter from "../page/page.jsx";
-import Main from "../main/main.jsx";
-import PrivateRoute from "../private-route/private-route.js";
-import AuthScreen from "../auth-screen/auth-screen.jsx";
-import Property from "../property/property.jsx";
-import Favorites from "../favorites/favorites.jsx";
-import withActivePin from "../../hocs/with-active-pin/with-active-pin.jsx";
+import PageWithRouter from "../page/page";
+import Main from "../main/main";
+import PrivateRoute from "../private-route/private-route";
+import AuthScreen from "../auth-screen/auth-screen";
+import Property from "../property/property";
+import Favorites from "../favorites/favorites";
+import withActivePin from "../../hocs/with-active-pin/with-active-pin";
 import {
   Operation as UserOperation
 } from "../../reducer/user/user";
 import {
   getAuthorizationStatus,
-} from "../../reducer/user/selectors.js";
+} from "../../reducer/user/selectors";
 
 const PropertyWithActivePin = withActivePin(Property);
 const MainWithActivePin = withActivePin(Main);

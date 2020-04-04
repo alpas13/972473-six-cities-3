@@ -5,7 +5,7 @@ import Property from "./property";
 import OffersList from "../offers-list/offers-list";
 import Map from "../map/map";
 import ReviewsList from "../reviews-list/reviews-list";
-import ReviewForm from "../review-form/review-form.jsx";
+import ReviewForm from "../review-form/review-form";
 import {propertyStyle} from "../../const";
 import {Provider} from "react-redux";
 import {TestStore} from "../../const";
