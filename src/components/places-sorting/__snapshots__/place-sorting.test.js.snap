@@ -6,7 +6,6 @@ exports[`Correctly render PlaceSorting component 1`] = `
   className="places__sorting"
   method="get"
   name="sorting"
-  onClick={[Function]}
 >
   <span
     className="places__sorting-caption"
@@ -48,14 +47,14 @@ exports[`Correctly render PlaceSorting component 1`] = `
       Price: low to high
     </li>
     <li
-      className="places__option"
+      className="places__option to-low"
       data-sort="to-low"
       tabIndex="0"
     >
       Price: high to low
     </li>
     <li
-      className="places__option"
+      className="places__option top-rated"
       data-sort="top-rated"
       tabIndex="0"
     >

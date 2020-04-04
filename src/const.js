@@ -2,6 +2,13 @@ import {initialState as DATA} from "./reducer/data/data";
 import {initialState as MAIN} from "./reducer/main/main";
 import {initialState as USER} from "./reducer/user/user";
 
+const SortingDirection = {
+  POPULAR: `Popular`,
+  TO_HIGH: `Price: low to high`,
+  TO_LOW: `Price: high to low`,
+  TOP_RATED: `Top rated first`,
+};
+
 const PreviewImageSize = {
   placeCardWidth: `260`,
   placeCardHeight: `200`,
@@ -49,13 +56,13 @@ const favoritesStyle = {
 
 const pageStyle = (page) => {
   switch (page) {
-    case appRoute().FAVORITES:
+    case AppRoute.FAVORITES:
       return ` page--favorites-empty`;
-    case appRoute().OFFER:
+    case AppRoute.OFFER:
       return ``;
-    case appRoute().LOGIN:
+    case AppRoute.LOGIN:
       return ` page--gray page--login`;
-    case appRoute().ROOT:
+    case AppRoute.ROOT:
       return ` page--gray page--main`;
   }
   return ` page--gray page--main`;
@@ -115,13 +122,25 @@ const TestStore = {
   }})
 };
 
-const appRoute = (id = `:id`) => {
-  return {
-    ROOT: `/`,
-    LOGIN: `/login`,
-    OFFER: `/offer/${id}`,
-    FAVORITES: `/favorites`,
-  };
+const AppRoute = {
+  ROOT: `/`,
+  LOGIN: `/login`,
+  OFFER: `/offer/`,
+  FAVORITES: `/favorites`,
 };
 
-export {mainStyle, propertyStyle, favoritesStyle, TestStore, pageStyle, appRoute};
+const getSortType = (sortValue) => {
+  switch (sortValue) {
+    case `popular`:
+      return SortingDirection.POPULAR;
+    case `to-high`:
+      return SortingDirection.TO_HIGH;
+    case `to-low`:
+      return SortingDirection.TO_LOW;
+    case `top-rated`:
+      return SortingDirection.TOP_RATED;
+  }
+  return SortingDirection.POPULAR;
+};
+
+export {mainStyle, propertyStyle, favoritesStyle, TestStore, pageStyle, AppRoute, getSortType};

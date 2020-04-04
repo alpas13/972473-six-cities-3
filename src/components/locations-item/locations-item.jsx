@@ -9,7 +9,7 @@ const LocationsItem = React.memo(function LocationsItem(props) {
         onChange(cityItem);
       }
     }}>
-      <a className="locations__item-link tabs__item" href="#">
+      <a className={`locations__item-link tabs__item${(activeItem === cityItem) ? ` tabs__item--active` : ``}`} href="#">
         <span>{cityItem}</span>
       </a>
     </li>
@@ -23,4 +23,3 @@ LocationsItem.propTypes = {
 };
 
 export default LocationsItem;
-

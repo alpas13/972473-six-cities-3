@@ -11,9 +11,12 @@ import {ActionCreator as DataActionCreator} from "../../reducer/data/data";
 import {ActionCreator} from "../../reducer/main/main";
 import {getCities, getCity, getOffers} from "../../reducer/data/selectors";
 import {getSortType} from "../../reducer/main/selectors";
+import withHandleSorting
+  from "../../hocs/with-handle-sorting/with-handle-sorting.jsx";
 
 const LocationsListWrapper = withActiveItem(LocationsList);
 const OffersListWrapper = withActiveItem(OffersList);
+const PlacesSortingWrapper = withHandleSorting(PlacesSorting);
 
 const Main = React.memo(function Main(props) {
   const {
@@ -44,7 +47,7 @@ const Main = React.memo(function Main(props) {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offers.length} places to stay in {city}</b>
-              <PlacesSorting
+              <PlacesSortingWrapper
                 city={city}
                 sortType={sortType}
                 onSortingChange={onSortingChange}

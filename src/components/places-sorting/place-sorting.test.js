@@ -5,9 +5,11 @@ import PlacesSorting from "./places-sorting";
 test(`Correctly render PlaceSorting component`, () => {
   const tree = rerender.create(
       <PlacesSorting
+        isOpen={false}
         city={`Amsterdam`}
         sortType={`popular`}
-        onSortingChange={()=>{}}
+        onSortingPopupToggle={() => {}}
+        onSortingChange={() => {}}
       />
   ).toJSON();
   expect(tree).toMatchSnapshot();

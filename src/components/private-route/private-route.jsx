@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Route, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
-import {appRoute} from "../../const.js";
+import {AppRoute} from "../../const.js";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 
@@ -18,7 +18,7 @@ const PrivateRoute = React.memo(function PrivateRoute(props) {
         return (
           authorizationStatus === AuthorizationStatus.AUTH
             ? render()
-            : <Redirect to={appRoute().LOGIN} />
+            : <Redirect to={AppRoute.LOGIN} />
         );
       }}
     />
