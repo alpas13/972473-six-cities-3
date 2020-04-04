@@ -14,20 +14,8 @@ test(`Submit event on login button pass authorization information to handler`, (
         authorizationStatus={`NO_AUTH`}
       />);
 
-  const loginInput = wrapper.find(`input[name="email"]`);
-  const passwordInput = wrapper.find(`input[name="password"]`);
-
-  loginInput.simulate(`change`, {
-    target: {value: `login@login.te`}});
-
-  passwordInput.simulate(`change`, {
-    target: {value: `valuePassword`}});
-
   wrapper.find(`.login__form`).simulate(`submit`, {
     preventDefault() {}});
 
-  expect(login).toHaveBeenCalledWith({
-    login: `valueLogin@login.test`,
-    password: `valuePassword`,
-  });
+  expect(login).toHaveBeenCalled();
 });
