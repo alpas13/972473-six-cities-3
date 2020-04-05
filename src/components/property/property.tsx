@@ -37,8 +37,8 @@ interface Props {
     authInfo: AuthInfo | null;
     toggleFavoriteItem: (offerId: number, status: boolean) => void;
     sendReview: (offerId: number, review: {
-        rating: string,
-        comment: string,
+        rating: string;
+        comment: string;
     }, clearForm: (status: boolean) => void) => void;
     updateOfferId: (offerId: number) => void;
 }

@@ -4,13 +4,13 @@ import {uniqueFilter, filterByValue} from "../../utils";
 import {favoritesStyle} from "../../const";
 import {connect} from "react-redux";
 import {getFavorites} from "../../reducer/main/selectors";
-import {Offer} from "../../types"
+import {Offer} from "../../types";
 
 interface Props {
     offers: Offer[];
 }
 
-const Favorites: React.FC<Props> = (props) => {
+const Favorites: React.FC<Props> = (props: Props) => {
   const {offers} = props;
   return (
     <React.Fragment>

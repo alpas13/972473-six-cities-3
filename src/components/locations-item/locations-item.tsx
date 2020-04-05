@@ -6,7 +6,7 @@ interface Props {
   activeItem: string;
 }
 
-const LocationsItem: React.FC<Props> = (props) => {
+const LocationsItem: React.FC<Props> = (props: Props) => {
   const {cityItem, activeItem, onChange} = props;
   return (
     <li className="locations__item" onClick={(evt) => {

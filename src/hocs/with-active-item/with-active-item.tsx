@@ -6,7 +6,7 @@ interface Props {
     offers?: Offer[];
     cities?: string[] | null;
     styleSettings?: StyleSettings;
-    handleSelectItem: (item: number[] | string ) => void;
+    handleSelectItem: (item: number[] | string) => void;
 }
 
 interface State {
@@ -14,7 +14,7 @@ interface State {
 }
 
 interface InjectedProps {
-    onChange: (item: any) => void;
+    onChange: (item: string) => void;
     activeItem: string | null;
 }
 
@@ -22,37 +22,37 @@ const withActiveItem = (Component) => {
     type P = React.ComponentProps<typeof Component>;
     type T = Subtract<P, InjectedProps>;
 
-  class WithActiveItem extends React.PureComponent<T, State> {
-    constructor(props) {
-      super(props);
-      const {cities} = this.props;
+    class WithActiveItem extends React.PureComponent<T, State> {
+      constructor(props) {
+        super(props);
+        const {cities} = this.props;
 
-      this.state = {
-        activeItem: cities ? cities[0] : null,
-      };
+        this.state = {
+          activeItem: cities ? cities[0] : null,
+        };
 
-      this.handleChangeItem = this.handleChangeItem.bind(this);
+        this.handleChangeItem = this.handleChangeItem.bind(this);
+      }
+
+      handleChangeItem(item) {
+        this.setState({
+          activeItem: item,
+        }, this.props.handleSelectItem(item));
+      }
+
+
+      render() {
+        return (
+          <Component
+            {...this.props}
+            onChange={this.handleChangeItem}
+            activeItem={this.state.activeItem}
+          />
+        );
+      }
     }
 
-    handleChangeItem(item) {
-      this.setState({
-        activeItem: item,
-      }, this.props.handleSelectItem(item));
-    }
-
-
-    render() {
-      return (
-        <Component
-          {...this.props}
-          onChange={this.handleChangeItem}
-          activeItem={this.state.activeItem}
-        />
-      );
-    }
-  }
-
-  return WithActiveItem;
+    return WithActiveItem;
 };
 
 export default withActiveItem;

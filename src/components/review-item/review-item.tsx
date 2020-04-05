@@ -9,7 +9,7 @@ interface Props {
 }
 
 const ReviewItem: React.FC<Props> = (props: Props) => {
-    const {review} = props;
+  const {review} = props;
   return (
     <li className="reviews__item">
       <div className="reviews__user user">

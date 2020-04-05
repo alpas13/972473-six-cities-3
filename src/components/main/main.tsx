@@ -30,7 +30,7 @@ interface Props {
     handleMouse: (activePin: number[] | null) => void;
 }
 
-const Main: React.FC<Props> = (props) => {
+const Main: React.FC<Props> = (props: Props) => {
   const {
     offers,
     city,

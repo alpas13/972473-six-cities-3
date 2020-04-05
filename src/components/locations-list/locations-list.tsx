@@ -2,13 +2,13 @@ import * as React from "react";
 import LocationsItem from "../locations-item/locations-item";
 
 interface Props {
-    cities: string[],
+    cities: string[];
     activeItem: string;
     handleSelectItem: (city: string) => void;
     onChange: (city: string) => void;
 }
 
-const LocationsList: React.FC<Props> = (props) => {
+const LocationsList: React.FC<Props> = (props: Props) => {
   const {cities, activeItem, onChange} = props;
 
   return (

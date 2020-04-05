@@ -1,5 +1,5 @@
 import * as React from "react";
-import {AuthInfo, Coords, Offer, StyleSettings} from "../../types";
+import {AuthInfo, Coords, Offer} from "../../types";
 import {Subtract} from "utility-types";
 
 interface Props {
@@ -11,8 +11,8 @@ interface Props {
     authInfo?: AuthInfo | null;
     toggleFavoriteItem?: (offerId: number, status: boolean) => void;
     sendReview?: (offerId: number, review: {
-        rating: string,
-        comment: string,
+        rating: string;
+        comment: string;
     }, clearForm: (status: boolean) => void) => void;
     updateOfferId?: (offerId: number) => void;
     city?: string;
@@ -34,37 +34,37 @@ const withActivePin = (Component) => {
     type P = React.ComponentProps<typeof Component>;
     type T = Props & Subtract<P, InjectedProps>;
 
-  class WithActivePin extends React.PureComponent<T, State> {
-    constructor(props) {
-      super(props);
+    class WithActivePin extends React.PureComponent<T, State> {
+      constructor(props) {
+        super(props);
 
-      this.state = {
-        activePin: null,
-      };
+        this.state = {
+          activePin: null,
+        };
 
-      this.handleMouse = this.handleMouse.bind(this);
+        this.handleMouse = this.handleMouse.bind(this);
+      }
+
+      handleMouse(item) {
+        this.setState(
+            {
+              activePin: item,
+            });
+      }
+
+
+      render() {
+        return (
+          <Component
+            {...this.props}
+            activePin={this.state.activePin}
+            handleMouse={this.handleMouse}
+          />
+        );
+      }
     }
 
-    handleMouse(item) {
-      this.setState(
-          {
-            activePin: item,
-          });
-    }
-
-
-    render() {
-      return (
-        <Component
-          {...this.props}
-          activePin={this.state.activePin}
-          handleMouse={this.handleMouse}
-        />
-      );
-    }
-  }
-
-  return WithActivePin;
+    return WithActivePin;
 };
 
 export default withActivePin;

@@ -27,7 +27,7 @@ const ReviewForm: React.FC<Props> = (props: Props) => {
           type="radio" checked={rating === (currentStar) + ``}
           onChange={
             (evt) => {
-            const target = evt.target as HTMLInputElement;
+              const target = evt.target as HTMLInputElement;
               const currentId = currentStar + `${currentStar > 1 ? `-stars` : `-star`}`;
               if (target.id === currentId) {
                 handleChangeRating(target.value);
@@ -80,11 +80,10 @@ const ReviewForm: React.FC<Props> = (props: Props) => {
           least <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button className="reviews__submit form__submit button" type="submit"
-        disabled={(!rating || comment.length < 50 ) ||
-        (rating && comment.length < 50 ) ||
-        (!rating || comment.length  > 300) ||
-        (rating && comment.length  > 300)
-        }>Submit</button>
+          disabled={(!rating || comment.length < 50) ||
+        (rating && comment.length < 50) ||
+        (!rating || comment.length > 300) ||
+        (rating && comment.length > 300)}>Submit</button>
       </div>
     </form>
   );
