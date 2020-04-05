@@ -1,14 +1,17 @@
-import * as React, {Fragment} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import ReviewItem from "../review-item/review-item";
 import {connect} from "react-redux";
 import {getReviews} from "../../reducer/main/selectors";
+import {Review} from "../../types";
 
+interface Props {
+    reviews: Review[];
+}
 
-const ReviewsList = React.memo(function ReviewList(props) {
+const ReviewsList: React.FC<Props> = (props: Props) => {
   const {reviews} = props;
   return (
-    <Fragment>
+    <React.Fragment>
       <h2 className="reviews__title">Reviews  &middot;
         <span className="reviews__amount"> {reviews.length}</span></h2>
       <ul className="reviews__list">
@@ -21,20 +24,7 @@ const ReviewsList = React.memo(function ReviewList(props) {
           />;
         })}
       </ul>
-    </Fragment>);
-});
-
-ReviewsList.propTypes = {
-  reviews: PropTypes.arrayOf(PropTypes.shape({
-    description: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    userId: PropTypes.number.isRequired,
-    userAvatar: PropTypes.string.isRequired,
-    userName: PropTypes.string.isRequired,
-    proUser: PropTypes.bool.isRequired,
-  }).isRequired).isRequired,
+    </React.Fragment>);
 };
 
 const mapStateToProps = (state) => ({
@@ -42,4 +32,4 @@ const mapStateToProps = (state) => ({
 });
 
 export {ReviewsList};
-export default connect(mapStateToProps)(ReviewsList);
+export default connect(mapStateToProps)(React.memo(ReviewsList));

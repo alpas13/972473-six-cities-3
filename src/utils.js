@@ -65,6 +65,17 @@ const offerModel = (offer) => {
   };
 };
 
+const authInfoModel = (authInfo) => {
+  const {avatar_url: avatarUrl, email, id, is_pro: isPro, name} = authInfo;
+  return {
+    avatarUrl,
+    email,
+    id,
+    isPro,
+    name,
+  };
+};
+
 const offersModel = (offers) => offers.map((offer) => offerModel(offer));
 
 const reviewModel = (reviews) => reviews.map((review) => {
@@ -111,4 +122,4 @@ const filterByValue = (data, filter, value) => {
       .filter((item) => item[filter] === value);
 };
 
-export {dateFormat, extend, offersModel, offerModel, reviewModel, uniqueFilter, findMatch, filterByValue};
+export {dateFormat, extend, offersModel, offerModel, reviewModel, uniqueFilter, findMatch, filterByValue, authInfoModel};

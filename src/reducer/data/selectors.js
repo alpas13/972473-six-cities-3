@@ -1,5 +1,5 @@
 import {createSelector} from "reselect";
-import {SortType} from "../main/main.js";
+import {SortType} from "../../types";
 import NameSpace from "../name-space";
 import {uniqueFilter} from "../../utils";
 

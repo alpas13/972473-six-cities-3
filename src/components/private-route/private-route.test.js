@@ -2,7 +2,7 @@ import React from "react";
 import rerender from "react-test-renderer";
 import {BrowserRouter as Router} from "react-router-dom";
 import PrivateRoute from "./private-route";
-import {AppRoute} from "../../const";
+import {AppRoute} from "../../types";
 import {Provider} from "react-redux";
 import {TestStore} from "../../const";
 import configureStore from "redux-mock-store";

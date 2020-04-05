@@ -1,5 +1,4 @@
-import * as React, {Fragment} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {Link, withRouter} from "react-router-dom";
 import {
   getFavoritesStatus,
@@ -7,12 +6,22 @@ import {
 import {getAuthorizationInfo, getAuthorizationStatus} from "../../reducer/user/selectors";
 import {AuthorizationStatus} from "../../reducer/user/user";
 import {connect} from "react-redux";
-import {pageStyle, AppRoute} from "../../const";
+import {pageStyle} from "../../const";
+import {AppRoute, AuthInfo} from "../../types";
+import {ReactNode} from "react";
 
-const Page = React.memo(function Page(props) {
+interface Props {
+    authorizationStatus: string;
+    children: ReactNode;
+    authInfo: AuthInfo | null;
+    isFavorites: boolean;
+    match: {path: string};
+}
+
+const Page: React.FC<Props> = (props: Props) => {
   const {authInfo, authorizationStatus, isFavorites, children, match} = props;
   return (
-    <Fragment>
+    <React.Fragment>
       {(authInfo || (!authInfo && authorizationStatus === AuthorizationStatus.NO_AUTH))
         && <div className={`page${match.path === AppRoute.FAVORITES && isFavorites
           ? `` : pageStyle(match.path)}`}>
@@ -56,20 +65,8 @@ const Page = React.memo(function Page(props) {
             </Link>
           </footer>}
         </div>}
-    </Fragment>
+    </React.Fragment>
   );
-});
-
-Page.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
-  authInfo: PropTypes.shape({
-    email: PropTypes.string,
-  }),
-  isFavorites: PropTypes.bool.isRequired,
-  match: PropTypes.shape({
-    path: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -80,4 +77,4 @@ const mapStateToProps = (state) => ({
 
 const PageWithRouter = withRouter(Page);
 export {PageWithRouter};
-export default connect(mapStateToProps)(PageWithRouter);
+export default connect(mapStateToProps)(React.memo(PageWithRouter));

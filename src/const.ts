@@ -1,57 +1,37 @@
 import {initialState as DATA} from "./reducer/data/data";
 import {initialState as MAIN} from "./reducer/main/main";
 import {initialState as USER} from "./reducer/user/user";
+import {
+  AppRoute,
+  SortingDirection,
+  PreviewImageSize,
+  ClassArticle,
+  ClassPrefixes,
+  StyleSettings,
+} from "./types";
 
-const SortingDirection = {
-  POPULAR: `Popular`,
-  TO_HIGH: `Price: low to high`,
-  TO_LOW: `Price: high to low`,
-  TOP_RATED: `Top rated first`,
-};
-
-const PreviewImageSize = {
-  placeCardWidth: `260`,
-  placeCardHeight: `200`,
-  favoritesCardWidth: `150`,
-  favoritesCardHeight: `110`,
-};
-
-const ClassPrefixes = {
-  OFFER_FOR_MAIN: `cities__`,
-  OFFER_FOR_PROPERTY: `near-places__`,
-  OFFER_FOR_FAVORITES: `favorites__`
-};
-
-const ClassArticle = {
-  CLASS_FOR_MAIN: `cities__place-card`,
-  CLASS_FOR_PROPERTY: `near-places__card`,
-  CLASS_FOR_FAVORITES: `favorites__card`,
-  PLACE_CARD_INFO: `place-card__info`,
-  FAVORITES_CARD_INFO: `favorites__card-info place-card__info`,
-};
-
-const mainStyle = {
+const mainStyle: StyleSettings = {
   classSelect: ClassArticle.CLASS_FOR_MAIN,
   prefix: ClassPrefixes.OFFER_FOR_MAIN,
   classCardInfo: ClassArticle.PLACE_CARD_INFO,
-  width: PreviewImageSize.placeCardWidth,
-  height: PreviewImageSize.placeCardHeight,
+  width: PreviewImageSize.PLACE_CARD_WIDTH,
+  height: PreviewImageSize.PLACE_CARD_HEIGHT,
 };
 
-const propertyStyle = {
+const propertyStyle: StyleSettings = {
   classSelect: ClassArticle.CLASS_FOR_PROPERTY,
   prefix: ClassPrefixes.OFFER_FOR_PROPERTY,
   classCardInfo: ClassArticle.PLACE_CARD_INFO,
-  width: PreviewImageSize.placeCardWidth,
-  height: PreviewImageSize.placeCardHeight,
+  width: PreviewImageSize.PLACE_CARD_WIDTH,
+  height: PreviewImageSize.PLACE_CARD_HEIGHT,
 };
 
-const favoritesStyle = {
+const favoritesStyle: StyleSettings = {
   classSelect: ClassArticle.CLASS_FOR_FAVORITES,
   prefix: ClassPrefixes.OFFER_FOR_FAVORITES,
   classCardInfo: ClassArticle.FAVORITES_CARD_INFO,
-  width: PreviewImageSize.favoritesCardWidth,
-  height: PreviewImageSize.favoritesCardHeight,
+  width: PreviewImageSize.FAVORITES_CARD_WIDTH,
+  height: PreviewImageSize.FAVORITES_CARD_HEIGHT,
 };
 
 const pageStyle = (page) => {
@@ -120,13 +100,6 @@ const TestStore = {
   USER: Object.assign({}, USER, {authInfo: {
     email: `Oliver.conner@gmail.com`,
   }})
-};
-
-const AppRoute = {
-  ROOT: `/`,
-  LOGIN: `/login`,
-  OFFER: `/offer/`,
-  FAVORITES: `/favorites`,
 };
 
 const getSortType = (sortValue) => {

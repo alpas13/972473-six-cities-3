@@ -1,6 +1,5 @@
 import * as React from "react";
-import PropTypes from "prop-types";
-import {AppRoute} from "../../const";
+import {AppRoute} from "../../types";
 import {connect} from "react-redux";
 import {Router, Switch, Route} from "react-router-dom";
 import history from "../../history/history";
@@ -18,10 +17,15 @@ import {
   getAuthorizationStatus,
 } from "../../reducer/user/selectors";
 
+interface Props {
+    authorizationStatus: string;
+    login: ({login, password}: {login: string; password: string}) => void;
+}
+
 const PropertyWithActivePin = withActivePin(Property);
 const MainWithActivePin = withActivePin(Main);
 
-const App = React.memo(function App(props) {
+const App: React.FC<Props> = (props: Props) => {
   const {login, authorizationStatus} = props;
   return (
     <Router history={history}>
@@ -31,7 +35,7 @@ const App = React.memo(function App(props) {
           (props) => {
             return (
               <PageWithRouter {...props}>
-                <MainWithActivePin/>
+                <MainWithActivePin {...props}/>
               </PageWithRouter>
             );
           }}/>
@@ -65,11 +69,6 @@ const App = React.memo(function App(props) {
       </Switch>
     </Router>
   );
-});
-
-App.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  login: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -83,4 +82,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {App};
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(App));

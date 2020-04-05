@@ -1,9 +1,17 @@
-import * as React, {Fragment} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 
 const MAX_RATING = 5;
 
-const ReviewForm = React.memo(function ReviewForm(props) {
+interface Props {
+    rating: string;
+    comment: string;
+    status: boolean;
+    handleChangeRating: (rating: string) => void;
+    handleChangeTextarea: (comment: string) => void;
+    handleSubmit: (evt: React.SyntheticEvent) => void;
+}
+
+const ReviewForm: React.FC<Props> = (props: Props) => {
   const {rating, comment, status, handleChangeRating, handleChangeTextarea, handleSubmit} = props;
 
   const renderRating = () => {
@@ -12,14 +20,14 @@ const ReviewForm = React.memo(function ReviewForm(props) {
     return initialArray.map((item, index) => {
       const currentStar = MAX_RATING - index;
 
-      return <Fragment key={currentStar + `${currentStar > 1 ? `-stars` : `-star`}`}>
+      return <React.Fragment key={currentStar + `${currentStar > 1 ? `-stars` : `-star`}`}>
         <input className="form__rating-input visually-hidden" name="rating"
           value={currentStar}
           id={currentStar + `${currentStar > 1 ? `-stars` : `-star`}`}
           type="radio" checked={rating === (currentStar) + ``}
           onChange={
             (evt) => {
-              const target = evt.target;
+            const target = evt.target as HTMLInputElement;
               const currentId = currentStar + `${currentStar > 1 ? `-stars` : `-star`}`;
               if (target.id === currentId) {
                 handleChangeRating(target.value);
@@ -33,7 +41,7 @@ const ReviewForm = React.memo(function ReviewForm(props) {
             <use xlinkHref="#icon-star" />
           </svg>
         </label>
-      </Fragment>;
+      </React.Fragment>;
     });
   };
 
@@ -71,19 +79,15 @@ const ReviewForm = React.memo(function ReviewForm(props) {
           describe your stay with at
           least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={`${rating && comment.length > 49 && comment.length < 301 ? `` : `disabled`}`}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit"
+        disabled={(!rating || comment.length < 50 ) ||
+        (rating && comment.length < 50 ) ||
+        (!rating || comment.length  > 300) ||
+        (rating && comment.length  > 300)
+        }>Submit</button>
       </div>
     </form>
   );
-});
-
-ReviewForm.propTypes = {
-  rating: PropTypes.string.isRequired,
-  comment: PropTypes.string.isRequired,
-  status: PropTypes.bool.isRequired,
-  handleChangeRating: PropTypes.func.isRequired,
-  handleChangeTextarea: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
 };
 
-export default ReviewForm;
+export default React.memo(ReviewForm);

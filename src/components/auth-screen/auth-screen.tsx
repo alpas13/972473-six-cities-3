@@ -1,15 +1,22 @@
-import * as React, {PureComponent, createRef, Fragment} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import history from "../../history/history";
 import {AuthorizationStatus} from "../../reducer/user/user";
-import {AppRoute} from "../../const";
+import {AppRoute} from "../../types";
 
-class AuthScreen extends PureComponent {
+interface Props {
+    onSubmit: ({login, password}: {login: string; password: string}) => void;
+    authorizationStatus: string;
+}
+
+class AuthScreen extends React.PureComponent<Props, {}> {
+    private loginRef: React.RefObject<HTMLInputElement>;
+    private passwordRef: React.RefObject<HTMLInputElement>;
+
   constructor(props) {
     super(props);
 
-    this.loginRef = createRef();
-    this.passwordRef = createRef();
+    this.loginRef = React.createRef();
+    this.passwordRef = React.createRef();
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -41,7 +48,7 @@ class AuthScreen extends PureComponent {
   render() {
     const {authorizationStatus} = this.props;
     return (
-      <Fragment>
+      <React.Fragment>
         {authorizationStatus === AuthorizationStatus.NO_AUTH && <main className="page__main page__main--login">
           <div className="page__login-container container">
             <section className="login">
@@ -58,7 +65,7 @@ class AuthScreen extends PureComponent {
                     type="email"
                     name="email"
                     placeholder="Email"
-                    required=""
+                    required
                     ref={this.loginRef}
                   />
                 </div>
@@ -69,7 +76,7 @@ class AuthScreen extends PureComponent {
                     type="password"
                     name="password"
                     placeholder="Password"
-                    required=""
+                    required
                     ref={this.passwordRef}
                   />
                 </div>
@@ -87,14 +94,9 @@ class AuthScreen extends PureComponent {
             </section>
           </div>
         </main>}
-      </Fragment>
+      </React.Fragment>
     );
   }
 }
-
-AuthScreen.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-};
 
 export default AuthScreen;

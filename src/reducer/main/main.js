@@ -1,4 +1,5 @@
 import {extend, offersModel, reviewModel} from "../../utils.js";
+import {SortType} from "../../types";
 import history from "../../history/history";
 
 const ActionType = {
@@ -8,13 +9,6 @@ const ActionType = {
   LOAD_NEAR_PLACES: `LOAD_NEAR_PLACES`,
   CHANGE_SORTING: `CHANGE_SORTING`,
   LOAD_FAVORITES: `LOAD_FAVORITES`,
-};
-
-export const SortType = {
-  POPULAR: `popular`,
-  TO_HIGH: `to-high`,
-  TO_LOW: `to-low`,
-  TOP_RATED: `top-rated`,
 };
 
 export const initialState = {

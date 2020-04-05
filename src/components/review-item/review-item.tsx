@@ -1,10 +1,15 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import {dateFormat} from "../../utils";
+import {Review} from "../../types";
 
 const MAX_RATING = 5;
 
-const ReviewItem = React.memo(function ReviewItem({review}) {
+interface Props {
+    review: Review;
+}
+
+const ReviewItem: React.FC<Props> = (props: Props) => {
+    const {review} = props;
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -26,17 +31,6 @@ const ReviewItem = React.memo(function ReviewItem({review}) {
       </div>
     </li>
   );
-});
-
-ReviewItem.propTypes = {
-  review: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    userAvatar: PropTypes.string.isRequired,
-    userName: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
-export default ReviewItem;
+export default React.memo(ReviewItem);

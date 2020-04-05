@@ -1,5 +1,4 @@
-import * as React, {Fragment, PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {propertyStyle} from "../../const";
 import Map from "../map/map";
 import ReviewsList from "../reviews-list/reviews-list";
@@ -22,12 +21,29 @@ import {
 } from "../../reducer/user/selectors";
 import {findMatch} from "../../utils";
 import {ActionCreator} from "../../reducer/main/main";
+import {Coords, AuthInfo, Offer} from "../../types";
 
 const ReviewFormWrapper = withHandleForm(ReviewForm);
-
 const OfferListWrapper = withActiveItem(OffersList);
 
-class Property extends PureComponent {
+interface Props {
+    offerId: number;
+    match: {params: {id: number}};
+    offer: Offer;
+    isFavorite: boolean;
+    activePin: Coords | null;
+    offers: Offer[];
+    handleMouse: (offerCoords: number[]) => void;
+    authInfo: AuthInfo | null;
+    toggleFavoriteItem: (offerId: number, status: boolean) => void;
+    sendReview: (offerId: number, review: {
+        rating: string,
+        comment: string,
+    }, clearForm: (status: boolean) => void) => void;
+    updateOfferId: (offerId: number) => void;
+}
+
+class Property extends React.PureComponent<Props, {}> {
   constructor(props) {
     super(props);
   }
@@ -68,7 +84,7 @@ class Property extends PureComponent {
     } = this.props;
 
     return (
-      <Fragment>
+      <React.Fragment>
         {offer && <main className="page__main page__main--property">
           <section className="property">
             <div className="property__gallery-container container">
@@ -188,43 +204,10 @@ class Property extends PureComponent {
             </section>
           </div>
         </main>}
-      </Fragment>
+      </React.Fragment>
     );
   }
 }
-
-Property.propTypes = {
-  offerId: PropTypes.number.isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.object.isRequired,
-  }).isRequired,
-  offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    propertyImage: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-    title: PropTypes.string.isRequired,
-    mark: PropTypes.string,
-    price: PropTypes.number.isRequired,
-    bookmark: PropTypes.bool.isRequired,
-    rating: PropTypes.object.isRequired,
-    features: PropTypes.object.isRequired,
-    insideList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-    host: PropTypes.shape({
-      avatarUrl: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      isPro: PropTypes.bool.isRequired,
-    }).isRequired,
-    propertyText: PropTypes.string.isRequired,
-  }),
-  isFavorite: PropTypes.bool.isRequired,
-  activePin: PropTypes.array,
-  offers: PropTypes.array.isRequired,
-  handleMouse: PropTypes.func.isRequired,
-  authInfo: PropTypes.object,
-  toggleFavoriteItem: PropTypes.func.isRequired,
-  sendReview: PropTypes.func.isRequired,
-  updateOfferId: PropTypes.func.isRequired,
-};
 
 const mapStateToProps = (state) => ({
   offerId: getPropertyId(state),

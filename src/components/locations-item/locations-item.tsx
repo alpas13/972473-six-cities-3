@@ -1,11 +1,18 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 
-const LocationsItem = React.memo(function LocationsItem(props) {
+interface Props {
+  onChange: (cityItem: string) => void;
+  cityItem: string;
+  activeItem: string;
+}
+
+const LocationsItem: React.FC<Props> = (props) => {
   const {cityItem, activeItem, onChange} = props;
   return (
     <li className="locations__item" onClick={(evt) => {
-      if ((activeItem !== cityItem) && evt.target.tagName === `SPAN`) {
+      const target = evt.target as HTMLElement;
+
+      if ((activeItem !== cityItem) && target.tagName === `SPAN`) {
         onChange(cityItem);
       }
     }}>
@@ -14,12 +21,6 @@ const LocationsItem = React.memo(function LocationsItem(props) {
       </a>
     </li>
   );
-});
-
-LocationsItem.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  cityItem: PropTypes.string.isRequired,
-  activeItem: PropTypes.string,
 };
 
-export default LocationsItem;
+export default React.memo(LocationsItem);

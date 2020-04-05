@@ -1,8 +1,28 @@
-import * as React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
+import {Subtract} from "utility-types";
+
+interface Props {
+    city: string;
+    sortType: string;
+    onSortingChange: (item: string, city: string) => void;
+}
+
+interface State {
+    isOpen: boolean;
+    sortType: string;
+    city: string;
+}
+
+interface InjectedProps {
+    onSortingPopupToggle: () => void;
+    onSortChange: (item: string) => void;
+}
 
 const withHandleSorting = (Component) => {
-  class WithHandleSorting extends PureComponent {
+    type P = React.ComponentProps<typeof Component>;
+    type T = Subtract<P, InjectedProps>;
+
+  class WithHandleSorting extends React.PureComponent<T, State> {
     constructor(props) {
       super(props);
 
@@ -38,17 +58,11 @@ const withHandleSorting = (Component) => {
           isOpen={this.state.isOpen}
           sortType={this.state.sortType}
           onSortingPopupToggle={this.handleSortingPopupToggle}
-          onSortingChange={this.handleChangeSorting}
+          onSortChange={this.handleChangeSorting}
         />
       );
     }
   }
-
-  WithHandleSorting.propTypes = {
-    city: PropTypes.string.isRequired,
-    sortType: PropTypes.string.isRequired,
-    onSortingChange: PropTypes.func.isRequired,
-  };
 
   return WithHandleSorting;
 };

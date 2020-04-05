@@ -1,5 +1,4 @@
-import * as React, {Fragment} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import OfferCard from "../offer-card/offer-card";
 import {findMatch} from "../../utils";
 import {connect} from "react-redux";
@@ -14,39 +13,37 @@ import {
   getAuthorizationInfo,
   getAuthorizationStatus
 } from "../../reducer/user/selectors";
+import {Offer, StyleSettings, AuthInfo} from "../../types";
 
-const OffersList = React.memo(function OffersList(props) {
-  const {offers, authInfo, authorizationStatus, favoritesId, onTitleOfferClick, styleSettings, onChange, toggleFavoriteItem} = props;
+interface Props {
+    offers: Offer[];
+    favoritesId: number[];
+    onTitleOfferClick: (offerId: number) => void;
+    styleSettings: StyleSettings;
+    onChange?: (offerCoords: number[]) => void;
+    authInfo: AuthInfo | null;
+    toggleFavoriteItem: (offerId: number, isFavorite: boolean) => void;
+}
+
+const OffersList: React.FC<Props> = (props: Props) => {
+  const {offers, authInfo, favoritesId, onTitleOfferClick, styleSettings, onChange, toggleFavoriteItem} = props;
 
   return (
-    <Fragment>
+    <React.Fragment>
       {offers.map((offerItem) => {
         return <OfferCard
           key={offerItem.id}
           onTitleOfferClick={onTitleOfferClick}
-          offers={offers}
           offer={offerItem}
           isFavorite={findMatch(offerItem.id, favoritesId)}
           styleSettings={styleSettings}
           onChange={onChange}
           authInfo={authInfo}
           toggleFavoriteItem={toggleFavoriteItem}
-          authorizationStatus={authorizationStatus}
         />;
       })}
-    </Fragment>
+    </React.Fragment>
   );
-});
-
-OffersList.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-  favoritesId: PropTypes.array.isRequired,
-  onTitleOfferClick: PropTypes.func.isRequired,
-  styleSettings: PropTypes.object.isRequired,
-  onChange: PropTypes.func,
-  authInfo: PropTypes.object,
-  toggleFavoriteItem: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -67,5 +64,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {OffersList};
-export default connect(mapStateToProps, mapDispatchToProps)(OffersList);
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(OffersList));
 

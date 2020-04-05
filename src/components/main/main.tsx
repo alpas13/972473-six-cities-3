@@ -1,5 +1,4 @@
-import * as React, {Fragment} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {mainStyle} from "../../const";
 import LocationsList from "../locations-list/locations-list";
 import OffersList from "../offers-list/offers-list";
@@ -13,12 +12,25 @@ import {getCities, getCity, getOffers} from "../../reducer/data/selectors";
 import {getSortType} from "../../reducer/main/selectors";
 import withHandleSorting
   from "../../hocs/with-handle-sorting/with-handle-sorting";
+import {Offer} from "../../types";
 
 const LocationsListWrapper = withActiveItem(LocationsList);
 const OffersListWrapper = withActiveItem(OffersList);
 const PlacesSortingWrapper = withHandleSorting(PlacesSorting);
 
-const Main = React.memo(function Main(props) {
+
+interface Props {
+    offers: Offer[];
+    city: string;
+    cities: string[];
+    onCityClick: (city: string) => void;
+    sortType: string;
+    onSortingChange: (sortValue: string, city: string) => void;
+    activePin: number[] | null;
+    handleMouse: (activePin: number[] | null) => void;
+}
+
+const Main: React.FC<Props> = (props) => {
   const {
     offers,
     city,
@@ -31,15 +43,14 @@ const Main = React.memo(function Main(props) {
   } = props;
 
   return (
-    <Fragment>
+    <React.Fragment>
       {!!offers.length && <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
             <LocationsListWrapper
               cities={cities}
-              handleSelectItem={onCityClick}
-            />
+              handleSelectItem={onCityClick}/>
           </section>
         </div>
         <div className="cities">
@@ -127,19 +138,8 @@ const Main = React.memo(function Main(props) {
           </div>
         </div>
       </main>}
-    </Fragment>
+    </React.Fragment>
   );
-});
-
-Main.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.object).isRequired,
-  city: PropTypes.string.isRequired,
-  cities: PropTypes.array.isRequired,
-  onCityClick: PropTypes.func.isRequired,
-  sortType: PropTypes.string.isRequired,
-  onSortingChange: PropTypes.func.isRequired,
-  activePin: PropTypes.array,
-  handleMouse: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -159,4 +159,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {Main};
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Main));

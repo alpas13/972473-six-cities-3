@@ -1,8 +1,28 @@
-import * as React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
+import {Subtract} from "utility-types";
+import {Offer, StyleSettings} from "../../types";
+
+interface Props {
+    offers?: Offer[];
+    cities?: string[] | null;
+    styleSettings?: StyleSettings;
+    handleSelectItem: (item: number[] | string ) => void;
+}
+
+interface State {
+    activeItem: string | null;
+}
+
+interface InjectedProps {
+    onChange: (item: any) => void;
+    activeItem: string | null;
+}
 
 const withActiveItem = (Component) => {
-  class WithActiveItem extends PureComponent {
+    type P = React.ComponentProps<typeof Component>;
+    type T = Subtract<P, InjectedProps>;
+
+  class WithActiveItem extends React.PureComponent<T, State> {
     constructor(props) {
       super(props);
       const {cities} = this.props;
@@ -31,11 +51,6 @@ const withActiveItem = (Component) => {
       );
     }
   }
-
-  WithActiveItem.propTypes = {
-    handleSelectItem: PropTypes.func.isRequired,
-    cities: PropTypes.array,
-  };
 
   return WithActiveItem;
 };

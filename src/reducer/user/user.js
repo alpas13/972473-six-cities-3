@@ -1,4 +1,4 @@
-import {extend} from "../../utils.js";
+import {extend, authInfoModel} from "../../utils.js";
 import {Operation as MainOperation} from "../main/main.js";
 import history from "../../history/history";
 
@@ -27,7 +27,7 @@ const ActionCreator = {
   getAuthInfo: (authInfo) => {
     return {
       type: ActionType.GET_AUTH_INFO,
-      payload: authInfo,
+      payload: authInfoModel(authInfo),
     };
   },
 };

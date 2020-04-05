@@ -1,10 +1,19 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-import {AppRoute} from "../../const";
+import {AppRoute, StyleSettings} from "../../types";
+import {Offer, AuthInfo} from "../../types";
 
+interface Props {
+    onTitleOfferClick: (offerId: number) => void;
+    onChange?: (offerCoords: number[]) => void;
+    offer: Offer;
+    isFavorite: boolean;
+    styleSettings: StyleSettings;
+    authInfo: AuthInfo | null;
+    toggleFavoriteItem: (offerId: number, isFavorite: boolean) => void;
+}
 
-const OfferCard = React.memo(function OfferCard(props) {
+const OfferCard: React.FC<Props> = (props: Props) => {
   const {
     offer,
     isFavorite,
@@ -67,26 +76,6 @@ const OfferCard = React.memo(function OfferCard(props) {
       </div>
     </article>
   );
-});
-
-OfferCard.propTypes = {
-  onTitleOfferClick: PropTypes.func.isRequired,
-  onChange: PropTypes.func,
-  offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    mark: PropTypes.string,
-    previewImage: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    bookmark: PropTypes.bool.isRequired,
-    rating: PropTypes.object.isRequired,
-    features: PropTypes.object.isRequired,
-    coords: PropTypes.array.isRequired,
-  }).isRequired,
-  isFavorite: PropTypes.bool.isRequired,
-  styleSettings: PropTypes.object.isRequired,
-  authInfo: PropTypes.object,
-  toggleFavoriteItem: PropTypes.func.isRequired,
 };
 
-export default OfferCard;
+export default React.memo(OfferCard);

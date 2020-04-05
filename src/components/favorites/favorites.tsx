@@ -1,15 +1,19 @@
-import * as React, {Fragment} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import OffersList from "../offers-list/offers-list";
 import {uniqueFilter, filterByValue} from "../../utils";
 import {favoritesStyle} from "../../const";
 import {connect} from "react-redux";
 import {getFavorites} from "../../reducer/main/selectors";
+import {Offer} from "../../types"
 
-const Favorites = React.memo(function Favorites(props) {
+interface Props {
+    offers: Offer[];
+}
+
+const Favorites: React.FC<Props> = (props) => {
   const {offers} = props;
   return (
-    <Fragment>
+    <React.Fragment>
       {!!offers.length && <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
@@ -50,12 +54,8 @@ const Favorites = React.memo(function Favorites(props) {
           </section>
         </div>
       </main>}
-    </Fragment>
+    </React.Fragment>
   );
-});
-
-Favorites.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -63,4 +63,4 @@ const mapStateToProps = (state) => ({
 });
 
 export {Favorites};
-export default connect(mapStateToProps)(Favorites);
+export default connect(mapStateToProps)(React.memo(Favorites));

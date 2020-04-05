@@ -1,8 +1,31 @@
-import * as React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
+import {Subtract} from "utility-types";
+
+interface Props {
+    offerId: number;
+    onSubmit: (offerId: number, review: {
+        rating: string,
+        comment: string,
+    }, clearForm: (status: boolean) => void) => void;
+}
+
+interface State {
+    rating: string;
+    comment: string;
+    status: boolean;
+}
+
+interface InjectedProps {
+    handleChangeRating: (rating: string) => void;
+    handleChangeTextarea: (comment: string) => void;
+    handleSubmit: (evt: React.SyntheticEvent) => void;
+}
 
 const withHandleForm = (Component) => {
-  class WithHandleForm extends PureComponent {
+    type P = React.ComponentProps<typeof Component>;
+    type T = Props & Subtract<P, InjectedProps>;
+
+  class WithHandleForm extends React.PureComponent<T, State> {
     constructor(props) {
       super(props);
 
@@ -70,11 +93,6 @@ const withHandleForm = (Component) => {
       );
     }
   }
-
-  WithHandleForm.propTypes = {
-    offerId: PropTypes.number.isRequired,
-    onSubmit: PropTypes.func.isRequired,
-  };
 
   return WithHandleForm;
 };

@@ -1,8 +1,14 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import LocationsItem from "../locations-item/locations-item";
 
-const LocationsList = React.memo(function LocationsList(props) {
+interface Props {
+    cities: string[],
+    activeItem: string;
+    handleSelectItem: (city: string) => void;
+    onChange: (city: string) => void;
+}
+
+const LocationsList: React.FC<Props> = (props) => {
   const {cities, activeItem, onChange} = props;
 
   return (
@@ -17,13 +23,6 @@ const LocationsList = React.memo(function LocationsList(props) {
       ))}
     </ul>
   );
-});
-
-LocationsList.propTypes = {
-  cities: PropTypes.array.isRequired,
-  activeItem: PropTypes.string,
-  handleSelectItem: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
 };
 
-export default LocationsList;
+export default React.memo(LocationsList);
