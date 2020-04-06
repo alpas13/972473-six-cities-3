@@ -1,15 +1,15 @@
-import React from "react";
-import rerender from "react-test-renderer";
+import * as React from "react";
+import * as rerender from "react-test-renderer";
 import PlacesSorting from "./places-sorting";
+import {noop} from "../../utils";
 
 test(`Correctly render PlaceSorting component`, () => {
   const tree = rerender.create(
       <PlacesSorting
         isOpen={false}
-        city={`Amsterdam`}
         sortType={`popular`}
-        onSortingPopupToggle={() => {}}
-        onSortingChange={() => {}}
+        onSortingPopupToggle={noop}
+        onSortChange={noop}
       />
   ).toJSON();
   expect(tree).toMatchSnapshot();

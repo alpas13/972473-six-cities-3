@@ -5,10 +5,11 @@ import configureStore from "redux-mock-store";
 import {Favorites} from "./favorites";
 import {Provider} from "react-redux";
 import {TestStore} from "../../const";
+import {Offer} from "../../types";
 
 const mockStore = configureStore([]);
 
-const offers = [
+const offers: Offer[] = [
   {
     id: 1,
     city: `Hamburg`,

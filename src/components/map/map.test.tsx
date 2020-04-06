@@ -1,8 +1,9 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
 import Map from "./map";
+import {Offer} from "../../types";
 
-const offers = [
+const offers: Offer[] = [
   {
     id: 1,
     city: `Hamburg`,
@@ -44,8 +45,9 @@ const offers = [
 test(`Correctly render Map component`, () => {
   const tree = renderer.create(
       <Map
+        activePin={offers[0].coords}
         offers={offers}
-        styleSettings={{height: `800px`, top: `170px`}}
+        styleSettings={{height: `800px`}}
       />
   ).toJSON();
 

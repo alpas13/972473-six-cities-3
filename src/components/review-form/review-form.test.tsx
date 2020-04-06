@@ -1,6 +1,7 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
 import ReviewForm from "./review-form";
+import {noop} from "../../utils";
 
 test(`Correctly render ReviewItem component`, () => {
   const tree = renderer.create(
@@ -8,9 +9,9 @@ test(`Correctly render ReviewItem component`, () => {
         rating={``}
         comment={``}
         status={true}
-        handleChangeRating={() => {}}
-        handleChangeTextarea={() => {}}
-        handleSubmit={() => {}}
+        handleChangeRating={noop}
+        handleChangeTextarea={noop}
+        handleSubmit={noop}
       />
   ).toJSON();
   expect(tree).toMatchSnapshot();

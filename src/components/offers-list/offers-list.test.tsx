@@ -1,15 +1,17 @@
-import React from "react";
+import * as React from "react";
 import {BrowserRouter as Router} from "react-router-dom";
-import renderer from "react-test-renderer";
+import * as renderer from "react-test-renderer";
 import OffersList from "./offers-list";
 import {mainStyle} from "../../const";
 import {Provider} from "react-redux";
 import {TestStore} from "../../const";
 import configureStore from "redux-mock-store";
+import {Offer} from "../../types";
+import {noop} from "../../utils";
 
 const mockStore = configureStore([]);
 
-const offers = [
+const offers: Offer[] = [
   {
     id: 1,
     city: `Hamburg`,
@@ -57,10 +59,10 @@ test(`Correctly render OffersList component`, () => {
             offers={offers}
             authInfo={`NO_AUTH`}
             favoritesId={[1]}
-            onTitleOfferClick={() => {}}
+            onTitleOfferClick={noop}
             styleSettings={mainStyle}
-            onChange={() => {}}
-            toggleFavoriteItem={() => {}}
+            onChange={noop}
+            toggleFavoriteItem={noop}
           />
         </Router>
       </Provider>).toJSON();

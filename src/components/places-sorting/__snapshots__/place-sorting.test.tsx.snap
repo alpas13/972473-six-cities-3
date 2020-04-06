@@ -15,7 +15,7 @@ exports[`Correctly render PlaceSorting component 1`] = `
   <span
     className="places__sorting-type"
     onClick={[Function]}
-    tabIndex="0"
+    tabIndex={0}
   >
     Popular
     <svg
@@ -35,28 +35,28 @@ exports[`Correctly render PlaceSorting component 1`] = `
     <li
       className="places__option places__option--active"
       data-sort="popular"
-      tabIndex="0"
+      tabIndex={0}
     >
       Popular
     </li>
     <li
       className="places__option"
       data-sort="to-high"
-      tabIndex="0"
+      tabIndex={0}
     >
       Price: low to high
     </li>
     <li
       className="places__option to-low"
       data-sort="to-low"
-      tabIndex="0"
+      tabIndex={0}
     >
       Price: high to low
     </li>
     <li
       className="places__option top-rated"
       data-sort="top-rated"
-      tabIndex="0"
+      tabIndex={0}
     >
       Top rated first
     </li>
@@ -67,7 +67,7 @@ exports[`Correctly render PlaceSorting component 1`] = `
   >
     <option
       className="places__option"
-      defaultValue={true}
+      defaultValue="defaultValue"
       value="popular"
     >
       Popular

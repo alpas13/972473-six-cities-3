@@ -10,10 +10,12 @@ import {propertyStyle} from "../../const";
 import {Provider} from "react-redux";
 import {TestStore} from "../../const";
 import configureStore from "redux-mock-store";
+import {Offer} from "../../types";
+import {noop} from "../../utils";
 
 const mockStore = configureStore([]);
 
-const offer = {
+const offer: Offer = {
   id: 1,
   city: `Hamburg`,
   cityCoords: [52.3909553943508, 4.85309666406198],
@@ -118,9 +120,9 @@ test(`Correctly render Property component`, () => {
             offer={offer}
             offers={offers}
             authInfo={authInfo}
-            handleMouse={() => {}}
-            toggleFavoriteItem={() => {}}
-            sendReview={() => {}}
+            handleMouse={noop}
+            toggleFavoriteItem={noop}
+            sendReview={noop}
             activePin={[
               52.3909553943508,
               4.85309666406198
@@ -134,9 +136,9 @@ test(`Correctly render Property component`, () => {
               rating={``}
               comment={``}
               status={true}
-              handleChangeRating={() => {}}
-              handleChangeTextarea={() => {}}
-              handleSubmit={() => {}}
+              handleChangeRating={noop}
+              handleChangeTextarea={noop}
+              handleSubmit={noop}
             />
             <Map
               offers={offers}
@@ -149,7 +151,7 @@ test(`Correctly render Property component`, () => {
             <OffersList
               offers={offers}
               styleSettings={propertyStyle}
-              handleSelectItem={() => {}}
+              handleSelectItem={noop}
             />
           </Property>
         </Router>

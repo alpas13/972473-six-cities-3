@@ -1,10 +1,12 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
 import {BrowserRouter} from "react-router-dom";
 import OfferCard from "./offer-card";
 import {mainStyle} from "../../const";
+import {Offer} from "../../types";
+import {noop} from "../../utils";
 
-const offer = {
+const offer: Offer = {
   id: 1,
   city: `Hamburg`,
   cityCoords: [52.3909553943508, 4.85309666406198],
@@ -48,10 +50,10 @@ test(`Correctly render OfferCard component`, () => {
           offer={offer}
           isFavorite={false}
           styleSettings={mainStyle}
-          toggleFavoriteItem={() => {}}
+          toggleFavoriteItem={noop}
           authInfo={null}
-          onTitleOfferClick={() => {}}
-          onChange={() => {}}
+          onTitleOfferClick={noop}
+          onChange={noop}
         />
       </BrowserRouter>
   ).toJSON();

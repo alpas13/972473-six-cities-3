@@ -57,6 +57,8 @@ export interface Review {
     rating: number;
     description: string;
     date: string;
+    userId: number;
+    proUser: boolean;
 }
 
 export interface Offer {

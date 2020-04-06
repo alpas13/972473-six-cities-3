@@ -1,8 +1,9 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
 import ReviewItem from "./review-item";
+import {Review} from "../../types";
 
-const review = {
+const review: Review = {
   description: `Text`,
   date: `2019-05-08T14:13:56.569Z`,
   id: 1,

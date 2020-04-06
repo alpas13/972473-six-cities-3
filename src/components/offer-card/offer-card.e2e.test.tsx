@@ -1,12 +1,14 @@
-import React from "react";
+import * as React from "react";
 import OfferCard from "./offer-card";
 import {mainStyle} from "../../const";
 import {configure, shallow} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import * as Adapter from "enzyme-adapter-react-16";
+import {Offer} from "../../types";
+import {noop} from "../../utils";
 
 configure({adapter: new Adapter()});
 
-const offer = {
+const offer: Offer = {
   id: 1,
   city: `Hamburg`,
   cityCoords: [52.3909553943508, 4.85309666406198],
@@ -61,8 +63,8 @@ test(`Mouseenter event over offer card pass data about this offer to handler`, (
         authInfo={null}
         styleSettings={mainStyle}
         onChange={onChange}
-        toggleFavoriteItem={() => {}}
-        onTitleOfferClick={() => {}}
+        toggleFavoriteItem={noop}
+        onTitleOfferClick={noop}
       />);
 
   wrapper.simulate(`mouseenter`);
@@ -79,8 +81,8 @@ test(`Should link of title be clicked`, () => {
         isFavorite={false}
         authInfo={null}
         styleSettings={mainStyle}
-        onChange={() => {}}
-        toggleFavoriteItem={() => {}}
+        onChange={noop}
+        toggleFavoriteItem={noop}
         onTitleOfferClick={onTitleOfferClick}
       />);
 

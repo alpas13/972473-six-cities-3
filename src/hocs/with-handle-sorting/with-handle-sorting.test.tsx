@@ -1,7 +1,8 @@
-import React from "react";
+import * as React from "react";
 import {configure, shallow} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import * as Adapter from "enzyme-adapter-react-16";
 import withHandleSorting from "./with-handle-sorting";
+import {noop} from "../../utils";
 
 configure({adapter: new Adapter()});
 
@@ -14,12 +15,12 @@ test(`Should state change`, () => {
         city={`Amsterdam`}
         isOpen={false}
         sortType={`popular`}
-        onSortingPopupToggle={() => {}}
-        onSortingChange={() => {}}
+        onSortingPopupToggle={noop}
+        onSortingChange={noop}
       />);
 
-  wrapper.props().onSortingPopupToggle(`SPAN`);
+  wrapper.props().onSortingPopupToggle();
   expect(wrapper.props().isOpen).toBeTruthy();
-  wrapper.props().onSortingChange(`changed state`);
+  wrapper.props().onSortChange(`changed state`);
   expect(wrapper.props().sortType).toEqual(`changed state`);
 });

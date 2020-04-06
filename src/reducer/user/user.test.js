@@ -1,12 +1,20 @@
 import {reducer, ActionType, AuthorizationStatus, ActionCreator} from "./user";
 
-const authInfo = {
+const authInfoRaw = {
   // eslint-disable-next-line camelcase
   avatar_url: `img/1.png`,
   email: `Oliver.conner@gmail.com`,
   id: 1,
   // eslint-disable-next-line camelcase
   is_pro: false,
+  name: `Oliver.conner`
+};
+
+const authInfo = {
+  avatarUrl: `img/1.png`,
+  email: `Oliver.conner@gmail.com`,
+  id: 1,
+  isPro: false,
   name: `Oliver.conner`
 };
 
@@ -56,7 +64,7 @@ describe(`Action creators work correctly`, () => {
   });
 
   test(`Action creators for set authInfo returns correct action`, () => {
-    expect(ActionCreator.getAuthInfo(authInfo)).toEqual({
+    expect(ActionCreator.getAuthInfo(authInfoRaw)).toEqual({
       type: ActionType.GET_AUTH_INFO,
       payload: authInfo,
     });

@@ -6,10 +6,12 @@ import {PageWithRouter} from "./page";
 import {Provider} from "react-redux";
 import {TestStore} from "../../const";
 import Main from "../main/main";
+import {Offer} from "../../types";
+import {noop} from "../../utils";
 
 const mockStore = configureStore([]);
 
-const offers = [
+const offers: Offer[] = [
   {
     id: 1,
     city: `Hamburg`,
@@ -64,13 +66,13 @@ test(`Correctly render Favorites component`, () => {
               offers={offers}
               city={`Amsterdam`}
               cities={[`Amsterdam`, `Hamburg`]}
-              onCityClick={() => {}}
+              onCityClick={noop}
               activePin={[
                 52.3909553943508,
                 4.85309666406198
               ]}
-              handleMouse={() => {}}
-              onSortingChange={()=>{}}
+              handleMouse={noop}
+              onSortingChange={noop}
               sortType={`popular`}
             />
           </PageWithRouter>

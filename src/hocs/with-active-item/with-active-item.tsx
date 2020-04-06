@@ -5,6 +5,7 @@ import {Offer, StyleSettings} from "../../types";
 interface Props {
     offers?: Offer[];
     cities?: string[] | null;
+    cityItem?: string;
     styleSettings?: StyleSettings;
     handleSelectItem: (item: number[] | string) => void;
 }

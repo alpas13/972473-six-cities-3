@@ -5,7 +5,6 @@ exports[`Correctly render Map component 1`] = `
   style={
     Object {
       "height": "800px",
-      "top": "170px",
     }
   }
 />

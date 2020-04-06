@@ -1,7 +1,8 @@
-import React from "react";
+import * as React from "react";
 import AuthScreen from "./auth-screen";
 import {configure, mount} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import * as Adapter from "enzyme-adapter-react-16";
+import {noop} from "../../utils";
 
 configure({adapter: new Adapter()});
 
@@ -15,7 +16,8 @@ test(`Submit event on login button pass authorization information to handler`, (
       />);
 
   wrapper.find(`.login__form`).simulate(`submit`, {
-    preventDefault() {}});
+    preventDefault: noop,
+  });
 
   expect(login).toHaveBeenCalled();
 });

@@ -32,7 +32,7 @@ interface InjectedProps {
 
 const withActivePin = (Component) => {
     type P = React.ComponentProps<typeof Component>;
-    type T = Props & Subtract<P, InjectedProps>;
+    type T = Subtract<P, InjectedProps>;
 
     class WithActivePin extends React.PureComponent<T, State> {
       constructor(props) {

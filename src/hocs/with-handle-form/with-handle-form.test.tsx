@@ -1,7 +1,8 @@
-import React from "react";
+import * as React from "react";
 import {configure, shallow} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import * as Adapter from "enzyme-adapter-react-16";
 import withHandleForm from "./with-handle-form";
+import {noop} from "../../utils";
 
 configure({adapter: new Adapter()});
 
@@ -11,10 +12,10 @@ const MockComponentWrapped = withHandleForm(MockComponent);
 test(`Should state change`, () => {
   const wrapper = shallow(<MockComponentWrapped
     offerId={1}
-    onSubmit={() => {}}
-    handleChangeRating={() => {}}
-    handleChangeTextarea={() => {}}
-    handleSubmit={() => {}}
+    onSubmit={noop}
+    handleChangeRating={noop}
+    handleChangeTextarea={noop}
+    handleSubmit={noop}
   />);
 
   wrapper.props().handleChangeRating(`changed state`);

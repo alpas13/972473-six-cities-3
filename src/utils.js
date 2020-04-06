@@ -1,4 +1,4 @@
-const dateFormat = (fullDate, show = true) => {
+export const dateFormat = (fullDate, show = true) => {
   const date = new Date(fullDate);
   const options = {month: `long`};
 
@@ -9,11 +9,11 @@ const dateFormat = (fullDate, show = true) => {
           ${date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}`;
 };
 
-const extend = (a, b) => {
+export const extend = (a, b) => {
   return Object.assign({}, a, b);
 };
 
-const offerModel = (offer) => {
+export const offerModel = (offer) => {
   const {
     bedrooms,
     city,
@@ -65,7 +65,7 @@ const offerModel = (offer) => {
   };
 };
 
-const authInfoModel = (authInfo) => {
+export const authInfoModel = (authInfo) => {
   const {avatar_url: avatarUrl, email, id, is_pro: isPro, name} = authInfo;
   return {
     avatarUrl,
@@ -76,9 +76,9 @@ const authInfoModel = (authInfo) => {
   };
 };
 
-const offersModel = (offers) => offers.map((offer) => offerModel(offer));
+export const offersModel = (offers) => offers.map((offer) => offerModel(offer));
 
-const reviewModel = (reviews) => reviews.map((review) => {
+export const reviewModel = (reviews) => reviews.map((review) => {
   const {
     comment: description,
     date,
@@ -103,7 +103,7 @@ const reviewModel = (reviews) => reviews.map((review) => {
   };
 });
 
-const uniqueFilter = (data, filterValue, limiter = 0) => {
+export const uniqueFilter = (data, filterValue, limiter = 0) => {
   const dataSet = new Set();
 
   data.map((item) => {
@@ -113,13 +113,15 @@ const uniqueFilter = (data, filterValue, limiter = 0) => {
   return limiter > 0 ? Array.from(dataSet).slice(0, limiter) : Array.from(dataSet);
 };
 
-const findMatch = (value, arrayOfValues) => {
+export const findMatch = (value, arrayOfValues) => {
   return arrayOfValues.some((item) => item === value);
 };
 
-const filterByValue = (data, filter, value) => {
+export const filterByValue = (data, filter, value) => {
   return data.slice()
       .filter((item) => item[filter] === value);
 };
 
-export {dateFormat, extend, offersModel, offerModel, reviewModel, uniqueFilter, findMatch, filterByValue, authInfoModel};
+export const noop = () => {
+  // do nothing
+};

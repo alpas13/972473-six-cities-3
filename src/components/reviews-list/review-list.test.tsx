@@ -1,13 +1,14 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
 import ReviewsList from "./reviews-list";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import {TestStore} from "../../const";
+import {Review} from "../../types";
 
 const mockStore = configureStore([]);
 
-const reviews = [
+const reviews: Review[] = [
   {
     description: `Text`,
     date: `2019-05-08T14:13:56.569Z`,
