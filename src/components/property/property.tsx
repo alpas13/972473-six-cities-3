@@ -108,7 +108,7 @@ class Property extends React.PureComponent<Props, {}> {
                     className={`property__bookmark-button ${isFavorite ? `property__bookmark-button--active` : ``} button`}
                     type="button"
                     onClick={() => {
-                      toggleFavoriteItem(offer.id, offer.bookmark);
+                      toggleFavoriteItem(offer.id, isFavorite);
                     }}
                   >
                     <svg className="property__bookmark-icon" width="31" height="33">
