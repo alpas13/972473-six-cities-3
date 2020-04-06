@@ -39,8 +39,7 @@ const Operation = {
           dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
           dispatch(ActionCreator.getAuthInfo(response.data));
         })
-        .catch((err) => {
-          throw err;
+        .catch(() => {
         });
   },
 
